@@ -1,0 +1,31 @@
+.items {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid #bdbdbd;
+  border-top: 1px solid #bdbdbd;
+  justify-content: space-between;
+  list-style: none;
+  border-radius: 10px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.items:hover {
+  background-color: #dddddd;
+}
+
+.btn {
+  margin: 0 10px;
+}
+
+.h3 {
+  width: 100%;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.h3:hover {
+  color: #575757;
+}
