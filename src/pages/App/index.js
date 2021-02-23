@@ -21,7 +21,6 @@ function App() {
               <Route
                 exact
                 path='/district/:id'
-                exact
                 component={UpdateDistrict}
               />
             </div>
