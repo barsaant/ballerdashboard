@@ -1,0 +1,100 @@
+.list {
+  width: 100%;
+  height: fit-content;
+}
+.items {
+  width: 100%;
+  height: 40px;
+  padding: 0 5px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  cursor: pointer;
+}
+.items:hover{
+  background-color: thistle;
+}
+.button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+.button:hover{
+  background-color: white;
+}
+
+.h5 {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: #000000;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  background-color: white;
+}
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headBar {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.add {
+  width: 100%;
+  padding: 0 5px 0 20px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.input {
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 2px 5px;
+  outline: none;
+}
+.group {
+  display: flex;
+  width: 80px;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.spinner {
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
