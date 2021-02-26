@@ -1,14 +1,12 @@
 import React from "react";
 import styles from "./_.module.css";
-import Locations from "../Locations";
-import Tags from "../Tags";
+import Zaal from "../Zaal";
 
 const Sidebar = (props) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}></div>
-      <Locations />
-      <Tags />
+      <Zaal />
     </div>
   );
 };

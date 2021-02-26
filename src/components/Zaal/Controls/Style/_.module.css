@@ -1,0 +1,103 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  padding: 0 10px;
+}
+.head {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.list {
+  width: 100%;
+  height: 80%;
+  overflow-y: scroll;
+}
+.list::-webkit-scrollbar{
+  display: none;
+}
+.items {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  padding: 0 5px 0 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.name {
+  width: 160px;
+  font-size: 14px;
+}
+.name:hover {
+  color: #949BE3;
+}
+.button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: white;
+}
+.button:hover {
+  color: #949BE3;
+}
+.headContainer {
+  width: 100%;
+  padding: 0 5px 0 20px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1E1E1E;
+}
+.input {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 2px 5px;
+  outline: none;
+  color: white;
+  font-size: 14px;
+}
+.group {
+  display: flex;
+  width: 90px;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.editContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 0 5px 0 20px;
+  top: 0;
+  left: 0;
+  background-color: #1E1E1E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+.editInput{
+  width: 160px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
