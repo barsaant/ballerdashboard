@@ -5,17 +5,18 @@
   width: 100%;
   height: 90%;
   padding: 0 10px;
+  background-color: #171717;
 }
 .head {
   width: 100%;
-  height: 20%;
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 .list {
   width: 100%;
-  height: 80%;
+  height: calc(100% - 130px);
   overflow-y: scroll;
 }
 .list::-webkit-scrollbar{
@@ -100,51 +101,77 @@
   outline: none;
   color: white;
 }
+.icon {
+  width: 80%;
+  height: 80%;
+}
+
+
+
+
+
+
 .zaalControlContainer {
   width: 100%;
   height: 100%;
   padding: 20px 30px;
 }
-.buttonContainer {
+.zaalHeadContainer {
   width: 100%;
+  height: 40px;
   display: flex;
+  justify-content: space-between;
   border-radius: 5px;
-  background-color: #171717;
+  margin-bottom: 20px;
+}
+.zaalSearchContainer {
+  width: calc(100% - 400px);
+  border: 1px solid #949BE3;
+  border-radius: 5px;
+  display: flex;
+}
+.zaalButtonContainer {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 360px;
 }
 .zaalButton {
   box-sizing: border-box;
-  width: 33%;
-  height: 30px;
+  width: 110px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 20px;
   outline: none;
-  background-color: transparent;
   color: white;
   cursor: pointer;
 }
 .zaalButton:hover {
   color: #949BE3;
 }
-.search {
+.zaalSearch {
   width: 100%;
-  margin: 10px 0;
+  padding: 0 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
 }
 .sporthalls {
   width: 100%;
-  height: calc(100% - 90px);
+  height: calc(100% - 60px);
+  padding: 0 10px;
   position: relative;
   overflow-y: scroll;
   border-radius: 10px;
-  overflow:hidden;
 }
 .sporthalls::-webkit-scrollbar{
   display: none;
 }
 .zaalContainer {
   width: 100%;
-  padding: 0 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -157,7 +184,7 @@
   display: flex;
   background-color: #171717;
   color: white;
-  box-shadow: 0 1px 6px 0px rgb(148, 155, 227, 0.25);
+  box-shadow: 0 1px 4px 0px rgb(148, 155, 227, 0.25);
 }
 .zaalTitle {
   width: calc(100% - 90px);
@@ -165,6 +192,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.addZaalButton {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #949BE3;
+  outline: none;
+  border-radius: 50%;
+  background-color: #171717;
+  color: #949BE3;
+  box-shadow: 0px 8px 15px rgb(148, 155, 227, 0.2);
 }
 
 
