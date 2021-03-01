@@ -19,7 +19,7 @@
   height: calc(100% - 130px);
   overflow-y: scroll;
 }
-.list::-webkit-scrollbar{
+.list::-webkit-scrollbar {
   display: none;
 }
 .items {
@@ -38,7 +38,7 @@
   font-size: 14px;
 }
 .name:hover {
-  color: #949BE3;
+  color: #949be3;
 }
 .button {
   width: 40px;
@@ -53,7 +53,7 @@
   color: white;
 }
 .button:hover {
-  color: #949BE3;
+  color: #949be3;
 }
 .headContainer {
   width: 100%;
@@ -63,7 +63,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
 }
 .input {
   width: 100%;
@@ -88,13 +88,13 @@
   padding: 0 5px 0 20px;
   top: 0;
   left: 0;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
 }
-.editInput{
+.editInput {
   width: 160px;
   background-color: transparent;
   border: none;
@@ -105,11 +105,6 @@
   width: 80%;
   height: 80%;
 }
-
-
-
-
-
 
 .zaalControlContainer {
   width: 100%;
@@ -126,7 +121,7 @@
 }
 .zaalSearchContainer {
   width: calc(100% - 400px);
-  border: 1px solid #949BE3;
+  border: 1px solid #949be3;
   border-radius: 5px;
   display: flex;
 }
@@ -147,9 +142,10 @@
   outline: none;
   color: white;
   cursor: pointer;
+  text-transform: uppercase;
 }
 .zaalButton:hover {
-  color: #949BE3;
+  color: #949be3;
 }
 .zaalSearch {
   width: 100%;
@@ -167,7 +163,7 @@
   overflow-y: scroll;
   border-radius: 10px;
 }
-.sporthalls::-webkit-scrollbar{
+.sporthalls::-webkit-scrollbar {
   display: none;
 }
 .zaalContainer {
@@ -203,12 +199,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid #949BE3;
   outline: none;
   border-radius: 50%;
+  border: 1px solid #171717;
   background-color: #171717;
-  color: #949BE3;
+  color: #949be3;
   box-shadow: 0px 8px 15px rgb(148, 155, 227, 0.2);
 }
-
-
+.addZaalButton:hover {
+  border: 1px solid #949be3;
+  transition: ease 200ms;
+}

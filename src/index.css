@@ -22,17 +22,21 @@ body {
 }
 
 .btn-enter {
-  border: 2px solid #949BE3;
+  border: 2px solid #949be3;
 }
 .btn-enter-active {
-  border: 2px solid #949BE3;
+  border: 2px solid #949be3;
   transition: all 100ms;
 }
 .btn-enter-done {
-  border: 2px solid #949BE3;
+  border: 2px solid #949be3;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+html {
+  background-color: #1e1e1e !important;
 }

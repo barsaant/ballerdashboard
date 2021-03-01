@@ -1,0 +1,30 @@
+.LoginBox {
+  width: 80%;
+}
+
+.label {
+  color: #ffffff !important;
+}
+
+.input {
+  background-color: #171717 !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.input:focus {
+  border: 1px solid #949be3 !important;
+}
+
+.btn {
+  background-color: #949be3 !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+@media (min-width: 455px) {
+  .LoginBox {
+    width: 350px !important ;
+  }
+}

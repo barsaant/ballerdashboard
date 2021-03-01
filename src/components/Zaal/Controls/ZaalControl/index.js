@@ -47,22 +47,24 @@ const ZaalControl = () => {
       <div className={styles.zaalHeadContainer}>
         <div className={styles.zaalSearchContainer}>
           <input className={styles.zaalSearch} placeholder='Хайх...'></input>
-          <button className={styles.button}><FiSearch /></button>
+          <button className={styles.button}>
+            <FiSearch />
+          </button>
         </div>
         <div className={styles.zaalButtonContainer}>
-          <CSSTransition in={type.posted} timeout={100} classNames="btn">
+          <CSSTransition in={type.posted} timeout={100} classNames='btn'>
             <div className={styles.zaalButton} onClick={typePosted}>
               Posted
             </div>
           </CSSTransition>
-          <CSSTransition in={type.saved} timeout={100} classNames="btn">
+          <CSSTransition in={type.saved} timeout={100} classNames='btn'>
             <div className={styles.zaalButton} onClick={typeSaved}>
-              Deleted
+              Saved
             </div>
           </CSSTransition>
-          <CSSTransition in={type.deleted} timeout={100} classNames="btn">
+          <CSSTransition in={type.deleted} timeout={100} classNames='btn'>
             <div className={styles.zaalButton} onClick={typeDeleted}>
-              Saved
+              Deleted
             </div>
           </CSSTransition>
         </div>
@@ -74,8 +76,12 @@ const ZaalControl = () => {
               <li className={styles.zaal} key={item.hallId}>
                 <p className={styles.zaalTitle}>{item.title}</p>
                 <div className={styles.group}>
-                  <button className={styles.button}><FiEdit3 /></button>
-                  <button className={styles.button}><FiTrash2 /></button>
+                  <button className={styles.button}>
+                    <FiEdit3 />
+                  </button>
+                  <button className={styles.button}>
+                    <FiTrash2 />
+                  </button>
                 </div>
               </li>
             ))}
