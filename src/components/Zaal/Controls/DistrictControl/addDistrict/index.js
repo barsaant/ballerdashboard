@@ -13,7 +13,7 @@ const AddDistrict = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     postDistrict();
   };
   
@@ -25,17 +25,19 @@ const AddDistrict = (props) => {
         districtName: newDistrict,
       })
       .then((result) => {
-        console.log(result.data.message);
+        const note = { success: true, message: result.data.message };
+        props.notify(note);
       })
       .catch((err) => {
-        console.log(err);
+        const note = {success: false, message: err.data.error.message};
+        props.notify(note);
       })
       .finally(() => props.refresh());
   };
 
   return (
     <div className={styles.headContainer}>
-      <input placeholder={'Add here...'} className={styles.input} onChange={handleChange} />
+      <input placeholder={'Нэмэх...'} className={styles.input} onChange={handleChange} />
       <button className={styles.button} onClick={handleSubmit}>
         <FiPlusSquare />
       </button>

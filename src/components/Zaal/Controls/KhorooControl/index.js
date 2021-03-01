@@ -16,31 +16,35 @@ const KhorooControl = (props) => {
     loading: true,
     message: null,
   });
+  const [ temp, setTemp ] = useState([]);
 
+  const searchHandler = (arr) => {
+    setTemp(arr);
+  };
 
   const getKhoroos = () => {
     axios
       .get(`${config.SERVER_URL}/districts/${props.districtId}/khoroos`)
       .then((result) => {
         setKhoroo({ khoroos: result.data.district.khoroos, loading: false });
+        setTemp(result.data.district.khoroos);
       })
       .catch((err) => console.log(err.response.data));
   };
 
   useEffect(() => {
     getKhoroos();
-  }, [props.districtId]);
-
+  }, []);
 
   if (!khoroo.loading) {
     return (
       <div className={styles.container}>
         <div className={styles.head}>
-          <SidebarSearch />
+          <SidebarSearch search={searchHandler} origin={khoroo.khoroos} level={'khoroo'} />
           <AddKhoroo loading={setKhoroo} refresh={getKhoroos} />
         </div>
         <ul>
-          {khoroo.khoroos.map((item) => (
+          {temp.map((item) => (
             <li className={styles.items} key={item.khorooId}>
               <p className={styles.name}>{item.khorooName}</p>
               <div className={styles.group}>

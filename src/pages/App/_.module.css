@@ -1,8 +1,21 @@
 .sidebar {
     width: 300px;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     background: #171717;
+}
+.notifications {
+    position: fixed;
+    top: 2%;
+    left: 100%;
+}
+.zaal {
+    width: calc(100% - 300px);
+    height: 100%;
+    position: absolute;
+    top:0;
+    left: 300px;
+    background-color: #1E1E1E;
 }

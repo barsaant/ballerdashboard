@@ -3,7 +3,7 @@ import Tags from "./Tags";
 import Districts from "./Districts";
 import styles from "./_.module.css";
 
-const Zaal = () => {
+const Zaal = (props) => {
   const [open, setOpen] = useState(false);
 
   const makeOpen = () => {
@@ -18,10 +18,11 @@ const Zaal = () => {
 
   if (open) {
     content = (
-    <div>
-      <Districts close={makeClose} />
-      <Tags close={makeClose} />
-    </div>);
+      <div>
+        <Districts notify={props.notify} close={makeClose} />
+        <Tags close={makeClose} />
+      </div>
+    );
   }
 
   return <div className={styles.container}>{content}</div>;

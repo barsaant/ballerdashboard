@@ -9,17 +9,20 @@ const DeleteDistrict = (props) => {
     props.loading({ loading: true });
     axios
       .delete(`${config.SERVER_URL}/districts/${props.id}`)
-      .then((result) => console.log(result.data.message))
-      .catch((err) => console.log(err.message))
+      .then((result) => {
+        const note = { success: true, message: result.data.message };
+        props.notify(note);
+      })
+      .catch((err) => {
+        const note = {success: false, message: err.data.error.message};
+        props.notify(note);
+      })
       .finally(() => props.refresh());
   };
 
   return (
-    <button
-      className={styles.button}
-      onClick={() => deleteDistrict()}
-    >
-      <FiTrash2/>
+    <button className={styles.button} onClick={() => deleteDistrict()}>
+      <FiTrash2 />
     </button>
   );
 };

@@ -30,8 +30,14 @@ const EditDistrict = (props) => {
       .put(`${config.SERVER_URL}/districts/${props.id}`, {
         districtName: edittedName.charAt(0).toUpperCase()+edittedName.toLowerCase().slice(1),
       })
-      .then((result) => console.log(result.data.message))
-      .catch((err) => console.log(err.message))
+      .then((result) => {
+        const note = { success: true, message: result.data.message };
+        props.notify(note);
+      })
+      .catch((err) => {
+        const note = {success: false,message: err.data.error.message};
+        props.notify(note);
+      })
       .finally(() => props.refresh());
   };
 

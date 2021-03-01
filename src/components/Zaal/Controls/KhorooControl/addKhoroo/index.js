@@ -36,7 +36,7 @@ const AddKhoroo = (props) => {
 
   return (
     <div className={styles.headContainer}>
-      <input placeholder={'Add here...'} className={styles.input} onChange={handleChange} />
+      <input placeholder={'Нэмэх...'} className={styles.input} onChange={handleChange} />
       <button className={styles.button} onClick={handleSubmit}>
         <FiPlusSquare />
       </button>

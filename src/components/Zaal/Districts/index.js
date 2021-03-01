@@ -26,7 +26,7 @@ const Districts = (props) => {
   let content = <button className={styles.button} onClick={levelUp}>Байршил</button>;
 
   if (level === 1) {
-    content = <DistrictControl next={levelUp} />
+    content = <DistrictControl notify={props.notify} next={levelUp} />
   } else if (level === 2) {
     content = <KhorooControl next={levelUp} districtId={id} />
   }

@@ -100,4 +100,71 @@
   outline: none;
   color: white;
 }
+.zaalControlContainer {
+  width: 100%;
+  height: 100%;
+  padding: 20px 30px;
+}
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  border-radius: 5px;
+  background-color: #171717;
+}
+.zaalButton {
+  box-sizing: border-box;
+  width: 33%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+.zaalButton:hover {
+  color: #949BE3;
+}
+.search {
+  width: 100%;
+  margin: 10px 0;
+}
+.sporthalls {
+  width: 100%;
+  height: calc(100% - 90px);
+  position: relative;
+  overflow-y: scroll;
+  border-radius: 10px;
+  overflow:hidden;
+}
+.sporthalls::-webkit-scrollbar{
+  display: none;
+}
+.zaalContainer {
+  width: 100%;
+  padding: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.zaal {
+  width: 48%;
+  height: 40px;
+  margin: 10px 0;
+  border-radius: 10px;
+  display: flex;
+  background-color: #171717;
+  color: white;
+  box-shadow: 0 1px 6px 0px rgb(148, 155, 227, 0.25);
+}
+.zaalTitle {
+  width: calc(100% - 90px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 

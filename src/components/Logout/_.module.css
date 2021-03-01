@@ -3,21 +3,27 @@
     height: 40px;
     position: absolute;
     top: 90%;
-    right: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .button {
     height: 35px;
-    width: 50px;
     border: none;
     outline: none;
     border-radius: 5px;
     background-color: #1E1E1E;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     color: white;
 }
 .button:hover {
     color: #949BE3;
-  }
+}
+.icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}

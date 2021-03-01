@@ -16,12 +16,17 @@ const DistrictControl = (props) => {
     loading: true,
     message: null,
   });
+  const [ temp, setTemp ] = useState([]);
 
+  const searchHandler = (arr) => {
+    setTemp(arr);
+  };
 
   const getDistricts = () => {
     axios
-      .get(`${config.SERVER_URL}/districts/`)
+      .get(`${config.SERVER_URL}/districts?limit=100`)
       .then((result) => {
+        setTemp(result.data.districts);
         setDistrict({ districts: result.data.districts, loading: false });
       })
       .catch((err) => console.log(err.response.data));
@@ -36,16 +41,16 @@ const DistrictControl = (props) => {
     return (
       <div className={styles.container}>
         <div className={styles.head}>
-          <SidebarSearch />
-          <AddDistrict loading={setDistrict} refresh={getDistricts} />
+          <SidebarSearch search={searchHandler} origin={district.districts} level="district" />
+          <AddDistrict notify={props.notify} loading={setDistrict} refresh={getDistricts} />
         </div>
         <ul className={styles.list}>
-          {district.districts.map((item) => (
+          {temp.map((item) => (
             <li className={styles.items} key={item.districtId}>
               <p className={styles.name} onClick={props.next.bind(this,item.districtId)} >{item.districtName}</p>
               <div className={styles.group}>
-                <EditDistrict loading={setDistrict} refresh={getDistricts} name={item.districtName} id={item.districtId} />
-                <DeleteDistrict loading={setDistrict} refresh={getDistricts} id={item.districtId} />
+                <EditDistrict notify={props.notify} loading={setDistrict} refresh={getDistricts} name={item.districtName} id={item.districtId} />
+                <DeleteDistrict notify={props.notify} loading={setDistrict} refresh={getDistricts} id={item.districtId} />
               </div>
             </li>
           ))}
