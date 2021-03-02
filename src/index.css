@@ -40,3 +40,7 @@ code {
 html {
   background-color: #1e1e1e !important;
 }
+
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #949be3;
+}

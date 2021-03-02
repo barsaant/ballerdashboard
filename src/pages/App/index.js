@@ -5,6 +5,7 @@ import Notification from "../../components/Zaal/Notification";
 import styles from "./_.module.css";
 import { v4 as uuidv4 } from "uuid";
 import ZaalControl from "../../components/Zaal/Controls/ZaalControl";
+import PutZaal from "../../components/Zaal/PutZaal";
 import { ToastContainer, toast } from "react-toastify";
 import Login from "../Login";
 import axios from "../../axios";
@@ -81,7 +82,10 @@ const App = () => {
         />
       </div> */}
                 <div className={styles.zaal}>
-                  <ZaalControl />
+                  <Route exact path='/' component={ZaalControl} />
+                  <div className={`container is-max-desktop ${styles.putZaal}`}>
+                    <Route exact path='/sporthalls/:id' component={PutZaal} />
+                  </div>
                 </div>
               </>
             ) : (

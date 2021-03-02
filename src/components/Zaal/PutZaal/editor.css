@@ -1,0 +1,35 @@
+.demo-option-none {
+  display: none !important;
+}
+
+.toolbarClass {
+  background-color: #171717;
+  border: none;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.demo-popup-image {
+  background-color: #1e1e1e;
+  border: none;
+  box-shadow: none;
+}
+
+.demo-popup-image span {
+  color: #ffffff;
+}
+
+.demo-popup-image input {
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border: none;
+}
+
+.demo-popup-image input:focus {
+  border: 1px solid #949be3;
+}
+
+.demo-popup-image button {
+  background-color: #949be3;
+  border: none;
+  color: #ffffff;
+}

@@ -11,10 +11,13 @@ const Zaal = (props) => {
   };
   const makeClose = () => {
     setOpen(false);
-  }
+  };
 
-
-  let content = <button className={styles.button} onClick={makeOpen} >Заал</button>;
+  let content = (
+    <button className={styles.button} onClick={makeOpen}>
+      Заал
+    </button>
+  );
 
   if (open) {
     content = (

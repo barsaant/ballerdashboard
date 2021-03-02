@@ -1,0 +1,53 @@
+.label {
+  color: #ffffff !important;
+  font-weight: 400 !important;
+}
+
+.option {
+  display: flex;
+}
+.option .field {
+  width: 50%;
+}
+
+.option .field:first-child {
+  margin-right: 10px;
+}
+
+.option .field:nth-child(2) {
+  margin-left: 10px;
+}
+
+.select {
+  width: 100% !important;
+}
+
+.select select {
+  width: 100% !important;
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.select select:focus {
+  border: 1px solid #949be3 !important;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #949be3 !important;
+}
+
+.input {
+  border: none !important;
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  height: 45px !important;
+}
+
+.input:focus {
+  border: 1px solid #949be3 !important;
+}
+
+.btn {
+  background-color: #949be3 !important;
+}
