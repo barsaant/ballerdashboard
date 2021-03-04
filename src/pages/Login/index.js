@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "../../axios";
 import { useHistory, BrowserRouter } from "react-router-dom";
 import styles from "./_.module.css";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
+import { FiUser, FiLock } from "react-icons/fi";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -51,42 +52,38 @@ const Login = () => {
   };
 
   return (
-    <div className={`${styles.LoginBox}`}>
+    <div className={styles.LoginBox}>
       <BrowserRouter>
-        <div className={`field`}>
-          <label className={`label is-uppercase ${styles.label}`}>
-            Email хаяг
-          </label>
-          <div className={`control`}>
-            <input
-              className={`input ${styles.input}`}
-              type={`text`}
-              onChange={handleTypeEmail}
-              onKeyDown={handleKeyDown}
-            />
-          </div>
+        <div className={styles.inputContainer}>
+          <FiUser className={styles.icon} />
+          <input
+            placeholder="EMAIL"
+            className={styles.input}
+            type="text"
+            onChange={handleTypeEmail}
+            onKeyDown={handleKeyDown}
+          />
         </div>
-        <div className={`field`}>
-          <label className={`label is-uppercase ${styles.label}`}>
-            Нууц үг
-          </label>
-          <div className={`control`}>
-            <input
-              className={`input ${styles.input}`}
-              type={`password`}
-              onChange={handleTypePassword}
-              onKeyDown={handleKeyDown}
-            />
-          </div>
+        <div className={styles.inputContainer}>
+          <FiLock className={styles.icon} />
+          <input
+            placeholder="PASSWORD"
+            className={styles.input}
+            type="password"
+            onChange={handleTypePassword}
+            onKeyDown={handleKeyDown}
+          />
         </div>
-        <div className={`field`}>
-          <label className={`label`}></label>
-          <button
-            className={`button is-fullwidth is-uppercase ${styles.btn}`}
-            onClick={() => handleSubmit()}
-          >
-            {" "}
-            {loading === false ? <>Нэвтрэх</> : <Loader />}
+        <div className={styles.buttonContainer}>
+          <button className={styles.button} onClick={() => handleSubmit()}>
+            НЭВТРЭХ
+            {loading ? (
+              <div className={styles.loader}>
+                <Loader style={{color: '#949BE3'}} />
+              </div>
+            ) : (
+              <div className={styles.empty}></div>
+            )}
           </button>
         </div>
       </BrowserRouter>

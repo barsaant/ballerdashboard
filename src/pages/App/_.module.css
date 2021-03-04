@@ -1,35 +1,48 @@
-.sidebar {
-  width: 300px;
+.mainContainer {
+  width: 100%;
   height: 100%;
+  display: flex;
   position: fixed;
+  top: 0;
+  right: 0;
+}
+.sidebar {
+  position: relative;
+  width: fit-content;
+  height: 100%;
   top: 0;
   left: 0;
   background: #171717;
 }
 .notifications {
   z-index: 2;
-  position: fixed;
-  top: 2%;
+  position: absolute;
+  top: 20px;
   left: 100%;
 }
-.zaal {
-  width: calc(100% - 300px);
+.mainBody {
+  position: relative;
+  flex:1;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 300px;
-  background-color: #1e1e1e;
+  overflow-y: scroll;
+  background-color: #1E1E1E;
 }
-
+.mainBody::-webkit-scrollbar {
+  display: none;
+}
 .Login {
   width: 100%;
   height: 100%;
+  background-color: #1E1E1E;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
+  top: 0;
+  left: 0;
+}
+.putZaal {
+  padding: 20px;
+  margin-top: 80px;
 }
 
-.putZaal {
-  margin-top: 80px !important;
-}
