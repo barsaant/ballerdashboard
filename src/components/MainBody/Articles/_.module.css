@@ -88,7 +88,7 @@
 .list::-webkit-scrollbar{
   display: none;
 }
-.item {
+.zaal {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -99,7 +99,7 @@
   background-color: #171717;
   box-shadow: 0 -1px 3px rgba(148, 155, 227, 0.12), 0 1px 3px rgba(148, 155, 227, 0.12);
 }
-.title {
+.zaalTitle {
   flex: 1;
   height: 100%;
   padding-left: 5px;
@@ -119,12 +119,12 @@
 }
 
 
-.addButton {
+.addZaalButton {
   width: 50px;
   height: 50px;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 20px;
+  right: 3%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,6 +134,7 @@
   border-radius: 50%;
   background-color: #171717;
   color: #949BE3;
+  box-shadow: 0px 6px 18px rgb(148, 155, 227, 0.2);
 }
 
 
@@ -155,12 +156,12 @@
   }
 }
 @media (min-width: 1200px) {
-  .item {
+  .zaal {
     width: calc(50% - 10px);
   }
 }
 @media (min-width: 1600px) {
-  .item {
+  .zaal {
     width: calc(100% / 3 - 10px);
   }
 }

@@ -5,77 +5,28 @@ import Loader from "../../Loader";
 import { FiPlus, FiSearch, FiEdit3, FiTrash2 } from "react-icons/fi";
 import { useHistory, Link } from "react-router-dom";
 
-const Zaal = (props) => {
+const Articles = () => {
   const [type, setType] = useState("posted");
-  const [zaal, setZaal] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [articles, setArticles] = useState();
 
-  const getZaal = () => {
+  const getArticles = () => {
     setLoading(true);
     axios
-      .get(`/sporthalls/${type}`)
+      .get(`/articles/`)
       .then((result) => {
-        setZaal(result.data.sportHalls);
+        setArticles(result.data.articles);
       })
       .catch((err) => console.log(err.response.data))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    getZaal();
-  }, [type]);
+    getArticles();
+  },[]);
 
-  const history = useHistory();
-
-  const handleAddButton = () => {
-    axios
-      .post(`/sporthalls`)
-      .then((result) => {
-        history.push(`/sporthalls/${result.data.sportHall.hallId}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const moveDelete = (id) => {
-    setZaal({ loading: true });
-    axios
-      .put(`/sporthalls/${id}`, {
-        status: "deleted",
-      })
-      .then((result) => {
-        const del = zaal.sporthalls.filter((zaal) => id !== zaal.hallId);
-        setZaal({ sporthalls: del, loading: false });
-      })
-      .catch((err) => {
-        setZaal({ loading: false });
-      });
-  };
-
-  const deleteHall = (id) => {
-    setZaal({ loading: true });
-    axios
-      .delete(`/sporthalls/${id}`)
-      .then((result) => {
-        const del = zaal.sporthalls.filter((zaal) => id !== zaal.hallId)
-        setZaal({ sporthalls: del, loading: false });
-      })
-      .catch((err) => {
-        setZaal({ loading: false });
-      });
-  };
-
-  const handleDelete = (hallId) => {
-    if (type.deleted === false) {
-      moveDelete(hallId);
-    } else {
-      deleteHall(hallId);
-    }
-  };
 
   return (
-    <>
       <div className={styles.container}>
         <div className={styles.head}>
           <div className={styles.searchContainer}>
@@ -109,40 +60,44 @@ const Zaal = (props) => {
           </div>
         </div>
         <div className={styles.listContainer}>
-          {!loading && (
-            <ul className={styles.list}>
-              {zaal.map((item) => (
-                <li className={styles.item} key={item.hallId}>
-                  <p className={styles.title}>{item.title}</p>
+          <ul className={styles.list}>
+            {!loading &&
+              articles.map((item) => (
+                <li className={styles.zaal} key={item.articleId}>
+                  <p className={styles.zaalTitle}>{item.title}</p>
                   <div className={styles.group}>
-                    <Link
-                      className={styles.button}
-                      to={`/sporthalls/${item.hallId}`}
-                    >
-                      <FiEdit3 />
-                    </Link>
                     <button
                       className={styles.button}
-                      onClick={() => handleDelete(item.hallId)}
+                    >
+                      <FiEdit3 />
+                    </button>
+                    <button
+                      className={styles.button}
                     >
                       <FiTrash2 />
                     </button>
                   </div>
                 </li>
               ))}
-              <button
-                className={styles.addButton}
-                onClick={() => handleAddButton()}
-              >
-                <FiPlus className={styles.icon} />
-              </button>
-            </ul>
-          )}
-          {loading && <Loader />}
+            {loading && <Loader />}
+          </ul>
         </div>
+        {!loading && (
+          <button
+            className={styles.addZaalButton}
+          >
+            <FiPlus className={styles.icon} />
+          </button>
+        )}
+        {loading && (
+          <button
+            className={styles.addZaalButton}
+          >
+            <Loader />
+          </button>
+        )}
       </div>
-    </>
   );
 };
 
-export default Zaal;
+export default Articles;

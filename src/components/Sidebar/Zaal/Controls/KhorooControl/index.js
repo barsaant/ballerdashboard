@@ -54,6 +54,7 @@ const KhorooControl = (props) => {
             level={"khoroo"}
           />
           <AddKhoroo
+            districtId={props.id}
             notify={props.notify}
             loading={setKhoroo}
             refresh={getKhoroos}

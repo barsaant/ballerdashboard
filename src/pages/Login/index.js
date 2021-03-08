@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import { FiUser, FiLock } from "react-icons/fi";
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,8 @@ const Login = () => {
       })
       .catch((err) => {
         if (err.response.data.error.message) {
-          toast.error(err.response.data.error.message);
+          const note = { success: false, message: err.response.data.error.message };
+          props.notify(note);
         }
       })
       .finally(() => setLoading(false));

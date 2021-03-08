@@ -18,6 +18,7 @@ const Zaal = (props) => {
       <div>
         <button className={styles.button} onClick={sectionHandler.bind(this,'districts')}>Байршил</button>
         <button className={styles.button} onClick={sectionHandler.bind(this,'tags')}>Таг</button>
+        <button className={styles.button}>Медиа</button>
       </div>
     );
   } else if(section === "districts") {
@@ -28,7 +29,7 @@ const Zaal = (props) => {
       content = (<TagControl notify={props.notify} jump={sectionHandler} />);
   }
 
-  return <div>{content}</div>;
+  return <div className={styles.container}>{content}</div>;
 };
 
 export default Zaal;
