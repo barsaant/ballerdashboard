@@ -4,7 +4,7 @@ import axios from "../../../../../axios";
 import Loader from "../../../../Loader";
 import { Multiselect } from "multiselect-react-dropdown";
 
-const District = (props) => {
+const Tags = (props) => {
   const [loading, setLoading] = useState(true);
   const [tag, setTag] = useState(props.current);
   const [tags, setTags] = useState([]);
@@ -33,7 +33,7 @@ const District = (props) => {
         <Multiselect
           options={tags}
           selectedValues={tag}
-          displayValue="tagName"
+          displayValue='tagName'
         />
       )}
       {loading && (
@@ -45,4 +45,4 @@ const District = (props) => {
   );
 };
 
-export default District;
+export default Tags;

@@ -14,18 +14,17 @@ import Zaal from "../../components/MainBody/Zaal";
 import Article from "../../components/MainBody/Articles";
 import Media from "../../components/MainBody/Media";
 import User from "../../components/MainBody/Users";
+import PutArticle from "../../components/MainBody/Articles/PutArticle";
 
 const App = () => {
   const [notifies, setNotifies] = useState([]);
   const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [section, setSection] = useState('home'); 
-
+  const [section, setSection] = useState("home");
 
   const sectionHandler = (section) => {
     setSection(section);
   };
-
 
   const getNotification = (newNotification) => {
     const note = {
@@ -80,11 +79,15 @@ const App = () => {
                   <Sidebar notify={getNotification} section={section} />
                 </div>
                 <div className={styles.mainBody}>
-                  <Route exact path="/:section/">
+                  <Route exact path='/:section/'>
                     <MainBody changeSection={sectionHandler} />
                   </Route>
-                  <Route exact path="/sporthalls/:id">
-                    <PutZaal changeSection={sectionHandler}/>
+                  <Route exact path='/sporthalls/:id'>
+                    <PutZaal changeSection={sectionHandler} />
+                  </Route>
+
+                  <Route exact path='/articles/:id'>
+                    <PutArticle changeSection={sectionHandler} />
                   </Route>
                   {/*<Route exact path="/sporthalls">
                     <Zaal changeSection={sectionHandler}/>
@@ -105,7 +108,7 @@ const App = () => {
               </>
             ) : (
               <div className={styles.Login}>
-                <Login notify={getNotification}/>
+                <Login notify={getNotification} />
               </div>
             )}
           </>

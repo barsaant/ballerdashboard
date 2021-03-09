@@ -27,16 +27,17 @@ const AddDistrict = (props) => {
         props.notify(note);
       })
       .catch((err) => {
-        if (err.response.data.error.message) {
-          const note = {
-            success: false,
-            message: err.response.data.error.message,
-          };
-          props.notify(note);
-        } else {
-          const note = { success: false, message: err.message };
-          props.notify(note);
-        }
+        console.log(err);
+        // if (err.response.data.error.message) {
+        //   const note = {
+        //     success: false,
+        //     message: err.response.data.error.message,
+        //   };
+        //   props.notify(note);
+        // } else {
+        //   const note = { success: false, message: err.message };
+        //   props.notify(note);
+        // }
       })
       .finally(() => props.refresh());
   };
