@@ -8,10 +8,20 @@ import { Link } from "react-router-dom";
 const Media = () => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
+  const [newImage,setNewImage] = useState(null);
+
+  const handleImage = (e) => {
+    setNewImage(e.target.files[0]);
+  };
+
+  const Save = () => {
+    console.log('gaga');
+  };
   const getImages = () => {
     axios
       .get(`/medias`)
       .then((result) => {
+        console.log(result);
         setImages(result.data.mediaLibraries);
       })
       .finally(() => setLoading(false));
@@ -32,7 +42,7 @@ const Media = () => {
             {images.map((item) => (
               <li className={styles.item} key={item}></li>
             ))}
-            <button className={styles.addButton}>
+            <button className={styles.addButton} onClick={Save}>
               <FiPlus className={styles.icon} />
             </button>
           </ul>

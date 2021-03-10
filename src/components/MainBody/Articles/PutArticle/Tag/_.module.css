@@ -1,0 +1,87 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: center;
+  background-color: #171717;
+  border-radius: 5px;
+}
+.inputContainer {
+  min-width: 200px;
+  height: 40px;
+  position: relative;
+  flex: 1;
+}
+.input {
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  font-size: 13px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  box-sizing: border-box;
+}
+.input:focus {
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #949be3;
+}
+.dropdownContainer {
+  z-index: 3;
+  background-color: #171717;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  overflow-y: scroll;
+}
+.dropdownContainer::-webkit-scrollbar {
+  display: none;
+}
+.option {
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+}
+.option:hover {
+  background-color: #1e1e1e;
+}
+.selectedContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.selected {
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 0 0 0 10px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #949be3;
+  color: white;
+  font-size: 13px;
+}
+.button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover {
+  color: #949be3;
+}

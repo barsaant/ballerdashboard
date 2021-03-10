@@ -1,50 +1,83 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams, BrowserRouter } from "react-router-dom";
+import styles from "./_.module.css";
 import axios from "../../../../axios";
 import Loader from "../../../Loader";
 import Title from "./Title";
+import Category from "./Category";
+import Tag from "./Tag";
 import Status from "./Status";
-import styles from "./_.module.css";
+import Thumbnail from "./Thumbnail";
+import Media from "../../Media";
+import { FiX } from "react-icons/fi";
 
-const PutArticle = () => {
+const PutArticle = (props) => {
+  const [media, setMedia] = useState(false);
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
-  const [phone, setPhone] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [article, setArticle] = useState("");
+  const [tag, setTag] = useState([]);
+  const [category, setCategory] = useState([]);
   const [status, setStatus] = useState("");
-
+  const [image, setImage] = useState(null);
+  const history = useHistory();
   const params = useParams();
 
-  const getArticle = () => {
+  const handleImage = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+  const getSporthall = () => {
     setLoading(true);
     axios
-      .get(`/articles/${params.id}`)
+      .get(`/articles/`)
       .then((result) => {
-        setTitle(result.data.article.title);
-        setArticle(result.data.artitle.article);
-        setStatus(result.data.article.status);
-        setCategories(result.data.article.categoryArticles);
-        setTags(result.data.article.tagArticles);
+        console.log(result);
       })
-      .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    getArticle();
+    getSporthall();
   }, []);
+
+  const Save = () => {
+    axios
+      .put(`/articles/${params.id}`, {
+        title: title,
+        tagArticles: tag,
+        categoryArticles: category,
+        status: status,
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
 
   return (
     <div className={styles.mainContainer}>
       <BrowserRouter>
         {!loading && (
           <div className={styles.container}>
+            {media && (
+              <div className={styles.mediaContainer}>
+                <div className={styles.innerMediaContainer}>
+                  <Media />
+                </div>
+                <div className={styles.mediaTools}></div>
+                <button className={styles.closeButton} onClick={setMedia.bind(this, false)}><FiX /></button>
+              </div>
+            )}
             <Title current={title} change={setTitle} />
+            <Thumbnail current={image} change={setImage} open={setMedia} />
+            <Category current={tag} change={setCategory} />
+            <Tag current={tag} change={setTag} />
             <Status current={status} change={setStatus} />
             <div className={styles.field}>
-              <button className={styles.button}>Хадгалах</button>
+              <button className={styles.button} onClick={Save}>
+                Хадгалах
+              </button>
             </div>
           </div>
         )}

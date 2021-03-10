@@ -18,7 +18,7 @@ import Description from "./Description";
 import Tag from "./Tag";
 import Status from "./Status";
 
-const CreateSportHall = () => {
+const CreateSportHall = (props) => {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [phone, setPhone] = useState("");
@@ -38,7 +38,6 @@ const CreateSportHall = () => {
     axios
       .get(`/sporthalls/${params.id}`)
       .then((result) => {
-        console.log(result);
         setTitle(result.data.sportHall.title);
         setPhone(result.data.sportHall.phone);
         setDistrict(result.data.sportHall.districtId);
@@ -59,7 +58,6 @@ const CreateSportHall = () => {
             editorState.entityMap
           );
           console.log(JSON.parse(result.data.sportHall.images));
-          // console.log(editorState);
           setImages(EditorState.createWithContent(state));
         }
       })
@@ -69,7 +67,6 @@ const CreateSportHall = () => {
   useEffect(() => {
     getSporthall();
   }, []);
-
   const updateDiscriptionData = (state) => {
     setImages(state);
     const data = JSON.stringify(
@@ -78,35 +75,35 @@ const CreateSportHall = () => {
     setImageData(data);
   };
 
-  /*const handleSave = () => {
-    setLoading({ loadging: true });
-    console.log(params.id);
+  const Save = () => {
+    setLoading(true);
     axios
-      .put(
-        `/sporthalls/${params.id}`,
-        {
-          title,
-          districtId,
-          khorooId,
-          phone,
-          address,
-          info,
-          status,
-          images: imageData,
-        },
-        { withCredentials: true }
-      )
+      .put(`/sporthalls/${params.id}`, {
+        address: address,
+        districtId: district,
+        info: description,
+        khorooId: khoroo,
+        phone: phone,
+        status: status,
+        tagSportHalls: tag,
+        title: title,
+      })
       .then((result) => {
-        console.log(result);
-        toast.success(result.data.message);
-        setLoading(false);
-        history.push("/");
+        props.notify({
+          success: result.data.success,
+          message: result.data.message,
+        });
+        history.push("/sporthalls");
       })
       .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  };*/
+        props.notify({
+          success: err.response.data.success,
+          message: err.response.data.error.message,
+        });
+        console.log(err.response.data);
+      })
+      .finally(() => setLoading(false));
+  };
 
   return (
     <div className={styles.mainContainer}>
@@ -231,10 +228,12 @@ const CreateSportHall = () => {
               />
             </div>*/}
             <Description current={description} change={setDescription} />
-            <Tag current={tag} change={setTag}/>
+            <Tag current={tag} change={setTag} />
             <Status current={status} change={setStatus} />
             <div className={styles.field}>
-              <button className={styles.button}>Хадгалах</button>
+              <button className={styles.button} onClick={Save}>
+                Хадгалах
+              </button>
             </div>
           </div>
         )}

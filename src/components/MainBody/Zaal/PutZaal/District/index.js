@@ -39,9 +39,6 @@ const District = (props) => {
           value={district}
           onChange={handleDistrict}
         >
-          <option key={0} value={null}>
-              {''}
-          </option>
           {districts.map((item) => (
             <option key={item.districtId} value={item.districtId}>
               {item.districtName}

@@ -8,7 +8,6 @@ import Articles from "./Zaal";
 
 const MainBody = (props) => {
   const params = useParams();
-  console.log(params);
   let content = <Home />;
   if (params.section === "sporthalls") {
     content = <Zaal />;

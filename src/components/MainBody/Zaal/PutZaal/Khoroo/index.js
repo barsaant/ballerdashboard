@@ -38,9 +38,6 @@ const Khoroo = (props) => {
           value={khoroo}
           onChange={handleKhoroo}
         >
-          <option key={0} value={null}>
-              {''}
-          </option>
           {khoroos.map((item) => (
             <option value={item.khorooId} key={item.khorooId}>
               {item.khorooName}

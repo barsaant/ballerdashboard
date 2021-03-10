@@ -13,6 +13,44 @@
   width: 800px;
   padding: 75px 0;
 }
+.mediaContainer {
+  z-index: 3;
+  background-color: #171717;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  border-radius: 20px;
+  border: 1px solid #949be3;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.innerMediaContainer {
+  width: 60%;
+  height: 100%;
+}
+.mediaTools {
+  width: 40%;
+  margin: 20px 0;
+  border-left: 1px solid rgba(148, 155, 227, 0.25);
+}
+.closeButton {
+  border: 1px solid #949be3;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -7px;
+  right: -7px;
+  background-color: #171717;
+  color: white;
+  cursor: pointer;
+}
 .group {
   display: flex;
 }
@@ -104,8 +142,7 @@
 @media (max-width: 850px) {
   .container {
     width: 100%;
-    height: 100%;
-    padding: 30px 10px;
+    padding: 50px 10px;
   }
   .group {
     display: block;

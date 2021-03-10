@@ -6,7 +6,7 @@ import { CSSTransition } from "react-transition-group";
 import msStyle from "./_.module.css";
 import { FiX } from "react-icons/fi";
 
-const District = (props) => {
+const Tag = (props) => {
   const [dropdown, setDropdown] = useState(true);
   const [loading, setLoading] = useState(true);
   const [tagId, setTagId] = useState(props.current);
@@ -110,4 +110,4 @@ const District = (props) => {
   );
 };
 
-export default District;
+export default Tag;

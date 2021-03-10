@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
-
-const Home = () => {
-    return (
-        <div></div>
-    );
+const Home = (props) => {
+  useEffect(() => {
+    props.changeSection("home");
+  }, []);
+  return <div></div>;
 };
-
 
 export default Home;

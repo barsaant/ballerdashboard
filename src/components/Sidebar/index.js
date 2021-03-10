@@ -5,9 +5,20 @@ import { CSSTransition } from "react-transition-group";
 import Logout from "./Logout";
 import { Link, useParams } from "react-router-dom";
 import Zaal from "./Zaal";
+import Articles from "./Articles";
 
 const Sidebar = (props) => {
   const [open, setOpen] = useState(true);
+  const params = useParams();
+
+  let content;
+  if(props.section === 'home') {
+    content = <div></div>
+  } else if (props.section === 'sporthalls') {
+    content = <Zaal />
+  } else if (props.section === 'articles') {
+    content = <Articles />
+  }
 
   const openHandler = () => {
     setOpen(!open);
@@ -22,7 +33,7 @@ const Sidebar = (props) => {
         <Link to="/">
           <div
             className={styles.button}
-            style={{border: props.section === '' ? '1px solid #949be3' : ''}}
+            style={{border: props.section === 'home' ? '1px solid #949be3' : ''}}
           >
             <FiHome className={styles.icon} />
           </div>

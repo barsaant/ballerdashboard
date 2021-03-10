@@ -8,10 +8,9 @@ import axios from "../../axios";
 import Loader from "../../components/Loader";
 import { BrowserRouter, Route, useParams } from "react-router-dom";
 import PutZaal from "../../components/MainBody/Zaal/PutZaal";
-import MainBody from "../../components/MainBody";
 import Home from "../../components/MainBody/Home";
+import Articles from "../../components/MainBody/Articles";
 import Zaal from "../../components/MainBody/Zaal";
-import Article from "../../components/MainBody/Articles";
 import Media from "../../components/MainBody/Media";
 import User from "../../components/MainBody/Users";
 import PutArticle from "../../components/MainBody/Articles/PutArticle";
@@ -19,7 +18,7 @@ import PutArticle from "../../components/MainBody/Articles/PutArticle";
 const App = () => {
   const [notifies, setNotifies] = useState([]);
   const [login, setLogin] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [section, setSection] = useState("home");
 
   const sectionHandler = (section) => {
@@ -77,31 +76,27 @@ const App = () => {
                   <Sidebar notify={getNotification} section={section} />
                 </div>
                 <div className={styles.mainBody}>
-                  <Route exact path='/:section/'>
-                    <MainBody changeSection={sectionHandler} />
+                  <Route exact path="/">
+                    <Home changeSection={sectionHandler} />
                   </Route>
-                  <Route exact path='/sporthalls/:id'>
-                    <PutZaal changeSection={sectionHandler} />
-                  </Route>
-
-                  <Route exact path='/articles/:id'>
-                    <PutArticle changeSection={sectionHandler} />
-                  </Route>
-                  {/*<Route exact path="/sporthalls">
+                  <Route exact path="/sporthalls">
                     <Zaal changeSection={sectionHandler}/>
-                  </Route>
-                  <Route exact path="/sporthalls/:id">
-                    <PutZaal changeSection={sectionHandler}/>
-                  </Route>
-                  <Route exact path="/articles">
-                    <Article changeSection={sectionHandler}/>
                   </Route>
                   <Route exact path="/media">
                     <Media changeSection={sectionHandler}/>
                   </Route>
                   <Route exact path="/users">
                     <User changeSection={sectionHandler}/>
-                  </Route>*/}
+                  </Route>
+                  <Route exact path='/articles/'>
+                    <Articles changeSection={sectionHandler} />
+                  </Route>
+                  <Route exact path='/sporthalls/:id'>
+                    <PutZaal changeSection={sectionHandler} />
+                  </Route>
+                  <Route exact path='/articles/:id'>
+                    <PutArticle changeSection={sectionHandler} />
+                  </Route>
                 </div>
               </>
             ) : (

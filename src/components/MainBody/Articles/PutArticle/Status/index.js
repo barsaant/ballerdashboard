@@ -8,15 +8,19 @@ const Status = (props) => {
   };
   useEffect(() => {
     props.change(status);
-  }, [status]);
+  },[status]);
 
   return (
     <div className={styles.field}>
       <h1 className={styles.label}>Статус</h1>
-      <select className={styles.select} value={status} onChange={handleStatus}>
-        <option value='saved'>Хадгалах</option>
-        <option value='posted'>Нийтлэх</option>
-        <option value='deleted'>Устгах</option>
+      <select
+        className={styles.select}
+        value={status}
+        onChange={handleStatus}
+      >
+        <option value="saved">Хадгалах</option>
+        <option value="posted">Нийтлэх</option>
+        <option value="deleted">Устгах</option>
       </select>
     </div>
   );

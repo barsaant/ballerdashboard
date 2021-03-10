@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "../../axios";
 import { useHistory, BrowserRouter } from "react-router-dom";
 import styles from "./_.module.css";
-import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import { FiUser, FiLock } from "react-icons/fi";
 
