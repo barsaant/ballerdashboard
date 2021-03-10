@@ -40,26 +40,24 @@ const App = () => {
   };
 
   const checkLogin = () => {
-    if (document.cookie) {
-      setLoading(true);
-      axios
-        .post(`/users/checklogin`)
-        .then((result) => {
-          setLogin(true);
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (err.message) {
-            getNotification({ success: false, message: err.message });
-          } else {
-            getNotification({
-              success: false,
-              message: err.response.data.error.message,
-            });
-          }
-          setLoading(false);
-        });
-    }
+    setLoading(true);
+    axios
+      .post(`/users/checklogin`)
+      .then((result) => {
+        setLogin(true);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.message) {
+          getNotification({ success: false, message: err.message });
+        } else {
+          getNotification({
+            success: false,
+            message: err.response.data.error.message,
+          });
+        }
+        setLoading(false);
+      });
   };
   useEffect(() => {
     checkLogin();
