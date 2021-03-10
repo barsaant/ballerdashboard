@@ -2,17 +2,20 @@ import React from "react";
 import { useHistory, BrowserRouter } from "react-router-dom";
 import styles from "../_.module.css";
 import { FiLogOut } from "react-icons/fi";
+import axios from "../../../axios";
 
 const Logout = () => {
   const history = useHistory();
   const handleLogout = () => {
-    document.cookie.split(";").forEach((c) => {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-    history.push("/");
-    history.go(0);
+    axios
+      .post(`users/signout`)
+      .then((result) => {
+        history.push("/");
+        history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div>
