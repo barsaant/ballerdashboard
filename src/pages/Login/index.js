@@ -14,16 +14,12 @@ const Login = (props) => {
   const login = () => {
     setLoading(true);
     axios
-      .post(
-        `/users/signin`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
+      .post(`/users/signin`, {
+        email,
+        password,
+      })
       .then((result) => {
-        // history.go(0);
+        history.go(0);
       })
       .catch((err) => {
         if (err.response.data.error.message) {
