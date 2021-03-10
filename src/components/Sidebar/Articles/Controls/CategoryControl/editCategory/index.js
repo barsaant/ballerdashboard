@@ -3,16 +3,17 @@ import axios from "../../../../../../axios";
 import styles from "../../Style/_.module.css";
 import { FiArrowRight, FiCheck, FiEdit3 } from "react-icons/fi";
 
-const EditDistrict = (props) => {
+const EditCategory = (props) => {
   const [edittedName, setEdittedName] = useState(props.name);
   const [editing, setEditing] = useState(false);
+
 
   const handleChange = (e) => {
     setEdittedName(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    editDistrict();
+    editCategory ();
   };
 
   const edit = () => {
@@ -22,13 +23,11 @@ const EditDistrict = (props) => {
     setEditing(false);
     setEdittedName(props.name);
   };
-  const editDistrict = () => {
+  const editCategory  = () => {
     props.loading(true);
     axios
-      .put(`/districts/${props.id}`, {
-        districtName:
-          edittedName.charAt(0).toUpperCase() +
-          edittedName.toLowerCase().slice(1),
+      .put(`/categories/${props.id}`, {
+        categoryName: edittedName.charAt(0).toUpperCase()+edittedName.toLowerCase().slice(1),
       })
       .then((result) => {
         props.notify({ success: true, message: result.data.message });
@@ -42,13 +41,9 @@ const EditDistrict = (props) => {
   if (editing) {
     return (
       <div className={styles.editContainer}>
-        <input
-          className={styles.editInput}
-          value={edittedName}
-          onChange={handleChange}
-        />
+        <input className={styles.editInput} value={edittedName} onChange={handleChange} />
         <div className={styles.group}>
-          <button className={styles.button} onClick={handleSubmit}>
+          <button className={styles.button} onClick={handleSubmit} >
             <FiCheck />
           </button>
           <button className={styles.button} onClick={notEdit}>
@@ -65,4 +60,4 @@ const EditDistrict = (props) => {
   );
 };
 
-export default EditDistrict;
+export default EditCategory ;

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import Login from "../Login";
 import axios from "../../axios";
 import Loader from "../../components/Loader";
-import { BrowserRouter, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import PutZaal from "../../components/MainBody/Zaal/PutZaal";
 import Home from "../../components/MainBody/Home";
 import Articles from "../../components/MainBody/Articles";
@@ -14,13 +14,16 @@ import Zaal from "../../components/MainBody/Zaal";
 import Media from "../../components/MainBody/Media";
 import User from "../../components/MainBody/Users";
 import PutArticle from "../../components/MainBody/Articles/PutArticle";
+import EditUser from "../../components/MainBody/Users/EditUser";
+import CreateUser from "../../components/MainBody/Users/CreateUser";
 
 const App = () => {
   const [notifies, setNotifies] = useState([]);
   const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [section, setSection] = useState("home");
+  const [section, setSection] = useState(window.location.pathname.split("/")[1]);
 
+  
   const sectionHandler = (section) => {
     setSection(section);
   };
@@ -59,6 +62,9 @@ const App = () => {
       });
   };
   useEffect(() => {
+    setSection(window.location.pathname.split("/")[1]);
+  }, [window.location.pathname.split("/")[1]]);
+  useEffect(() => {
     checkLogin();
   }, []);
 
@@ -96,6 +102,12 @@ const App = () => {
                   </Route>
                   <Route exact path='/articles/:id'>
                     <PutArticle changeSection={sectionHandler} />
+                  </Route>
+                  <Route exact path='/users/:id'>
+                    <EditUser changeSection={sectionHandler} />
+                  </Route>
+                  <Route exact path='/users/create'>
+                    <CreateUser changeSection={sectionHandler} />
                   </Route>
                 </div>
               </>

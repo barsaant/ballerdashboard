@@ -18,7 +18,6 @@ const Zaal = (props) => {
       <div>
         <button className={styles.button} onClick={sectionHandler.bind(this,'districts')}>Байршил</button>
         <button className={styles.button} onClick={sectionHandler.bind(this,'tags')}>Таг</button>
-        <button className={styles.button}>Медиа</button>
       </div>
     );
   } else if(section === "districts") {

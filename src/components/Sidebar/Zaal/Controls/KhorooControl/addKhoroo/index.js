@@ -18,27 +18,17 @@ const AddKhoroo = (props) => {
   
 
   const postKhoroo = () => {
-    props.loading({loading: true});
+    props.loading(true);
     axios
       .post(`/khoroos`, {
         khorooName: newKhoroo,
         districtId: props.districtId
       })
       .then((result) => {
-        const note = { success: true, message: result.data.message };
-        props.notify(note);
+        props.notify({ success: true, message: result.data.message });
       })
       .catch((err) => {
-        if (err.response.data.error.message) {
-          const note = {
-            success: false,
-            message: err.response.data.error.message,
-          };
-          props.notify(note);
-        } else {
-          const note = { success: false, message: err.message };
-          props.notify(note);
-        }
+        props.notify({ success: false, message: err.response.data.error.message });
       })
       .finally(() => props.refresh(props.districtId));
   };

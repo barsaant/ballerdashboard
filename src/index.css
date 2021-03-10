@@ -10,6 +10,78 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+html {
+  background-color: #1e1e1e !important;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #949be3;
+}
+
+
+/* tagDropdown */
+
+
+.tagDropdown-enter {
+  height: 200px;
+  border: 1px solid #949be3;
+  border-top: none;
+  opacity: 1;
+}
+.tagDropdown-enter-active {
+  height: 0;
+  opacity: 0;
+  border:none;
+  transition: all 200ms;
+}
+.tagDropdown-enter-done {
+  height: 0;
+  opacity: 0;
+  border: none;
+}
+.tagDropdown-exit {
+  height: 0;
+  opacity: 0;
+  border: none;
+}
+.tagDropdown-exit-active {
+  height: 200px;
+  opacity: 1;
+  border: 1px solid #949be3;
+  transition: all 200ms;
+  border-top: none;
+}
+.tagDropdown-exit-done {
+  height: 200px;
+  opacity: 1;
+  border: 1px solid #949be3;
+  border-top: none;
+}
+.tagDropdown-appear {
+  height: 0;
+  opacity: 0;
+  border: none;
+}
+.tagDropdown-appear-done {
+  height: 0;
+  opacity: 0;
+  border: none;
+}
+.tagDropdown-appear-active {
+  height: 0;
+  opacity: 0;
+  border: none;
+  transition: all 200ms;
+}
+
+
+
+/* Notification transition */
 
 
 .notification-enter-active {
@@ -28,7 +100,7 @@ body {
 }
 
 
-
+/* Sidebar Transition */
 
 
 .subSidebar-enter {
@@ -67,19 +139,8 @@ body {
 }
 
 
+/* Sidebar Transition on Phone */
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-html {
-  background-color: #1e1e1e !important;
-}
-
-.select:not(.is-multiple):not(.is-loading)::after {
-  border-color: #949be3;
-}
 
 @media (max-width: 480px) {
   .subSidebar-enter {

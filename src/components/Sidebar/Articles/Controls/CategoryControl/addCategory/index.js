@@ -1,26 +1,27 @@
 import React, { useState } from "react";
+import axios from "../../../../../../axios";
 import styles from "../../Style/_.module.css";
 import { FiPlusSquare } from "react-icons/fi";
-import axios from "../../../../../../axios";
 
-const AddDistrict = (props) => {
-  const [newDistrict, setNewDistrict] = useState("");
+const AddCategory = (props) => {
+  const [newCategory, setNewCategory] = useState("");
 
   const handleChange = (e) => {
     if (e.target.value !== "") {
-      setNewDistrict(e.target.value);
+      setNewCategory(e.target.value);
     }
   };
 
-  const handleSubmit = () => {
-    postDistrict();
+  const handleSubmit = (e) => {
+    postCategory();
   };
+  
 
-  const postDistrict = () => {
+  const postCategory = () => {
     props.loading(true);
     axios
-      .post(`/districts`, {
-        districtName: newDistrict,
+      .post(`/categories`, {
+        categoryName: newCategory,
       })
       .then((result) => {
         props.notify({ success: true, message: result.data.message });
@@ -33,11 +34,7 @@ const AddDistrict = (props) => {
 
   return (
     <div className={styles.headContainer}>
-      <input
-        placeholder={"Нэмэх..."}
-        className={styles.input}
-        onChange={handleChange}
-      />
+      <input placeholder={'Нэмэх...'} className={styles.input} onChange={handleChange} />
       <button className={styles.button} onClick={handleSubmit}>
         <FiPlusSquare />
       </button>
@@ -45,4 +42,5 @@ const AddDistrict = (props) => {
   );
 };
 
-export default AddDistrict;
+
+export default AddCategory;

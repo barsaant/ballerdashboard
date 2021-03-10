@@ -5,24 +5,14 @@ import { FiTrash2 } from "react-icons/fi";
 
 const DeleteDistrict = (props) => {
   const deleteDistrict = () => {
-    props.loading({ loading: true });
+    props.loading(true);
     axios
       .delete(`/districts/${props.id}`)
       .then((result) => {
-        const note = { success: true, message: result.data.message };
-        props.notify(note);
+        props.notify({ success: true, message: result.data.message });
       })
       .catch((err) => {
-        if (err.response.data.error.message) {
-          const note = {
-            success: false,
-            message: err.response.data.error.message,
-          };
-          props.notify(note);
-        } else {
-          const note = { success: false, message: err.message };
-          props.notify(note);
-        }
+        props.notify({ success: false, message: err.response.data.error.message });
       })
       .finally(() => props.refresh());
   };

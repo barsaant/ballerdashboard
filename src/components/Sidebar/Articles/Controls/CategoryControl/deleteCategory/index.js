@@ -3,11 +3,11 @@ import axios from "../../../../../../axios";
 import styles from "../../Style/_.module.css";
 import { FiTrash2 } from "react-icons/fi";
 
-const DeleteTag = (props) => {
-  const deleteTag = () => {
+const DeleteCategory = (props) => {
+  const deleteCategory = () => {
     props.loading(true);
     axios
-      .delete(`/tagshalls/${props.id}`)
+      .delete(`/categories/${props.id}`)
       .then((result) => {
         props.notify({ success: true, message: result.data.message });
       })
@@ -20,11 +20,11 @@ const DeleteTag = (props) => {
   return (
     <button
       className={styles.button}
-      onClick={() => deleteTag()}
+      onClick={() => deleteCategory()}
     >
       <FiTrash2 />
     </button>
   );
 };
 
-export default DeleteTag;
+export default DeleteCategory;

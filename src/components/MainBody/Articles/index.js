@@ -22,6 +22,7 @@ const Articles = (props) => {
   };
 
   useEffect(() => {
+    props.changeSection("articles");
     getArticles();
   }, []);
 
@@ -109,7 +110,7 @@ const Articles = (props) => {
             {!loading && (
               <ul className={styles.list}>
                 {articles.map((item) => (
-                  <li className={styles.item} key={item.hallId}>
+                  <li className={styles.item} key={item.articleId}>
                     <p className={styles.title}>{item.title}</p>
                     <div className={styles.group}>
                       <Link

@@ -2,24 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "../../../../../axios";
 import styles from "../Style/_.module.css";
 import Loader from "../../../../Loader";
-import AddTag from "./addTag";
-import EditTag from "./editTag";
-import DeleteTag from "./deleteTag";
+import AddCategory from "./addCategory";
+import EditCategory from "./editCategory";
+import DeleteCategory from "./deleteCategory";
 import SidebarSearch from "../SidebarSearch";
 import { FiArrowLeft } from "react-icons/fi";
 
-const TagControl = (props) => {
-  const [tags, setTags] = useState([]);
+const CategoryControl = (props) => {
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [temp, setTemp] = useState([]);
 
-  const getTags = () => {
+  const getCategories = () => {
     setLoading(true);
     axios
-      .get(`/tagshalls`)
+      .get(`/categories`)
       .then((result) => {
-        setTags(result.data.tags);
-        setTemp(result.data.tags);
+        setCategories(result.data.categories);
+        setTemp(result.data.categories);
       })
       .catch((err) => {
         props.notify({ success: false, message: err.response.data.error.message });
@@ -31,7 +31,7 @@ const TagControl = (props) => {
   };
 
   useEffect(() => {
-    getTags();
+    getCategories();
   }, []);
 
   return (
@@ -39,30 +39,30 @@ const TagControl = (props) => {
       {!loading && (
         <>
           <div className={styles.head}>
-            <SidebarSearch search={searchHandler} origin={tags} level="tag" />
-            <AddTag
+            <SidebarSearch search={searchHandler} origin={categories} level={'category'}/>
+            <AddCategory
               notify={props.notify}
               loading={setLoading}
-              refresh={getTags}
+              refresh={getCategories}
             />
           </div>
           <ul className={styles.list}>
             {temp.map((item) => (
-              <li className={styles.items} key={item.tagId}>
-                <p className={styles.name}>{item.tagName}</p>
+              <li className={styles.items} key={item.categoryId}>
+                <p className={styles.name}>{item.categoryName}</p>
                 <div className={styles.group}>
-                  <EditTag
+                  <EditCategory
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getTags}
-                    name={item.tagName}
-                    id={item.tagId}
+                    refresh={getCategories}
+                    name={item.categoryName}
+                    id={item.categoryId}
                   />
-                  <DeleteTag
+                  <DeleteCategory
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getTags}
-                    id={item.tagId}
+                    refresh={getCategories}
+                    id={item.categoryId}
                   />
                 </div>
               </li>
@@ -83,4 +83,4 @@ const TagControl = (props) => {
   );
 };
 
-export default TagControl;
+export default CategoryControl;

@@ -7,7 +7,7 @@ const Notification = (props) => {
   return (
     <TransitionGroup className={styles.container}>
       {props.notifications.map((item) => (
-        <CSSTransition key={item.id} timeout={300} classNames="notification" onEntered={() => setTimeout(() => props.delete(item.id),2000)}>
+        <CSSTransition key={item.id} timeout={300} classNames="notification" onEntered={() => setTimeout(() => props.delete(item.id),4000)}>
           <div className={styles.notification}>
             <div className={styles.iconContainer}>
               {item.success && (

@@ -5,10 +5,8 @@ import styles from "../Style/_.module.css";
 const SidebarSearch = (props) => {
   const handleSearch = (e) => {
     if (e.target.value !== "") {
-      if(props.level==='district') {
-        props.search(props.origin.filter((item) => item.districtName.toLowerCase().includes(e.target.value.toLowerCase())));
-      } else if (props.level==='khoroo') {
-        props.search(props.origin.filter((item) => item.khorooName.toLowerCase().includes(e.target.value.toLowerCase())));
+      if(props.level==='category') {
+        props.search(props.origin.filter((item) => item.categoryName.toLowerCase().includes(e.target.value.toLowerCase())));
       } else if (props.level==='tag') {
         props.search(props.origin.filter((item) => item.tagName.toLowerCase().includes(e.target.value.toLowerCase())));
       }

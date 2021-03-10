@@ -64,7 +64,7 @@
   flex-wrap: wrap;
   overflow-y: scroll;
 }
-.list::-webkit-scrollbar{
+.list::-webkit-scrollbar {
   display: none;
 }
 .item {
