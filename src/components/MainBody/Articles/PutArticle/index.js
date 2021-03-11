@@ -29,9 +29,7 @@ const PutArticle = (props) => {
     setLoading(true);
     axios
       .get(`/articles/`)
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) => {})
       .finally(() => setLoading(false));
   };
 
@@ -47,9 +45,7 @@ const PutArticle = (props) => {
         categoryArticles: category,
         status: status,
       })
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) => {})
       .catch((err) => {
         console.log(err.response);
       });
@@ -66,7 +62,12 @@ const PutArticle = (props) => {
                   <Media />
                 </div>
                 <div className={styles.mediaTools}></div>
-                <button className={styles.closeButton} onClick={setMedia.bind(this, false)}><FiX /></button>
+                <button
+                  className={styles.closeButton}
+                  onClick={setMedia.bind(this, false)}
+                >
+                  <FiX />
+                </button>
               </div>
             )}
             <Title current={title} change={setTitle} />

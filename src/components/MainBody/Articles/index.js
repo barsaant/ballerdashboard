@@ -3,7 +3,7 @@ import axios from "../../../axios";
 import styles from "./_.module.css";
 import Loader from "../../Loader";
 import { FiPlus, FiSearch, FiEdit3, FiTrash2 } from "react-icons/fi";
-import { useHistory, Link, BrowserRouter } from "react-router-dom";
+import { useHistory, BrowserRouter } from "react-router-dom";
 
 const Articles = (props) => {
   const [type, setType] = useState("posted");
@@ -19,6 +19,11 @@ const Articles = (props) => {
       })
       .catch((err) => console.log(err.response.data))
       .finally(() => setLoading(false));
+  };
+
+  const handleEditButton = (id) => {
+    setLoading(true);
+    history.push(`/articles/${id}`);
   };
 
   useEffect(() => {
@@ -68,7 +73,7 @@ const Articles = (props) => {
       deleteHall(hallId);
     }
   };
-  
+
   return (
     <>
       <div className={styles.container}>
@@ -113,12 +118,12 @@ const Articles = (props) => {
                   <li className={styles.item} key={item.articleId}>
                     <p className={styles.title}>{item.title}</p>
                     <div className={styles.group}>
-                      <Link
+                      <button
                         className={styles.button}
-                        to={`/articles/${item.articleId}`}
+                        onClick={() => handleEditButton(item.articleId)}
                       >
                         <FiEdit3 />
-                      </Link>
+                      </button>
                       <button
                         className={styles.button}
                         onClick={() => handleDelete(item.articleId)}

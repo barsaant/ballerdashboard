@@ -21,9 +21,10 @@ const App = () => {
   const [notifies, setNotifies] = useState([]);
   const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [section, setSection] = useState(window.location.pathname.split("/")[1]);
+  const [section, setSection] = useState(
+    window.location.pathname.split("/")[1]
+  );
 
-  
   const sectionHandler = (section) => {
     setSection(section);
   };
@@ -82,29 +83,38 @@ const App = () => {
                   <Sidebar notify={getNotification} section={section} />
                 </div>
                 <div className={styles.mainBody}>
-                  <Route exact path="/">
+                  <Route exact path='/'>
                     <Home changeSection={sectionHandler} />
                   </Route>
-                  <Route exact path="/sporthalls">
-                    <Zaal changeSection={sectionHandler}/>
+                  <Route exact path='/sporthalls'>
+                    <Zaal changeSection={sectionHandler} />
                   </Route>
-                  <Route exact path="/media">
-                    <Media changeSection={sectionHandler}/>
+                  <Route exact path='/media'>
+                    <Media changeSection={sectionHandler} />
                   </Route>
-                  <Route exact path="/users">
-                    <User changeSection={sectionHandler}/>
+                  <Route exact path='/users'>
+                    <User changeSection={sectionHandler} />
                   </Route>
                   <Route exact path='/articles/'>
                     <Articles changeSection={sectionHandler} />
                   </Route>
                   <Route exact path='/sporthalls/:id'>
-                    <PutZaal changeSection={sectionHandler} />
+                    <PutZaal
+                      notify={getNotification}
+                      changeSection={sectionHandler}
+                    />
                   </Route>
                   <Route exact path='/articles/:id'>
-                    <PutArticle changeSection={sectionHandler} />
+                    <PutArticle
+                      notify={getNotification}
+                      changeSection={sectionHandler}
+                    />
                   </Route>
                   <Route exact path='/users/:id'>
-                    <EditUser changeSection={sectionHandler} />
+                    <EditUser
+                      notify={getNotification}
+                      changeSection={sectionHandler}
+                    />
                   </Route>
                   <Route exact path='/users/create'>
                     <CreateUser changeSection={sectionHandler} />

@@ -17,6 +17,7 @@ import Address from "./Address";
 import Description from "./Description";
 import Tag from "./Tag";
 import Status from "./Status";
+import imageIcon from "../EditorIcons/image.png";
 
 const CreateSportHall = (props) => {
   const [loading, setLoading] = useState(true);
@@ -67,7 +68,8 @@ const CreateSportHall = (props) => {
   useEffect(() => {
     getSporthall();
   }, []);
-  const updateDiscriptionData = (state) => {
+
+  const updateImageData = (state) => {
     setImages(state);
     const data = JSON.stringify(
       draftToHtml(convertToRaw(images.getCurrentContent()))
@@ -87,6 +89,7 @@ const CreateSportHall = (props) => {
         status: status,
         tagSportHalls: tag,
         title: title,
+        images: imageData,
       })
       .then((result) => {
         props.notify({
@@ -125,19 +128,18 @@ const CreateSportHall = (props) => {
             </div>
             <Phone current={phone} change={setPhone} />
             <Address current={address} change={setAddress} />
-            {/*<div className={`field`}>
-              <label className={`label`}>Зураг оруулах</label>
-              <MediaLibrary />
-             </div> 
-
             <div className={styles.field}>
               <h1 className={styles.label}>Зураг оруулах</h1>
               <Editor
                 editorState={images}
-                editorStyle={{ backgroundColor: "#171717", height: "300px" }}
-                toolbarClassName="toolbarClass"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
+                editorStyle={{
+                  backgroundColor: "#171717",
+                  height: "400px",
+                  color: "#ffffff ",
+                }}
+                toolbarClassName='toolbarClass'
+                wrapperClassName='wrapperClassName'
+                editorClassName='editorClassName'
                 toolbar={{
                   inline: {
                     bold: { className: "demo-option-none" },
@@ -213,8 +215,10 @@ const CreateSportHall = (props) => {
                     popupClassName: "demo-popup-custom",
                   },
                   image: {
-                    className: "demo-option-image",
+                    icon: imageIcon,
+                    className: "demo-option-customImage",
                     popupClassName: "demo-popup-image",
+                    alt: "",
                   },
                   remove: {
                     className: "demo-option-none",
@@ -224,9 +228,9 @@ const CreateSportHall = (props) => {
                     redo: { className: "demo-option-none" },
                   },
                 }}
-                onEditorStateChange={(state) => updateDiscriptionData(state)}
+                onEditorStateChange={(state) => updateImageData(state)}
               />
-            </div>*/}
+            </div>
             <Description current={description} change={setDescription} />
             <Tag current={tag} change={setTag} />
             <Status current={status} change={setStatus} />

@@ -24,6 +24,21 @@
   border: none;
 }
 
+.demo-option-customImage {
+  background-color: #1e1e1e;
+  border: none;
+}
+
+.demo-option-customImage:hover {
+  background-color: #1e1e1e;
+  border: none;
+}
+
+.demo-option-customImage img {
+  width: 20px;
+  height: 20px;
+}
+
 .demo-popup-image input:focus {
   border: 1px solid #949be3;
 }
@@ -32,4 +47,16 @@
   background-color: #949be3;
   border: none;
   color: #ffffff;
+}
+
+.rdw-option-wrapper:active {
+  box-shadow: 1px 1px 1px #949be3 inset;
+}
+
+.rdw-option-wrapper {
+  box-shadow: 1px 1px 1px #949be3 inset;
+}
+
+.rdw-option-wrapper:hover {
+  box-shadow: 1px 1px 0px #949be3;
 }

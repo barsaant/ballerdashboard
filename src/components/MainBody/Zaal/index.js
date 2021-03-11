@@ -3,7 +3,7 @@ import axios from "../../../axios";
 import styles from "./_.module.css";
 import Loader from "../../Loader";
 import { FiPlus, FiSearch, FiEdit3, FiTrash2 } from "react-icons/fi";
-import { useHistory, Link, BrowserRouter } from "react-router-dom";
+import { useHistory, BrowserRouter } from "react-router-dom";
 
 const Zaal = (props) => {
   const [type, setType] = useState("posted");
@@ -39,6 +39,11 @@ const Zaal = (props) => {
         console.log(err);
       })
       .finally(() => setLoading(false));
+  };
+
+  const handleEditButton = (id) => {
+    setLoading(true);
+    history.push(`/sporthalls/${id}`);
   };
 
   const moveDelete = (id) => {
@@ -121,12 +126,12 @@ const Zaal = (props) => {
                   <li className={styles.item} key={item.hallId}>
                     <p className={styles.title}>{item.title}</p>
                     <div className={styles.group}>
-                      <Link
+                      <button
                         className={styles.button}
-                        to={`/sporthalls/${item.hallId}`}
+                        onClick={() => handleEditButton(item.hallId)}
                       >
                         <FiEdit3 />
-                      </Link>
+                      </button>
                       <button
                         className={styles.button}
                         onClick={() => handleDelete(item.hallId)}
