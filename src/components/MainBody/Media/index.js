@@ -9,9 +9,6 @@ const Media = (props) => {
   const [images, setImages] = useState([]);
   const [newImage, setNewImage] = useState([]);
 
-  const handleImage = (e) => {
-    setNewImage(e.target.files[0]);
-  };
 
   const addImage = (e) => {
     setLoading(true);
