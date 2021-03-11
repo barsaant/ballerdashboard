@@ -7,15 +7,27 @@ import Loader from "../../Loader";
 const Media = (props) => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
-  const [newImage,setNewImage] = useState(null);
+  const [newImage, setNewImage] = useState([]);
 
   const handleImage = (e) => {
     setNewImage(e.target.files[0]);
   };
 
-  const Save = () => {
-    console.log('gaga');
+  const addImage = (e) => {
+    setLoading(true);
+    axios
+      .post(`/media`, e.target.files[0])
+      .then((result) => {
+        props.notify({
+          success: true,
+          message: result.data.message,
+        });
+        getImages();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
+
   const getImages = () => {
     axios
       .get(`/medias`)
@@ -41,9 +53,16 @@ const Media = (props) => {
             {images.map((item) => (
               <li className={styles.item} key={item}></li>
             ))}
-            <button className={styles.addButton} onClick={Save}>
+            <input
+              id="upload"
+              type="file"
+              accept="image/png, image/jpeg"
+              style={{ display: "none" }}
+              onChange={addImage}
+            ></input>
+            <label for="upload" className={styles.addButton}>
               <FiPlus className={styles.icon} />
-            </button>
+            </label>
           </ul>
         )}
         {loading && <Loader />}

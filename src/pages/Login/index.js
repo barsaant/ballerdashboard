@@ -21,13 +21,10 @@ const Login = (props) => {
         history.go(0);
       })
       .catch((err) => {
-        if (err.response.data.error.message) {
-          const note = {
-            success: false,
-            message: err.response.data.error.message,
-          };
-          props.notify(note);
-        }
+        props.notify({
+          success: false,
+          message: err.response.data.error.message,
+        });
       })
       .finally(() => setLoading(false));
   };
@@ -56,9 +53,9 @@ const Login = (props) => {
         <div className={styles.inputContainer}>
           <FiUser className={styles.icon} />
           <input
-            placeholder='EMAIL'
+            placeholder="EMAIL"
             className={styles.input}
-            type='text'
+            type="text"
             onChange={handleTypeEmail}
             onKeyDown={handleKeyDown}
           />
@@ -66,9 +63,9 @@ const Login = (props) => {
         <div className={styles.inputContainer}>
           <FiLock className={styles.icon} />
           <input
-            placeholder='PASSWORD'
+            placeholder="PASSWORD"
             className={styles.input}
-            type='password'
+            type="password"
             onChange={handleTypePassword}
             onKeyDown={handleKeyDown}
           />
