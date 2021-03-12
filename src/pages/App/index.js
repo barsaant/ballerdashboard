@@ -84,43 +84,44 @@ const App = () => {
                 </div>
                 <div className={styles.mainBody}>
                   <Route exact path='/'>
-                    <Home changeSection={sectionHandler} />
+                    <Home changeSection={sectionHandler.bind(this,'home')} />
                   </Route>
                   <Route exact path='/sporthalls'>
-                    <Zaal changeSection={sectionHandler} />
+                    <Zaal changeSection={sectionHandler.bind(this,'sporthalls')} />
                   </Route>
                   <Route exact path='/media'>
                     <Media
                       notify={getNotification}
-                      changeSection={sectionHandler}
+                      changeSection={sectionHandler.bind(this,'media')}
+                      type={'medias'}
                     />
                   </Route>
                   <Route exact path='/users'>
-                    <User changeSection={sectionHandler} />
+                    <User changeSection={sectionHandler.bind(this,'users')} />
                   </Route>
                   <Route exact path='/articles/'>
-                    <Articles changeSection={sectionHandler} />
+                    <Articles changeSection={sectionHandler.bind(this,'articles')} />
                   </Route>
                   <Route exact path='/sporthalls/:id'>
                     <PutZaal
                       notify={getNotification}
-                      changeSection={sectionHandler}
+                      changeSection={sectionHandler.bind(this,'sporthalls')}
                     />
                   </Route>
                   <Route exact path='/articles/:id'>
                     <PutArticle
                       notify={getNotification}
-                      changeSection={sectionHandler}
+                      changeSection={sectionHandler.bind(this,'articles')}
                     />
                   </Route>
                   <Route exact path='/users/:id'>
                     <EditUser
                       notify={getNotification}
-                      changeSection={sectionHandler}
+                      changeSection={sectionHandler.bind(this,'users')}
                     />
                   </Route>
                   <Route exact path='/users/create'>
-                    <CreateUser changeSection={sectionHandler} />
+                    <CreateUser changeSection={sectionHandler.bind(this,'users')} />
                   </Route>
                 </div>
               </>

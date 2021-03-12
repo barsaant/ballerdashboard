@@ -9,6 +9,7 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./editor.css";
 import Loader from "../../../Loader";
+import Media from "../../Media";
 import Title from "./Title";
 import District from "./District";
 import Khoroo from "./Khoroo";
@@ -18,8 +19,10 @@ import Description from "./Description";
 import Tag from "./Tag";
 import Status from "./Status";
 import imageIcon from "../EditorIcons/image.png";
+import { FiX } from "react-icons/fi";
 
 const CreateSportHall = (props) => {
+  const [media, setMedia] = useState(false);
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [phone, setPhone] = useState("");
@@ -113,6 +116,12 @@ const CreateSportHall = (props) => {
       <BrowserRouter>
         {!loading && (
           <div className={styles.container}>
+            {media && (
+              <div className={styles.mediaContainer}>
+                <Media notify={props.notify} changeSection={props.changeSection} type={'sporthalls'} id={params.id}/>
+                <button className={styles.closeBtn}><FiX className={styles.icon} onClick={setMedia.bind(this,false)}/></button>
+              </div>
+            )}
             <Title current={title} change={setTitle} />
             <div className={styles.group}>
               <District

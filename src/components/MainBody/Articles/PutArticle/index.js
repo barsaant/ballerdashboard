@@ -58,16 +58,8 @@ const PutArticle = (props) => {
           <div className={styles.container}>
             {media && (
               <div className={styles.mediaContainer}>
-                <div className={styles.innerMediaContainer}>
-                  <Media />
-                </div>
-                <div className={styles.mediaTools}></div>
-                <button
-                  className={styles.closeButton}
-                  onClick={setMedia.bind(this, false)}
-                >
-                  <FiX />
-                </button>
+                <Media notify={props.notify} changeSection={props.changeSection} type={'articles'} id={params.id}/>
+                <button className={styles.closeBtn}><FiX className={styles.icon} onClick={setMedia.bind(this,false)}/></button>
               </div>
             )}
             <Title current={title} change={setTitle} />

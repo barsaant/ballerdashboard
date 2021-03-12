@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const Home = (props) => {
   useEffect(() => {
-    props.changeSection("home");
+    props.changeSection();
   }, []);
   return <div>hdfh</div>;
 };

@@ -26,30 +26,20 @@
   border: 1px solid #949be3;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-.innerMediaContainer {
-  width: 60%;
-  height: 100%;
-}
-.mediaTools {
-  width: 40%;
-  margin: 20px 0;
-  border-left: 1px solid rgba(148, 155, 227, 0.25);
-}
-.closeButton {
-  border: 1px solid #949be3;
-  outline: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: -7px;
-  right: -7px;
-  background-color: #171717;
+.closeBtn {
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
   color: white;
+  outline: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
+}
+.closeBtn:hover {
+  color: #949be3;
 }
 .group {
   display: flex;

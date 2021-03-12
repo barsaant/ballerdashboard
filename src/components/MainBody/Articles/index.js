@@ -27,7 +27,7 @@ const Articles = (props) => {
   };
 
   useEffect(() => {
-    props.changeSection("articles");
+    props.changeSection();
     getArticles();
   }, []);
 

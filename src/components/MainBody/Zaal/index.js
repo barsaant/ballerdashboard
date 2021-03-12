@@ -22,7 +22,7 @@ const Zaal = (props) => {
   };
 
   useEffect(() => {
-    props.changeSection("sporthalls");
+    props.changeSection();
     getZaal();
   }, [type]);
 

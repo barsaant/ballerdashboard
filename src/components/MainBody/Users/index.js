@@ -23,7 +23,7 @@ const Users = (props) => {
 
 
   useEffect(() => {
-    props.changeSection("users");
+    props.changeSection();
     getUsers();
   }, []);
 
