@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./_.module.css";
 import axios from "../../../axios";
 import { FiPlus } from "react-icons/fi";
@@ -7,13 +7,22 @@ import Loader from "../../Loader";
 const Media = (props) => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
-  const [newImage, setNewImage] = useState([]);
-
+  const [progress, setProgess] = useState(0);
 
   const addImage = (e) => {
     setLoading(true);
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
     axios
-      .post(`/media`, e.target.files[0])
+      .post(`/medias`, formData, {
+        onUploadProgress: (ProgressEvent) => {
+          let progress =
+            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+            "%";
+          setProgess(progress);
+        },
+      })
       .then((result) => {
         props.notify({
           success: true,
@@ -24,6 +33,8 @@ const Media = (props) => {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   };
+
+  console.log(progress);
 
   const getImages = () => {
     axios
@@ -43,21 +54,25 @@ const Media = (props) => {
         <button className={styles.button}>Бүгд</button>
         <button className={styles.button}>ID</button>
       </div>
+
       <div className={styles.listContainer}>
         {!loading && (
           <ul className={styles.list}>
             <li className={styles.item}></li>
             {images.map((item) => (
-              <li className={styles.item} key={item}></li>
+              <li className={styles.item} key={item}>
+                <img
+                  src={`http://localhost:7259/uploads/${item.mediaPath}`}
+                ></img>
+              </li>
             ))}
             <input
-              id="upload"
-              type="file"
-              accept="image/png, image/jpeg"
+              id='upload'
+              type='file'
               style={{ display: "none" }}
               onChange={addImage}
             ></input>
-            <label for="upload" className={styles.addButton}>
+            <label for='upload' className={styles.addButton}>
               <FiPlus className={styles.icon} />
             </label>
           </ul>

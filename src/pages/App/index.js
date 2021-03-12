@@ -90,7 +90,10 @@ const App = () => {
                     <Zaal changeSection={sectionHandler} />
                   </Route>
                   <Route exact path='/media'>
-                    <Media changeSection={sectionHandler} />
+                    <Media
+                      notify={getNotification}
+                      changeSection={sectionHandler}
+                    />
                   </Route>
                   <Route exact path='/users'>
                     <User changeSection={sectionHandler} />
