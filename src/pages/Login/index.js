@@ -48,38 +48,42 @@ const Login = (props) => {
   };
 
   return (
-    <div className={styles.LoginBox}>
+    <div className={`${styles.LoginBox}`}>
       <BrowserRouter>
-        <div className={styles.inputContainer}>
-          <FiUser className={styles.icon} />
-          <input
-            placeholder="EMAIL"
-            className={styles.input}
-            type="text"
-            onChange={handleTypeEmail}
-            onKeyDown={handleKeyDown}
-          />
+        <div className={`field`}>
+          <label className={`label is-uppercase ${styles.label}`}>
+            Email хаяг
+          </label>
+          <div className={`control`}>
+            <input
+              className={`input ${styles.input}`}
+              type={`text`}
+              onChange={handleTypeEmail}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
         </div>
-        <div className={styles.inputContainer}>
-          <FiLock className={styles.icon} />
-          <input
-            placeholder="PASSWORD"
-            className={styles.input}
-            type="password"
-            onChange={handleTypePassword}
-            onKeyDown={handleKeyDown}
-          />
+        <div className={`field`}>
+          <label className={`label is-uppercase ${styles.label}`}>
+            Нууц үг
+          </label>
+          <div className={`control`}>
+            <input
+              className={`input ${styles.input}`}
+              type={`password`}
+              onChange={handleTypePassword}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
         </div>
-        <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={() => handleSubmit()}>
-            НЭВТРЭХ
-            {loading ? (
-              <div className={styles.loader}>
-                <Loader style={{ color: "#949BE3" }} />
-              </div>
-            ) : (
-              <div className={styles.empty}></div>
-            )}
+        <div className={`field`}>
+          <label className={`label`}></label>
+          <button
+            className={`button is-fullwidth is-uppercase ${styles.btn}`}
+            onClick={() => handleSubmit()}
+          >
+            {" "}
+            {loading === false ? <>Нэвтрэх</> : <Loader />}
           </button>
         </div>
       </BrowserRouter>

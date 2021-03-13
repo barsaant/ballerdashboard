@@ -4,7 +4,7 @@ const Home = (props) => {
   useEffect(() => {
     props.changeSection();
   }, []);
-  return <div>hdfh</div>;
+  return <div></div>;
 };
 
 export default Home;
