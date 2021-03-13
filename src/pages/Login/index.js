@@ -25,8 +25,8 @@ const Login = (props) => {
           success: false,
           message: err.response.data.error.message,
         });
-      })
-      .finally(() => setLoading(false));
+        setLoading(false);
+      });
   };
 
   const handleTypeEmail = (e) => {
