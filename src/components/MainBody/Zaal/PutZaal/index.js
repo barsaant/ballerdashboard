@@ -55,13 +55,15 @@ const CreateSportHall = (props) => {
           result.data.sportHall.images !== null
         ) {
           const editorState = htmlToDraft(
-            JSON.parse(result.data.sportHall.images)
+            addUrl(
+              JSON.parse(result.data.sportHall.images),
+              "https://api.baller.mn/"
+            )
           );
           const state = ContentState.createFromBlockArray(
             editorState.contentBlocks,
             editorState.entityMap
           );
-          console.log(JSON.parse(result.data.sportHall.images));
           setImages(EditorState.createWithContent(state));
         }
       })
@@ -71,13 +73,53 @@ const CreateSportHall = (props) => {
   useEffect(() => {
     getSporthall();
   }, []);
+  const addUrl = (string1, string2) => {
+    let temp = "=";
+    let str = string1;
+    let arr = [];
+    while (str.search("<img src=") !== -1) {
+      arr.push(str.search("<img src="));
+      str =
+        str.slice(0, arr[arr.length - 1] + 8) +
+        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 11) +
+        string2 +
+        str.slice(arr[arr.length - 1] + 11);
+    }
+    for (var i = 0; i < arr.length; i++) {
+      str = str.slice(0, arr[i] + 8 + i) + temp + str.slice(arr[i] + 8 + i);
+    }
+    return str;
+  };
+
+  const removeUrl = (string) => {
+    let temp = "=";
+    let str = string;
+    let arr = [];
+    while (str.search("<img src=") !== -1) {
+      arr.push(str.search("<img src="));
+      let j = 0;
+      while (str[arr[arr.length - 1] + 19 + j] !== "/") {
+        j++;
+      }
+      str =
+        str.slice(0, arr[arr.length - 1] + 8) +
+        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 11) +
+        str.slice(arr[arr.length - 1] + j + 20);
+    }
+    for (var i = 0; i < arr.length; i++) {
+      str = str.slice(0, arr[i] + 8 + i) + temp + str.slice(arr[i] + 8 + i);
+    }
+    return str;
+  };
 
   const updateImageData = (state) => {
     setImages(state);
     const data = JSON.stringify(
-      draftToHtml(convertToRaw(images.getCurrentContent()))
+      removeUrl(draftToHtml(convertToRaw(images.getCurrentContent())))
     );
+
     setImageData(data);
+    console.log(data);
   };
 
   const Save = () => {
