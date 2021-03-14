@@ -4,20 +4,30 @@ import styles from "./_.module.css";
 import Loader from "../../Loader";
 import { FiPlus, FiSearch, FiEdit3, FiTrash2 } from "react-icons/fi";
 import { useHistory, BrowserRouter } from "react-router-dom";
+import axiosCancel from "axios";
 
 const Articles = (props) => {
   const [type, setType] = useState("posted");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
-  const getArticles = () => {
+  const getArticles = (source) => {
     setLoading(true);
     axios
-      .get(`/articles/`)
+      .get(`/articles/`,{
+        cancelToken: source.token
+      })
       .then((result) => {
         setArticles(result.data.articles);
       })
-      .catch((err) => console.log(err.response.data))
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
+      })
       .finally(() => setLoading(false));
   };
 
@@ -28,7 +38,9 @@ const Articles = (props) => {
 
   useEffect(() => {
     props.changeSection();
-    getArticles();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getArticles(source);
   }, []);
 
   const history = useHistory();

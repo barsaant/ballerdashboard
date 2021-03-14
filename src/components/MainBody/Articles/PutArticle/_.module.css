@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   overflow-y: scroll;
+  position: relative;
 }
 .mainContainer::-webkit-scrollbar {
   display: none;
@@ -11,7 +12,7 @@
 .container {
   height: fit-content;
   width: 800px;
-  padding: 75px 0;
+  padding: 100px 0;
 }
 .mediaContainer {
   z-index: 3;

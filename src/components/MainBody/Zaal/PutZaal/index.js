@@ -81,7 +81,7 @@ const CreateSportHall = (props) => {
       arr.push(str.search("<img src="));
       str =
         str.slice(0, arr[arr.length - 1] + 8) +
-        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 11) +
+        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 10) +
         string2 +
         str.slice(arr[arr.length - 1] + 11);
     }
@@ -90,7 +90,6 @@ const CreateSportHall = (props) => {
     }
     return str;
   };
-
   const removeUrl = (string) => {
     let temp = "=";
     let str = string;
@@ -103,7 +102,7 @@ const CreateSportHall = (props) => {
       }
       str =
         str.slice(0, arr[arr.length - 1] + 8) +
-        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 11) +
+        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 10) +
         str.slice(arr[arr.length - 1] + j + 20);
     }
     for (var i = 0; i < arr.length; i++) {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axiosCancel from "axios";
 import axios from "../../../axios";
 import styles from "./_.module.css";
 import Loader from "../../Loader";
@@ -10,20 +11,33 @@ const Zaal = (props) => {
   const [zaal, setZaal] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getZaal = () => {
+  const getZaal = (source) => {
     setLoading(true);
     axios
-      .get(`/sporthalls/${type}`)
+      .get(`/sporthalls/${type}`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setZaal(result.data.sportHalls);
       })
-      .catch((err) => console.log(err.response.data))
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
+      })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     props.changeSection();
-    getZaal();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getZaal(source);
+    return () => {
+      source.cancel();
+    };
   }, [type]);
 
   const history = useHistory();
@@ -88,7 +102,7 @@ const Zaal = (props) => {
         <BrowserRouter>
           <div className={styles.head}>
             <div className={styles.searchContainer}>
-              <input className={styles.search} placeholder='Хайх...'></input>
+              <input className={styles.search} placeholder="Хайх..."></input>
               <button className={styles.button}>
                 <FiSearch />
               </button>

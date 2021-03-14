@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./_.module.css";
+import axiosCancel from "axios";
 import axios from "../../../axios";
 import { FiPlus, FiSearch, FiEdit3, FiTrash2 } from "react-icons/fi";
 import Loader from "../../Loader";
@@ -9,12 +10,21 @@ const Users = (props) => {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const history = useHistory();
-  const getUsers = () => {
+  const getUsers = (source) => {
     setLoading(true);
     axios
-      .get(`/users`)
+      .get(`/users`,{
+        cancelToken: source.token
+      })
       .then((result) => {
         setUsers(result.data.users);
+      })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -24,7 +34,12 @@ const Users = (props) => {
 
   useEffect(() => {
     props.changeSection();
-    getUsers();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getUsers(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   const handleAddButton = () => {

@@ -4,6 +4,9 @@ import axios from "../../../axios";
 import { FiCopy, FiEdit3, FiPlus, FiTrash2 } from "react-icons/fi";
 import Loader from "../../Loader";
 import config from "../../../config/config.json";
+import axiosCancel from "axios";
+
+
 const Media = (props) => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
@@ -38,6 +41,34 @@ const Media = (props) => {
       .finally(() => setLoading(false));
   };
 
+  const addSpecificImage = (e) => {
+    setLoading(true);
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    axios
+      .post(`/${type}/${props.id}/upload`, formData, {
+        onUploadProgress: (ProgressEvent) => {
+          let progress =
+            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+            "%";
+          setProgess(progress);
+        },
+      })
+      .then((result) => {
+        props.notify({
+          success: true,
+          message: result.data.message,
+        });
+        getAllImages();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  
   const addImage = (e) => {
     setLoading(true);
     const file = e.target.files[0];
@@ -65,50 +96,78 @@ const Media = (props) => {
       .finally(() => setLoading(false));
   };
 
-  const getSporthallImages = () => {
+  const getSporthallImages = (source) => {
     setLoading(true);
     axios
-      .get(`/sporthalls/${props.id}/upload`)
+      .get(`/sporthalls/${props.id}/upload`,{
+        cancelToken: source.token
+      })
       .then((result) => {
         setImages(result.data.sporthallsMedia);
       })
-      .finally(() => setLoading(false));
-  };
-  const getArticleImages = () => {
-    setLoading(true);
-    axios
-      .get(`/articles/${props.id}/upload`)
-      .then((result) => {
-        setImages(result.data.articlesMedia);
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
-  const getAllImages = () => {
+  const getArticleImages = (source) => {
     setLoading(true);
     axios
-      .get(`/medias?limit=100`)
+      .get(`/articles/${props.id}/upload`,{
+        cancelToken: source.token
+      })
       .then((result) => {
-        console.log(result);
+        setImages(result.data.articlesMedia);
+      })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
+      })
+      .finally(() => setLoading(false));
+  };
+  const getAllImages = (source) => {
+    setLoading(true);
+    axios
+      .get(`/medias?limit=100`,{
+        cancelToken: source.token
+      })
+      .then((result) => {
         setImages(result.data.mediaLibraries);
+      })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     props.changeSection();
-    if (type === "all") {
-      getAllImages();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    if (type === "medias") {
+      getAllImages(source);
     } else if (type === "sporthalls") {
-      getSporthallImages();
+      getSporthallImages(source);
     } else if (type === "articles") {
-      getArticleImages();
+      getArticleImages(source);
     }
   }, [type]);
 
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-        <button className={styles.button} onClick={setType.bind(this,'all')}>Бүгд</button>
+        <button className={styles.button} onClick={setType.bind(this,'medias')}>Бүгд</button>
         <button className={styles.button} onClick={setType.bind(this, 'articles')}>ID</button>
       </div>
       <div className={styles.group}>
@@ -126,6 +185,7 @@ const Media = (props) => {
                   className={styles.item}
                   key={item.mediaId}
                   onClick={setSelected.bind(this, item)}
+                  onDoubleClick={}
                 >
                   <img
                     className={styles.image}
@@ -138,7 +198,7 @@ const Media = (props) => {
                 id="upload"
                 type="file"
                 style={{ display: "none" }}
-                onChange={addImage}
+                onChange={type === 'medias' ? addImage : addSpecificImage}
               ></input>
               <label htmlFor="upload" className={styles.addButton}>
                 <FiPlus className={styles.icon} />
