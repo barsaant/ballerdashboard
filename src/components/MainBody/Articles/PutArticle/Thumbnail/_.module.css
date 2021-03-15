@@ -11,7 +11,7 @@
   text-transform: uppercase;
   cursor: pointer;
 }
-.imageContainer {
+.container {
   width: 100%;
   padding: 5px;
   display: flex;
@@ -21,6 +21,9 @@
   background-color: #171717;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+.imgContainer {
+  position: relative;
 }
 .image {
   max-width: 640px;
@@ -38,4 +41,23 @@
   margin-bottom: 10px;
   font-size: 13px;
   font-weight: bold;
+}
+.closeBtn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.closeBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

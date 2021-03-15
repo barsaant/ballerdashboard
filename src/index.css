@@ -109,7 +109,6 @@ html {
 }
 .subSidebar-enter-active {
   width: 0;
-  border-left: 1px solid rgb(148, 155, 227, 0.1);
   transition: 200ms;
 }
 .subSidebar-enter-done {
@@ -117,16 +116,13 @@ html {
 }
 .subSidebar-exit {
   width: 0;
-  border-left: 1px solid rgb(148, 155, 227, 0.1);
 }
 .subSidebar-exit-active {
   width: 300px;
-  border-left: 1px solid rgb(148, 155, 227, 0.1);
   transition: 200ms;
 }
 .subSidebar-exit-done {
   width: 300px;
-  border-left: 1px solid rgb(148, 155, 227, 0.1);
 }
 .subSidebar-appear {
   width: 0;

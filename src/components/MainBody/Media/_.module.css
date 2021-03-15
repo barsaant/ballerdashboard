@@ -109,7 +109,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   grid-gap: 10px;
-  padding-bottom: 60px;
   overflow-y: scroll;
 }
 .list::-webkit-scrollbar {

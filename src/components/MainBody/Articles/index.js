@@ -15,7 +15,7 @@ const Articles = (props) => {
   const getArticles = (source) => {
     setLoading(true);
     axios
-      .get(`/articles/`,{
+      .get(`/articles?limit=100`,{
         cancelToken: source.token
       })
       .then((result) => {

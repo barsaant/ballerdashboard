@@ -114,7 +114,7 @@ const App = () => {
                       changeSection={sectionHandler.bind(this,'articles')}
                     />
                   </Route>
-                  <Route exact path='/users/:id'>
+                  <Route exact path='/user/:id'>
                     <EditUser
                       notify={getNotification}
                       changeSection={sectionHandler.bind(this,'users')}

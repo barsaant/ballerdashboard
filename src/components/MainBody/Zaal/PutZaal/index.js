@@ -17,9 +17,9 @@ import Phone from "./Phone";
 import Address from "./Address";
 import Description from "./Description";
 import Tag from "./Tag";
-import Status from "./Status";
 import { FiX } from "react-icons/fi";
 import { ImageEditor } from "./Editor";
+import Navbar from "../../Navbar";
 
 const CreateSportHall = (props) => {
   const [media, setMedia] = useState(false);
@@ -156,63 +156,65 @@ const CreateSportHall = (props) => {
     <div className={styles.mainContainer}>
       <BrowserRouter>
         {!loading && (
-          <div className={styles.container}>
-            {media && (
-              <div className={styles.mediaContainer}>
-                <Media
-                  notify={props.notify}
-                  changeSection={props.changeSection}
-                  type={"sporthalls"}
-                  id={params.id}
-                />
-                <button className={styles.closeBtn}>
-                  <FiX
-                    className={styles.icon}
-                    onClick={setMedia.bind(this, false)}
+          <>
+            <Navbar
+              change={setStatus}
+              status={status}
+              save={Save}
+              open={setMedia.bind(this, true)}
+            />
+            <div className={styles.container}>
+              {media && (
+                <div className={styles.mediaContainer}>
+                  <Media
+                    notify={props.notify}
+                    changeSection={props.changeSection}
+                    type={"sporthalls"}
+                    id={params.id}
                   />
-                </button>
+                  <button className={styles.closeBtn}>
+                    <FiX
+                      className={styles.icon}
+                      onClick={setMedia.bind(this, false)}
+                    />
+                  </button>
+                </div>
+              )}
+              <Title current={title} change={setTitle} />
+              <div className={styles.group}>
+                <District
+                  current={district}
+                  change={setDistrict}
+                  resetKhoroo={setKhoroo}
+                />
+                <Khoroo
+                  current={khoroo}
+                  districtId={district}
+                  change={setKhoroo}
+                />
               </div>
-            )}
-            <Title current={title} change={setTitle} />
-            <div className={styles.group}>
-              <District
-                current={district}
-                change={setDistrict}
-                resetKhoroo={setKhoroo}
-              />
-              <Khoroo
-                current={khoroo}
-                districtId={district}
-                change={setKhoroo}
-              />
+              <Phone current={phone} change={setPhone} />
+              <Address current={address} change={setAddress} />
+              <div className={styles.field}>
+                <h1 className={styles.label}>Зураг оруулах</h1>
+                <Editor
+                  editorState={images}
+                  editorStyle={{
+                    backgroundColor: "#171717",
+                    color: "#ffffff ",
+                    minHeight: "100px",
+                  }}
+                  toolbarClassName="toolbarClass"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
+                  toolbar={ImageEditor}
+                  onEditorStateChange={(state) => updateImageData(state)}
+                />
+              </div>
+              <Description current={description} change={setDescription} />
+              <Tag current={tag} change={setTag} />
             </div>
-            <Phone current={phone} change={setPhone} />
-            <Address current={address} change={setAddress} />
-            <div className={styles.field}>
-              <h1 className={styles.label}>Зураг оруулах</h1>
-              <Editor
-                editorState={images}
-                editorStyle={{
-                  backgroundColor: "#171717",
-                  color: "#ffffff ",
-                  minHeight: "100px",
-                }}
-                toolbarClassName='toolbarClass'
-                wrapperClassName='wrapperClassName'
-                editorClassName='editorClassName'
-                toolbar={ImageEditor}
-                onEditorStateChange={(state) => updateImageData(state)}
-              />
-            </div>
-            <Description current={description} change={setDescription} />
-            <Tag current={tag} change={setTag} />
-            <Status current={status} change={setStatus} />
-            <div className={styles.field}>
-              <button className={styles.button} onClick={Save}>
-                Хадгалах
-              </button>
-            </div>
-          </div>
+          </>
         )}
         {loading && <Loader />}
       </BrowserRouter>

@@ -6,7 +6,6 @@ import Loader from "../../../Loader";
 import Title from "./Title";
 import Category from "./Category";
 import Tag from "./Tag";
-import Status from "./Status";
 import Thumbnail from "./Thumbnail";
 import Media from "../../Media";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
@@ -18,6 +17,7 @@ import { FiX } from "react-icons/fi";
 import { EditorConfig } from "./Editor";
 import "./Editor/editor.css";
 import Navbar from "../../Navbar";
+import config from "../../../../config/config.json";
 
 const PutArticle = (props) => {
   const [media, setMedia] = useState(false);
@@ -32,25 +32,85 @@ const PutArticle = (props) => {
   const history = useHistory();
   const params = useParams();
 
-  const handleImage = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
-  };
+  
   const getSporthall = () => {
     setLoading(true);
     axios
-      .get(`/articles/`)
-      .then((result) => {})
+      .get(`/articles/${params.id}`)
+      .then((result) => {
+        setTitle(result.data.article.title);
+        const arr = [];
+        result.data.article.categoryArticles.map((item) => arr.push(item.categoryId));
+        setCategory(arr);
+        setTag(result.data.article.tagArticles);
+        setStatus(result.data.article.status);
+        if (
+          result.data.article.article !== " " &&
+          result.data.article.article !== null
+        ) {
+          const editorState = htmlToDraft(
+            addUrl(
+              JSON.parse(result.data.article.article),
+              `${config.FILE_SERVER}/`
+            )
+          );
+
+          const state = ContentState.createFromBlockArray(
+            editorState.contentBlocks,
+            editorState.entityMap
+          );
+          setArticle(EditorState.createWithContent(state));
+        }
+      })
       .finally(() => setLoading(false));
   };
-
   useEffect(() => {
     getSporthall();
   }, []);
 
+  const addUrl = (string1, string2) => {
+    let temp = "=";
+    let str = string1;
+    let arr = [];
+    while (str.search("<img src=") !== -1) {
+      arr.push(str.search("<img src="));
+      str =
+        str.slice(0, arr[arr.length - 1] + 8) +
+        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 10) +
+        string2 +
+        str.slice(arr[arr.length - 1] + 10);
+    }
+    for (var i = 0; i < arr.length; i++) {
+      str = str.slice(0, arr[i] + 8 + i) + temp + str.slice(arr[i] + 8 + i);
+    }
+    return str;
+  };
+
+  const removeUrl = (string) => {
+    let temp = "=";
+    let str = string;
+    let arr = [];
+    while (str.search("<img src=") !== -1) {
+      arr.push(str.search("<img src="));
+      let j = 0;
+      while (str[arr[arr.length - 1] + 19 + j] !== "/") {
+        j++;
+      }
+      str =
+        str.slice(0, arr[arr.length - 1] + 8) +
+        str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 10) +
+        str.slice(arr[arr.length - 1] + j + 20);
+    }
+    for (var i = 0; i < arr.length; i++) {
+      str = str.slice(0, arr[i] + 8 + i) + temp + str.slice(arr[i] + 8 + i);
+    }
+    return str;
+  };
+
   const updateArticleData = (state) => {
     setArticle(state);
     const data = JSON.stringify(
-      draftToHtml(convertToRaw(article.getCurrentContent()))
+      removeUrl(draftToHtml(convertToRaw(article.getCurrentContent())))
     );
     setArticleData(data);
   };
@@ -60,10 +120,13 @@ const PutArticle = (props) => {
       .put(`/articles/${params.id}`, {
         title: title,
         tagArticles: tag,
-        categoryArticles: category,
+        categoryId: category,
         status: status,
+        article: articleData,
       })
-      .then((result) => {})
+      .then((result) => {
+        history.push("/articles");
+      })
       .catch((err) => {
         console.log(err.response);
       });
@@ -74,7 +137,12 @@ const PutArticle = (props) => {
       <BrowserRouter>
         {!loading && (
           <>
-            <Navbar />
+            <Navbar
+              change={setStatus}
+              status={status}
+              save={Save}
+              open={setMedia.bind(this, true)}
+            />
             <div className={styles.container}>
               {media && (
                 <div className={styles.mediaContainer}>
@@ -83,6 +151,8 @@ const PutArticle = (props) => {
                     changeSection={props.changeSection}
                     type={"articles"}
                     id={params.id}
+                    close={setMedia.bind(this, false)}
+                    setThumbnail={setImage}
                   />
                   <button className={styles.closeBtn}>
                     <FiX
@@ -94,7 +164,7 @@ const PutArticle = (props) => {
               )}
               <Title current={title} change={setTitle} />
               <Thumbnail current={image} change={setImage} open={setMedia} />
-              <Category current={tag} change={setCategory} />
+              <Category current={category} change={setCategory} />
               <Tag current={tag} change={setTag} />
               <div className={styles.field}>
                 <h1 className={styles.label}>Нийтлэл</h1>
@@ -113,12 +183,6 @@ const PutArticle = (props) => {
                 />
 
                 {console.log(EditorConfig)}
-              </div>
-              <Status current={status} change={setStatus} />
-              <div className={styles.field}>
-                <button className={styles.button} onClick={Save}>
-                  Хадгалах
-                </button>
               </div>
             </div>
           </>

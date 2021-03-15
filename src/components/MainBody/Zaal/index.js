@@ -61,35 +61,37 @@ const Zaal = (props) => {
   };
 
   const moveDelete = (id) => {
-    setZaal({ loading: true });
+    setLoading(true);
     axios
-      .put(`/sporthalls/${id}`, {
+      .put(`/sporthalls/${id}/delete`, {
         status: "deleted",
       })
       .then((result) => {
-        const del = zaal.sporthalls.filter((zaal) => id !== zaal.hallId);
-        setZaal({ sporthalls: del, loading: false });
+        const del = zaal.filter((sporthall) => id !== sporthall.hallId);
+        setZaal(del);
+        setLoading(false);
       })
       .catch((err) => {
-        setZaal({ loading: false });
+        setLoading(false);
       });
   };
 
   const deleteHall = (id) => {
-    setZaal({ loading: true });
+    setLoading(true);
     axios
       .delete(`/sporthalls/${id}`)
       .then((result) => {
-        const del = zaal.sporthalls.filter((zaal) => id !== zaal.hallId);
-        setZaal({ sporthalls: del, loading: false });
+        const del = zaal.filter((sporthall) => id !== sporthall.hallId);
+        setZaal(del);
+        setLoading(false);
       })
       .catch((err) => {
-        setZaal({ loading: false });
+        setLoading(false);
       });
   };
 
   const handleDelete = (hallId) => {
-    if (type.deleted === false) {
+    if (type !== "deleted") {
       moveDelete(hallId);
     } else {
       deleteHall(hallId);

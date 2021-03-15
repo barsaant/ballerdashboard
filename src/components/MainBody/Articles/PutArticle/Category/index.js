@@ -38,6 +38,11 @@ const Category = (props) => {
             (item) => !categoryId.includes(item.categoryId)
           )
         );
+        setSelectedCategories(
+          result.data.categories.filter(
+            (item) => categoryId.includes(item.categoryId)
+          )
+        );
         setTemp(
           result.data.categories.filter(
             (item) => !categoryId.includes(item.categoryId)
@@ -46,6 +51,7 @@ const Category = (props) => {
       })
       .finally(() => setLoading(false));
   };
+  console.log(selectedCategories);
   const handleSearch = (e) => {
     if (e.target.value === "") {
       setTemp(unSelectedCategories);
