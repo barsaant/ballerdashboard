@@ -4,10 +4,16 @@ import { FiCheck, FiX } from "react-icons/fi";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Notification = (props) => {
+  const autoDelete = (id) => setTimeout(() => props.delete(id), 4000);
   return (
     <TransitionGroup className={styles.container}>
       {props.notifications.map((item) => (
-        <CSSTransition key={item.id} timeout={300} classNames="notification" onEntered={() => setTimeout(() => props.delete(item.id),4000)}>
+        <CSSTransition
+          key={item.id}
+          timeout={300}
+          classNames="notification"
+          onEntered={() => autoDelete(item.id)}
+        >
           <div className={styles.notification}>
             <div className={styles.iconContainer}>
               {item.success && (
@@ -18,17 +24,15 @@ const Notification = (props) => {
               )}
             </div>
             <div className={styles.messageContainer}>
-              {item.success && (
-                <h1 className={styles.success}>Амжилттай</h1>
-              )}
-              {!item.success && (
-                <h1 className={styles.success}>Алдаа</h1>
-              )}
+              {item.success && <h1 className={styles.success}>Амжилттай</h1>}
+              {!item.success && <h1 className={styles.success}>Алдаа</h1>}
               <p className={styles.message}>{item.message}</p>
             </div>
             <button
               className={styles.button}
-              onClick={props.delete.bind(this, item.id)}
+              onClick={() => {
+                props.delete(item.id);
+              }}
             >
               <FiX className={styles.icon} />
             </button>

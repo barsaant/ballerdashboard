@@ -38,7 +38,8 @@ const Sidebar = (props) => {
           <div
             className={styles.button}
             style={{
-              border: props.section === "home" ? "1px solid #949be3" : "",
+              color: props.section === "home" ? "white" : "",
+              backgroundColor: props.section === "home" ? "#949be3" : ""
             }}
           >
             <FiHome className={styles.icon} />
@@ -49,8 +50,8 @@ const Sidebar = (props) => {
             <div
               className={styles.button}
               style={{
-                border:
-                  props.section === "sporthalls" ? "1px solid #949be3" : "",
+                color: props.section === "sporthalls" ? "white" : "",
+                backgroundColor: props.section === "sporthalls" ? "#949be3" : ""
               }}
             >
               <FiDribbble className={styles.icon} />
@@ -60,7 +61,8 @@ const Sidebar = (props) => {
             <div
               className={styles.button}
               style={{
-                border: props.section === "articles" ? "1px solid #949be3" : "",
+                color: props.section === "articles" ? "white" : "",
+                backgroundColor: props.section === "articles" ? "#949be3" : ""
               }}
             >
               <FiEdit className={styles.icon} />
@@ -70,7 +72,8 @@ const Sidebar = (props) => {
             <div
               className={styles.button}
               style={{
-                border: props.section === "media" ? "1px solid #949be3" : "",
+                color: props.section === "medias" ? "white" : "",
+                backgroundColor: props.section === "medias" ? "#949be3" : ""
               }}
             >
               <FiFolder className={styles.icon} />
@@ -80,7 +83,8 @@ const Sidebar = (props) => {
             <div
               className={styles.button}
               style={{
-                border: props.section === "users" ? "1px solid #949be3" : "",
+                color: props.section === "users" ? "white" : "",
+                backgroundColor: props.section === "users" ? "#949be3" : ""
               }}
             >
               <FiUser className={styles.icon} />

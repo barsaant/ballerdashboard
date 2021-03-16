@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../../Style/_.module.css";
 import { FiPlusSquare } from "react-icons/fi";
 import axios from "../../../../../../axios";
+import axiosCancel from "axios";
 
 const AddDistrict = (props) => {
   const [newDistrict, setNewDistrict] = useState("");
@@ -26,9 +27,14 @@ const AddDistrict = (props) => {
         props.notify({ success: true, message: result.data.message });
       })
       .catch((err) => {
-        props.notify({ success: false, message: err.response.data.error.message });
+        props.notify({
+          success: false,
+          message: err.response.data.error.message,
+        });
       })
-      .finally(() => props.refresh());
+      .finally(() => {
+        props.refresh((prev) => prev + 1);
+      });
   };
 
   return (

@@ -15,7 +15,7 @@
   background: #171717;
 }
 .notifications {
-  z-index: 5;
+  z-index: 40;
   position: absolute;
   top: 20px;
   left: 100%;

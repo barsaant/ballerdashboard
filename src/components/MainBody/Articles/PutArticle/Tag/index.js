@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../_.module.css";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import Loader from "../../../../Loader";
 import { CSSTransition } from "react-transition-group";
 import msStyle from "./_.module.css";
@@ -11,7 +12,7 @@ const Tag = (props) => {
   const [loading, setLoading] = useState(true);
   const [tagId, setTagId] = useState(props.current);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [ unSelectedTags, setUnselectedTags] = useState([]);
+  const [unSelectedTags, setUnselectedTags] = useState([]);
   const [tags, setTags] = useState([]);
   const [temp, setTemp] = useState([]);
 
@@ -25,14 +26,25 @@ const Tag = (props) => {
     setSelectedTags(removed);
     setTagId(idRemoved);
   };
-  const getTags = () => {
+  const getTags = (source) => {
     setLoading(true);
     axios
-      .get(`/tagshalls`)
+      .get(`/tagshalls`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setTags(result.data.tags);
-        setUnselectedTags(result.data.tags.filter((item) => !tagId.includes(item.tagId)));
+        setUnselectedTags(
+          result.data.tags.filter((item) => !tagId.includes(item.tagId))
+        );
         setTemp(result.data.tags.filter((item) => !tagId.includes(item.tagId)));
+      })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
@@ -48,7 +60,12 @@ const Tag = (props) => {
     }
   };
   useEffect(() => {
-    getTags();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getTags(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
   useEffect(() => {
     setTemp(tags.filter((item) => !tagId.includes(item.tagId)));

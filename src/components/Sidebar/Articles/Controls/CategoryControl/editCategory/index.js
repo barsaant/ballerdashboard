@@ -12,10 +12,6 @@ const EditCategory = (props) => {
     setEdittedName(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    editCategory ();
-  };
-
   const edit = () => {
     setEditing(true);
   };
@@ -35,7 +31,7 @@ const EditCategory = (props) => {
       .catch((err) => {
         props.notify({ success: false, message: err.response.data.error.message });
       })
-      .finally(() => props.refresh());
+      .finally(() => props.refresh(prev => prev+1));
   };
 
   if (editing) {
@@ -43,7 +39,7 @@ const EditCategory = (props) => {
       <div className={styles.editContainer}>
         <input className={styles.editInput} value={edittedName} onChange={handleChange} />
         <div className={styles.group}>
-          <button className={styles.button} onClick={handleSubmit} >
+          <button className={styles.button} onClick={editCategory} >
             <FiCheck />
           </button>
           <button className={styles.button} onClick={notEdit}>

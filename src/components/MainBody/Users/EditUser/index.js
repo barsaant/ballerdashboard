@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../user.module.css";
 import axios from "../../../../axios";
+import axiosCancel from "axios";
 import Loader from "../../../Loader";
 import { BrowserRouter, useHistory, useParams } from "react-router-dom";
 
@@ -16,24 +17,36 @@ const EditUser = (props) => {
   const history = useHistory();
   const params = useParams();
 
-  const getUser = () => {
+  const getUser = (source) => {
+    setLoading(true);
     axios
-      .get(`/users/${params.id}`)
+      .get(`/users/${params.id}`,{
+        cancelToken: source.token
+      })
       .then((result) => {
         console.log(result);
         setLastName(result.data.user.lastname);
         setFirstName(result.data.user.firstname);
         setEmail(result.data.user.email);
         setRole(result.data.user.role);
-        setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }                       
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    getUser();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getUser(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   const handleLastName = (e) => {

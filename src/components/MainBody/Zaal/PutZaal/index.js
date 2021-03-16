@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useParams, BrowserRouter } from "react-router-dom";
 import styles from "./_.module.css";
 import axios from "../../../../axios";
+import axiosCancel from "axios";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
@@ -37,10 +38,12 @@ const CreateSportHall = (props) => {
   const history = useHistory();
   const params = useParams();
 
-  const getSporthall = () => {
+  const getSporthall = (source) => {
     setLoading(true);
     axios
-      .get(`/sporthalls/${params.id}`)
+      .get(`/sporthalls/${params.id}`,{
+        cancelToken: source.token
+      })
       .then((result) => {
         setTitle(result.data.sportHall.title);
         setPhone(result.data.sportHall.phone);
@@ -67,11 +70,23 @@ const CreateSportHall = (props) => {
           setImages(EditorState.createWithContent(state));
         }
       })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
+      })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    getSporthall();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getSporthall(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
   const addUrl = (string1, string2) => {
     let temp = "=";
@@ -116,9 +131,7 @@ const CreateSportHall = (props) => {
     const data = JSON.stringify(
       removeUrl(draftToHtml(convertToRaw(images.getCurrentContent())))
     );
-
     setImageData(data);
-    console.log(data);
   };
 
   const Save = () => {
@@ -171,6 +184,7 @@ const CreateSportHall = (props) => {
                     changeSection={props.changeSection}
                     type={"sporthalls"}
                     id={params.id}
+                    button={true}
                   />
                   <button className={styles.closeBtn}>
                     <FiX

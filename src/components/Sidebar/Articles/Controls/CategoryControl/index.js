@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import styles from "../Style/_.module.css";
 import Loader from "../../../../Loader";
 import AddCategory from "./addCategory";
@@ -12,38 +13,51 @@ const CategoryControl = (props) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [temp, setTemp] = useState([]);
+  const [operation, setOperation] = useState(0);
 
-  const getCategories = () => {
+  const getCategories = (source) => {
     setLoading(true);
     axios
-      .get(`/categories`)
+      .get(`/categories`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setCategories(result.data.categories);
         setTemp(result.data.categories);
       })
-      .catch((err) => {
-        props.notify({ success: false, message: err.response.data.error.message });
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
-  const searchHandler = (arr) => {
-    setTemp(arr);
-  };
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getCategories(source);
+    return () => {
+      source.cancel();
+    };
+  }, [operation]);
 
   return (
     <div className={styles.container}>
       {!loading && (
         <>
           <div className={styles.head}>
-            <SidebarSearch search={searchHandler} origin={categories} level={'category'}/>
+            <SidebarSearch
+              search={setTemp}
+              origin={categories}
+              level={"category"}
+            />
             <AddCategory
               notify={props.notify}
               loading={setLoading}
-              refresh={getCategories}
+              refresh={setOperation}
             />
           </div>
           <ul className={styles.list}>
@@ -54,14 +68,14 @@ const CategoryControl = (props) => {
                   <EditCategory
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getCategories}
+                    refresh={setOperation}
                     name={item.categoryName}
                     id={item.categoryId}
                   />
                   <DeleteCategory
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getCategories}
+                    refresh={setOperation}
                     id={item.categoryId}
                   />
                 </div>

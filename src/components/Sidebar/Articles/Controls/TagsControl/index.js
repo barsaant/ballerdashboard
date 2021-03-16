@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import styles from "../Style/_.module.css";
 import Loader from "../../../../Loader";
 import AddTag from "./addTag";
@@ -12,38 +13,47 @@ const TagControl = (props) => {
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [temp, setTemp] = useState([]);
+  const [operation,setOperation] = useState(0);
 
-  const getTags = () => {
+  const getTags = (source) => {
     setLoading(true);
     axios
-      .get(`/tagshalls`)
+      .get(`/tagshalls`,{
+        cancelToken: SourceBuffer.token
+      })
       .then((result) => {
         setTags(result.data.tags);
         setTemp(result.data.tags);
       })
-      .catch((err) => {
-        props.notify({ success: false, message: err.response.data.error.message });
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
-  const searchHandler = (arr) => {
-    setTemp(arr);
-  };
 
   useEffect(() => {
-    getTags();
-  }, []);
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getTags(source);
+    return () => {
+      source.cancel();
+    };
+  }, [operation]);
 
   return (
     <div className={styles.container}>
       {!loading && (
         <>
           <div className={styles.head}>
-            <SidebarSearch search={searchHandler} origin={tags} level="tag" />
+            <SidebarSearch search={setTemp} origin={tags} level="tag" />
             <AddTag
               notify={props.notify}
               loading={setLoading}
-              refresh={getTags}
+              refresh={setOperation}
             />
           </div>
           <ul className={styles.list}>
@@ -54,14 +64,14 @@ const TagControl = (props) => {
                   <EditTag
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getTags}
+                    refresh={setOperation}
                     name={item.tagName}
                     id={item.tagId}
                   />
                   <DeleteTag
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getTags}
+                    refresh={setOperation}
                     id={item.tagId}
                   />
                 </div>

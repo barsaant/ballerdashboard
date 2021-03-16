@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useParams, BrowserRouter } from "react-router-dom";
 import styles from "./_.module.css";
 import axios from "../../../../axios";
+import axiosCancel from "axios";
 import Loader from "../../../Loader";
 import Title from "./Title";
 import Category from "./Category";
@@ -31,17 +32,21 @@ const PutArticle = (props) => {
   const [articleData, setArticleData] = useState();
   const history = useHistory();
   const params = useParams();
+  function destructId(obj) {
+    const arr = [];
+    obj.map((item) => arr.push(item.categoryId));
+    return arr;
+  }
 
-  
-  const getSporthall = () => {
+  const getSporthall = (source) => {
     setLoading(true);
     axios
-      .get(`/articles/${params.id}`)
+      .get(`/articles/${params.id}`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setTitle(result.data.article.title);
-        const arr = [];
-        result.data.article.categoryArticles.map((item) => arr.push(item.categoryId));
-        setCategory(arr);
+        setCategory(destructId(result.data.article.categoryArticles));
         setTag(result.data.article.tagArticles);
         setStatus(result.data.article.status);
         if (
@@ -62,10 +67,22 @@ const PutArticle = (props) => {
           setArticle(EditorState.createWithContent(state));
         }
       })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
+      })
       .finally(() => setLoading(false));
   };
   useEffect(() => {
-    getSporthall();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getSporthall(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   const addUrl = (string1, string2) => {
@@ -153,6 +170,7 @@ const PutArticle = (props) => {
                     id={params.id}
                     close={setMedia.bind(this, false)}
                     setThumbnail={setImage}
+                    button={true}
                   />
                   <button className={styles.closeBtn}>
                     <FiX

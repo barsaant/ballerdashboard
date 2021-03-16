@@ -12,10 +12,6 @@ const AddCategory = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    postCategory();
-  };
-  
 
   const postCategory = () => {
     props.loading(true);
@@ -29,13 +25,13 @@ const AddCategory = (props) => {
       .catch((err) => {
         props.notify({ success: false, message: err.response.data.error.message });
       })
-      .finally(() => props.refresh());
+      .finally(() => props.refresh(prev => prev+1));
   };
 
   return (
     <div className={styles.headContainer}>
       <input placeholder={'Нэмэх...'} className={styles.input} onChange={handleChange} />
-      <button className={styles.button} onClick={handleSubmit}>
+      <button className={styles.button} onClick={postCategory}>
         <FiPlusSquare />
       </button>
     </div>

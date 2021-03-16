@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./_.module.css";
 import axiosUpload from "../../../axiosUpload";
 import axios from "../../../axios";
-import { FiCopy, FiEdit3, FiPlus, FiTrash2 } from "react-icons/fi";
+import {
+  FiCopy,
+  FiEdit3,
+  FiMousePointer,
+  FiPlus,
+  FiTrash2,
+} from "react-icons/fi";
 import Loader from "../../Loader";
 import config from "../../../config/config.json";
 import axiosCancel from "axios";
@@ -13,7 +19,9 @@ const Media = (props) => {
   const [progress, setProgess] = useState(0);
   const [selected, setSelected] = useState({});
   const [type, setType] = useState(props.type);
+  const [button, setButton] = useState(props.button);
   const input = useRef(null);
+  const tip = useRef(null);
 
   const copy = () => {
     input.current.select();
@@ -101,7 +109,7 @@ const Media = (props) => {
         cancelToken: source.token,
       })
       .then((result) => {
-        setImages(result.data.sporthallsMedia);
+        setImages(result.data.hallsMedia);
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
@@ -160,24 +168,37 @@ const Media = (props) => {
     } else if (type === "articles") {
       getArticleImages(source);
     }
+    return () => {
+      source.cancel();
+    };
   }, [type]);
-  console.log(props.close);
+
   return (
     <div className={styles.container}>
-      <div className={styles.head}>
-        <button
-          className={styles.button}
-          onClick={setType.bind(this, "medias")}
-        >
-          Бүгд
-        </button>
-        <button
-          className={styles.button}
-          onClick={setType.bind(this, "articles")}
-        >
-          ID
-        </button>
-      </div>
+      {button && (
+        <div className={styles.head}>
+          <button
+            className={styles.button}
+            onClick={setType.bind(this, "medias")}
+            style={{
+              backgroundColor: type === "medias" ? "#171717" : "",
+              color: type === "medias" ? "white" : "",
+            }}
+          >
+            Бүгд
+          </button>
+          <button
+            className={styles.button}
+            onClick={setType.bind(this, props.type)}
+            style={{
+              backgroundColor: type === props.type ? "#171717" : "",
+              color: type === props.type ? "white" : "",
+            }}
+          >
+            {props.type}
+          </button>
+        </div>
+      )}
       <div className={styles.group}>
         <div className={styles.listContainer}>
           {!loading && (
@@ -193,12 +214,6 @@ const Media = (props) => {
                   className={styles.item}
                   key={item.mediaId}
                   onClick={setSelected.bind(this, item)}
-                  onDoubleClick={() => {
-                    if (props.close !== undefined) {
-                      props.setThumbnail(item.mediaPath);
-                      props.close();
-                    }
-                  }}
                 >
                   <img
                     className={styles.image}
@@ -233,15 +248,27 @@ const Media = (props) => {
             </div>
           )}
           <div className={styles.buttonContainer}>
-            <button className={styles.button}>
-              <FiEdit3 className={styles.icon} /> Edit
+            <button className={styles.selectButton}>
+              <FiEdit3 className={styles.iconS} /> Edit
             </button>
-            <button className={styles.button}>
-              <FiTrash2
-                className={styles.icon}
-                onClick={deleteImage.bind(this, selected.mediaId)}
-              />{" "}
+            <button
+              className={styles.selectButton}
+              onClick={deleteImage.bind(this, selected.mediaId)}
+            >
+              <FiTrash2 className={styles.iconS} />
               Delete
+            </button>
+            <button
+              className={styles.selectButton}
+              onClick={() => {
+                if (props.close !== undefined) {
+                  props.setThumbnail(selected.mediaPath);
+                  props.close();
+                }
+              }}
+            >
+              <FiMousePointer className={styles.iconS} />
+              Сонгох
             </button>
           </div>
           <div className={styles.pathContainer}>
@@ -251,7 +278,19 @@ const Media = (props) => {
               value={`${config.FILE_SERVER_URL}/${selected.mediaPath}`}
               ref={input}
             />
-            <button className={styles.copy} onClick={copy}>
+            <button
+              className={styles.copy}
+              onClick={() => {
+                copy();
+                tip.current.style.display = "block";
+                setTimeout(() => {
+                  tip.current.style.display = "none";
+                }, 700);
+              }}
+            >
+              <div ref={tip} className={styles.tip}>
+                Copied
+              </div>
               <FiCopy className={styles.icon} />
             </button>
           </div>

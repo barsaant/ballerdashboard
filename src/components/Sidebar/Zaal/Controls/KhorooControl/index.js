@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import styles from "../Style/_.module.css";
 import Loader from "../../../../Loader";
 import AddKhoroo from "./addKhoroo";
@@ -12,44 +13,48 @@ const KhorooControl = (props) => {
   const [khoroos, setKhoroos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [temp, setTemp] = useState([]);
+  const [operation, setOperation] = useState(0);
 
-  const searchHandler = (arr) => {
-    setTemp(arr);
-  };
-
-  const getKhoroos = () => {
+  const getKhoroos = (source) => {
     setLoading(true);
     axios
-      .get(`/districts/${props.id}/khoroos`)
+      .get(`/districts/${props.id}/khoroos`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setKhoroos(result.data.district.khoroos);
         setTemp(result.data.district.khoroos);
       })
-      .catch((err) => {
-        props.notify({ success: false, message: err.response.data.error.message });
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    getKhoroos();
-  }, []);
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getKhoroos(source);
+    return () => {
+      source.cancel();
+    };
+  }, [operation]);
 
   return (
     <div className={styles.container}>
       {!loading && (
         <>
           <div className={styles.head}>
-            <SidebarSearch
-              search={searchHandler}
-              origin={khoroos}
-              level={"khoroo"}
-            />
+            <SidebarSearch search={setTemp} origin={khoroos} level={"khoroo"} />
             <AddKhoroo
               districtId={props.id}
               notify={props.notify}
               loading={setLoading}
-              refresh={getKhoroos}
+              refresh={setOperation}
             />
           </div>
           <ul className={styles.list}>
@@ -60,14 +65,14 @@ const KhorooControl = (props) => {
                   <EditKhoroo
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getKhoroos}
+                    refresh={setOperation}
                     id={item.khorooId}
                     name={item.khorooName}
                   />
                   <DeleteKhoroo
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getKhoroos}
+                    refresh={setOperation}
                     id={item.khorooId}
                   />
                 </div>

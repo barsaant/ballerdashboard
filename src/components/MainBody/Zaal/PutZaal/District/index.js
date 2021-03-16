@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../_.module.css";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import Loader from "../../../../Loader";
 
 const District = (props) => {
@@ -10,24 +11,38 @@ const District = (props) => {
   const handleDistrict = (e) => {
     setDistrict(e.target.value);
   };
-  const getDistricts = () => {
+  const getDistricts = (source) => {
     setLoading(true);
     axios
-      .get(`/districts`)
+      .get(`/districts`,{
+        cancelToken: source.token
+      })
       .then((result) => {
         setDistricts(result.data.districts);
       })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log('req fail',err.message);
+        } else {
+          console.log(err);
+        }
+      })
       .finally(() => setLoading(false));
   };
-  useEffect(() => {
+  
 
-  });
   useEffect(() => {
     props.change(district);
     props.resetKhoroo(null);
   }, [district]);
+
   useEffect(() => {
-    getDistricts();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getDistricts(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   return (

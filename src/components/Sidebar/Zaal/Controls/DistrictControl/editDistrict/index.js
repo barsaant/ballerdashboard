@@ -34,9 +34,12 @@ const EditDistrict = (props) => {
         props.notify({ success: true, message: result.data.message });
       })
       .catch((err) => {
-        props.notify({ success: false, message: err.response.data.error.message });
+        props.notify({
+          success: false,
+          message: err.response.data.error.message,
+        });
       })
-      .finally(() => props.refresh());
+      .finally(() => props.refresh((prev) => prev + 1));
   };
 
   if (editing) {

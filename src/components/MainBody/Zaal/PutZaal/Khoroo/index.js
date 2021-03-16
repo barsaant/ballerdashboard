@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../_.module.css";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import Loader from "../../../../Loader";
 
 const Khoroo = (props) => {
@@ -10,12 +11,21 @@ const Khoroo = (props) => {
   const handleKhoroo = (e) => {
     setKhoroo(e.target.value);
   };
-  const getKhoroos = () => {
+  const getKhoroos = (source) => {
     setLoading(true);
     axios
-      .get(`/districts/${props.districtId}/khoroos`)
+      .get(`/districts/${props.districtId}/khoroos`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setKhoroos(result.data.district.khoroos);
+      })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
@@ -24,10 +34,15 @@ const Khoroo = (props) => {
     props.change(khoroo);
   }, [khoroo]);
   useEffect(() => {
-    if(props.districtId!==null) {
-      getKhoroos();
-    }  
-  },[props.districtId]);
+    if (props.districtId !== null) {
+      const CancelToken = axiosCancel.CancelToken;
+      const source = CancelToken.source();
+      getKhoroos(source);
+      return () => {
+        source.cancel();
+      };
+    }
+  }, [props.districtId]);
 
   return (
     <div className={styles.field}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../_.module.css";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import Loader from "../../../../Loader";
 import { CSSTransition } from "react-transition-group";
 import msStyle from "./_.module.css";
@@ -23,14 +24,18 @@ const Category = (props) => {
     const removed = selectedCategories.filter(
       (item) => item.categoryId !== newCategory.categoryId
     );
-    const idRemoved = categoryId.filter((item) => item !== newCategory.categoryId);
+    const idRemoved = categoryId.filter(
+      (item) => item !== newCategory.categoryId
+    );
     setSelectedCategories(removed);
     setCategoryId(idRemoved);
   };
-  const getCategories = () => {
+  const getCategories = (source) => {
     setLoading(true);
     axios
-      .get(`/categories`)
+      .get(`/categories`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setCategories(result.data.categories);
         setUnselectedCategories(
@@ -39,8 +44,8 @@ const Category = (props) => {
           )
         );
         setSelectedCategories(
-          result.data.categories.filter(
-            (item) => categoryId.includes(item.categoryId)
+          result.data.categories.filter((item) =>
+            categoryId.includes(item.categoryId)
           )
         );
         setTemp(
@@ -49,9 +54,15 @@ const Category = (props) => {
           )
         );
       })
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
+      })
       .finally(() => setLoading(false));
   };
-  console.log(selectedCategories);
   const handleSearch = (e) => {
     if (e.target.value === "") {
       setTemp(unSelectedCategories);
@@ -64,7 +75,12 @@ const Category = (props) => {
     }
   };
   useEffect(() => {
-    getCategories();
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getCategories(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
   useEffect(() => {
     setTemp(categories.filter((item) => !categoryId.includes(item.categoryId)));

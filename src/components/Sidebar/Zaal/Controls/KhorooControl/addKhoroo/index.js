@@ -12,10 +12,6 @@ const AddKhoroo = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    postKhoroo();
-  };
-  
 
   const postKhoroo = () => {
     props.loading(true);
@@ -30,13 +26,13 @@ const AddKhoroo = (props) => {
       .catch((err) => {
         props.notify({ success: false, message: err.response.data.error.message });
       })
-      .finally(() => props.refresh(props.districtId));
+      .finally(() => props.refresh(prev => prev+1));
   };
 
   return (
     <div className={styles.headContainer}>
       <input placeholder={'Нэмэх...'} className={styles.input} onChange={handleChange} />
-      <button className={styles.button} onClick={handleSubmit}>
+      <button className={styles.button} onClick={postKhoroo}>
         <FiPlusSquare />
       </button>
     </div>

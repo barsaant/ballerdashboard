@@ -14,7 +14,7 @@ const DeleteTag = (props) => {
       .catch((err) => {
         props.notify({ success: false, message: err.response.data.error.message });
       })
-      .finally(() => props.refresh());
+      .finally(() => props.refresh(prev => prev+1));
   };
 
   return (

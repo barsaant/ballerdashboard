@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../../../axios";
+import axiosCancel from "axios";
 import styles from "../Style/_.module.css";
 import Loader from "../../../../Loader";
 import AddDistrict from "./addDistrict";
@@ -12,28 +13,36 @@ const DistrictControl = (props) => {
   const [loading, setLoading] = useState(true);
   const [districts, setDistricts] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [operation, setOperation] = useState(0);
 
-  const searchHandler = (arr) => {
-    setTemp(arr);
-  };
-
-  const getDistricts = () => {
+  const getDistricts = (source) => {
     setLoading(true);
     axios
-      .get(`/districts?limit=100`)
+      .get(`/districts?limit=100`, {
+        cancelToken: source.token,
+      })
       .then((result) => {
         setTemp(result.data.districts);
         setDistricts(result.data.districts);
       })
-      .catch((err) => {
-        props.notify({ success: false, message: err.response.data.error.message });
+      .catch(function (err) {
+        if (axiosCancel.isCancel(err)) {
+          console.log("req fail", err.message);
+        } else {
+          console.log(err);
+        }
       })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    getDistricts();
-  }, []);
+    const CancelToken = axiosCancel.CancelToken;
+    const source = CancelToken.source();
+    getDistricts(source);
+    return () => {
+      source.cancel();
+    };
+  }, [operation]);
 
   return (
     <div className={styles.container}>
@@ -41,14 +50,14 @@ const DistrictControl = (props) => {
         <>
           <div className={styles.head}>
             <SidebarSearch
-              search={searchHandler}
+              search={setTemp}
               origin={districts}
               level="district"
             />
             <AddDistrict
               notify={props.notify}
               loading={setLoading}
-              refresh={getDistricts}
+              refresh={setOperation}
             />
           </div>
           <ul className={styles.list}>
@@ -67,14 +76,14 @@ const DistrictControl = (props) => {
                   <EditDistrict
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getDistricts}
+                    refresh={setOperation}
                     name={item.districtName}
                     id={item.districtId}
                   />
                   <DeleteDistrict
                     notify={props.notify}
                     loading={setLoading}
-                    refresh={getDistricts}
+                    refresh={setOperation}
                     id={item.districtId}
                   />
                 </div>

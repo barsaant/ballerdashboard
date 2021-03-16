@@ -41,6 +41,9 @@ const Articles = (props) => {
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();
     getArticles(source);
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   const history = useHistory();

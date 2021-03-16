@@ -7,27 +7,29 @@
   justify-content: space-between;
 }
 .head {
-  width: 100%;
+  width: 200px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .group {
   width: 100%;
-  height: calc(100% - 60px);
+  height: 100%;
   display: flex;
 }
 .button {
-  width: 100px;
+  width: 47%;
   height: 40px;
-  border: 1px solid #949be3;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
+  border: none;
+  border-radius: 5px 5px 0 0;
   outline: none;
-  background-color: #171717;
+  background-color: #1b1b1b;
   cursor: pointer;
-  color: white;
+  color: rgba(255,255,255,0.75);
+  text-transform: uppercase;
 }
 .button:hover {
   color: #949be3;
@@ -61,8 +63,24 @@
   width: 100%;
   height: 40px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 20px 0;
+}
+.selectButton {
+  width: 32%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: #171717;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.selectButton:hover {
+  color: #949be3;
 }
 .pathContainer {
   width: 100%;
@@ -93,15 +111,26 @@
   cursor: pointer;
   border: 1px solid #949be3;
   border-radius: 5px;
+  position: relative;
 }
 .copy:hover {
   color: #949be3;
 }
+.tip {
+  display: none;
+  position: absolute;
+  top: 120%;
+  background-color: #171717;
+  padding: 5px 10px;
+  color: white;
+}
 .listContainer {
   width: 65%;
   height: 100%;
-  padding-right: 10px;
+  padding: 10px;
   position: relative;
+  background-color: #171717;
+  border-radius: 0 5px 5px 5px;
 }
 .list {
   max-height: 100%;
@@ -144,4 +173,21 @@
   border-radius: 50%;
   background-color: #171717;
   color: #949be3;
+}
+.iconS {
+  margin-right: 5px;
+}
+
+
+
+@media (max-width: 480px) {
+  .preview {
+    display: none;
+  }
+  .listContainer {
+    width: 100%;
+  }
+  .head {
+    width: 50%;
+  }
 }
