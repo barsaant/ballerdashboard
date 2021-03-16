@@ -3,6 +3,7 @@ import styles from "./_.module.css";
 import axiosUpload from "../../../axiosUpload";
 import axios from "../../../axios";
 import {
+  FiArrowLeft,
   FiCopy,
   FiEdit3,
   FiMousePointer,
@@ -22,6 +23,7 @@ const Media = (props) => {
   const [button, setButton] = useState(props.button);
   const input = useRef(null);
   const tip = useRef(null);
+  const preview = useRef(null);
 
   const copy = () => {
     input.current.select();
@@ -220,6 +222,13 @@ const Media = (props) => {
                     src={`${config.FILE_SERVER_URL}/${item.mediaPath}`}
                     alt={item.mediaId}
                   />
+                  <div
+                    className={styles.opener}
+                    onClick={() => {
+                      setSelected.bind(this, item);
+                      preview.current.style.display = "block";
+                    }}
+                  ></div>
                 </li>
               ))}
               <input
@@ -235,7 +244,13 @@ const Media = (props) => {
           )}
           {loading && <Loader />}
         </div>
-        <div className={styles.preview}>
+        <div ref={preview} className={styles.preview}>
+          <button
+            className={styles.back}
+            onClick={() => (preview.current.style.display = "none")}
+          >
+            <FiArrowLeft />
+          </button>
           {Object.keys(selected).length === 0 && (
             <div className={styles.emptyBox}>Preview</div>
           )}

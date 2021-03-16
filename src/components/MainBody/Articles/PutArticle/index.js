@@ -199,8 +199,6 @@ const PutArticle = (props) => {
                   toolbar={EditorConfig}
                   onEditorStateChange={(state) => updateArticleData(state)}
                 />
-
-                {console.log(EditorConfig)}
               </div>
             </div>
           </>
