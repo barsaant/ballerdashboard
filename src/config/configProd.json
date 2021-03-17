@@ -1,7 +1,0 @@
-{
-  "SERVER_URL": "https://api.baller.mn/api/v1",
-  "LOGIN_URL": "https://dashboard.baller.mn",
-  "FILE_SERVER_UPLOAD": "https://fs.baller.mn/api/v1",
-  "FILE_SERVER_URL": "https://fs.baller.mn/uploads",
-  "FILE_SERVER": "https://fs.baller.mn"
-}

@@ -16,7 +16,6 @@ import User from "../../components/MainBody/Users";
 import PutArticle from "../../components/MainBody/Articles/PutArticle";
 import EditUser from "../../components/MainBody/Users/EditUser";
 import CreateUser from "../../components/MainBody/Users/CreateUser";
-import axiosLogin from "../../axiosLogin";
 
 const App = () => {
   const [notifies, setNotifies] = useState([]);
@@ -38,7 +37,7 @@ const App = () => {
 
   const checkLogin = () => {
     setLoading(true);
-    axiosLogin
+    axios
       .post(`/users/checklogin`)
       .then((result) => {
         setLogin(true);
