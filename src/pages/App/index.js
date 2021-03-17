@@ -22,8 +22,7 @@ const App = () => {
   const [notifies, setNotifies] = useState([]);
   const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [section, setSection] = useState('');
-
+  const [section, setSection] = useState("");
 
   const getNotification = (newNotification) => {
     const note = {
@@ -77,45 +76,49 @@ const App = () => {
                 </div>
                 <div className={styles.mainBody}>
                   <Route exact path='/'>
-                    <Home changeSection={setSection.bind(this,'home')} />
+                    <Home changeSection={setSection.bind(this, "home")} />
                   </Route>
                   <Route exact path='/sporthalls'>
-                    <Zaal changeSection={setSection.bind(this,'sporthalls')} />
+                    <Zaal changeSection={setSection.bind(this, "sporthalls")} />
                   </Route>
                   <Route exact path='/media'>
                     <Media
                       notify={getNotification}
-                      changeSection={setSection.bind(this,'medias')}
-                      type={'medias'}
+                      changeSection={setSection.bind(this, "medias")}
+                      type={"medias"}
                       button={false}
                     />
                   </Route>
                   <Route exact path='/users'>
-                    <User changeSection={setSection.bind(this,'users')} />
+                    <User changeSection={setSection.bind(this, "users")} />
                   </Route>
                   <Route exact path='/articles/'>
-                    <Articles changeSection={setSection.bind(this,'articles')} />
+                    <Articles
+                      changeSection={setSection.bind(this, "articles")}
+                    />
                   </Route>
                   <Route exact path='/sporthalls/:id'>
                     <PutZaal
                       notify={getNotification}
-                      changeSection={setSection.bind(this,'sporthalls')}
+                      changeSection={setSection.bind(this, "sporthalls")}
                     />
                   </Route>
                   <Route exact path='/articles/:id'>
                     <PutArticle
                       notify={getNotification}
-                      changeSection={setSection.bind(this,'articles')}
+                      changeSection={setSection.bind(this, "articles")}
                     />
                   </Route>
                   <Route exact path='/user/:id'>
                     <EditUser
                       notify={getNotification}
-                      changeSection={setSection.bind(this,'users')}
+                      changeSection={setSection.bind(this, "users")}
                     />
                   </Route>
                   <Route exact path='/users/create'>
-                    <CreateUser changeSection={setSection.bind(this,'users')} />
+                    <CreateUser
+                      changeSection={setSection.bind(this, "users")}
+                    />
                   </Route>
                 </div>
               </>

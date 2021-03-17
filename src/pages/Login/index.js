@@ -14,7 +14,7 @@ const Login = (props) => {
   const login = () => {
     setLoading(true);
     axiosLogin
-      .post(`/login/staff`, {
+      .post(`/users/signin`, {
         email,
         password,
       })

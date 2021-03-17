@@ -2,13 +2,13 @@ import React from "react";
 import { useHistory, BrowserRouter } from "react-router-dom";
 import styles from "../_.module.css";
 import { FiLogOut } from "react-icons/fi";
-import axios from "../../../axios";
+import axiosLogin from "../../../axiosLogin";
 
 const Logout = () => {
   const history = useHistory();
   const handleLogout = () => {
-    axios
-      .post(`users/signout`)
+    axiosLogin
+      .post(`/users/signout`)
       .then((result) => {
         history.push("/");
         history.go(0);
