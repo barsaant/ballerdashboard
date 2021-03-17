@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "../../axios";
+import axiosLogin from "../../axiosLogin";
 import { useHistory, BrowserRouter } from "react-router-dom";
 import styles from "./_.module.css";
 import Loader from "../../components/Loader";
@@ -12,8 +13,8 @@ const Login = (props) => {
   const history = useHistory();
   const login = () => {
     setLoading(true);
-    axios
-      .post(`/users/signin`, {
+    axiosLogin
+      .post(`/login/staff`, {
         email,
         password,
       })
