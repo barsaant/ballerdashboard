@@ -3,6 +3,7 @@ import { useHistory, BrowserRouter } from "react-router-dom";
 import styles from "../_.module.css";
 import { FiLogOut } from "react-icons/fi";
 import axios from "../../../axios";
+import Loader from "../../Loader";
 
 const Logout = () => {
   const history = useHistory();
