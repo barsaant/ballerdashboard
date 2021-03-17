@@ -193,9 +193,9 @@ const PutArticle = (props) => {
                     minHeight: "100px",
                     color: "#ffffff ",
                   }}
-                  toolbarClassName="toolbarClass"
-                  wrapperClassName="wrapperClassName"
-                  editorClassName="editorClassName"
+                  toolbarClassName='toolbarClass'
+                  wrapperClassName='wrapperClassName'
+                  editorClassName='editorClassName'
                   toolbar={EditorConfig}
                   onEditorStateChange={(state) => updateArticleData(state)}
                 />

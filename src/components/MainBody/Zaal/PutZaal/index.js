@@ -21,6 +21,7 @@ import Tag from "./Tag";
 import { FiX } from "react-icons/fi";
 import { ImageEditor } from "./Editor";
 import Navbar from "../../Navbar";
+import config from "../../../../config/config.json";
 
 const CreateSportHall = (props) => {
   const [media, setMedia] = useState(false);
@@ -41,8 +42,8 @@ const CreateSportHall = (props) => {
   const getSporthall = (source) => {
     setLoading(true);
     axios
-      .get(`/sporthalls/${params.id}`,{
-        cancelToken: source.token
+      .get(`/sporthalls/${params.id}`, {
+        cancelToken: source.token,
       })
       .then((result) => {
         setTitle(result.data.sportHall.title);
@@ -60,7 +61,7 @@ const CreateSportHall = (props) => {
           const editorState = htmlToDraft(
             addUrl(
               JSON.parse(result.data.sportHall.images),
-              "https://api.baller.mn/"
+              `${config.FILE_SERVER}/`
             )
           );
           const state = ContentState.createFromBlockArray(
@@ -72,7 +73,7 @@ const CreateSportHall = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log('req fail',err.message);
+          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -98,13 +99,14 @@ const CreateSportHall = (props) => {
         str.slice(0, arr[arr.length - 1] + 8) +
         str.slice(arr[arr.length - 1] + 9, arr[arr.length - 1] + 10) +
         string2 +
-        str.slice(arr[arr.length - 1] + 11);
+        str.slice(arr[arr.length - 1] + 10);
     }
     for (var i = 0; i < arr.length; i++) {
       str = str.slice(0, arr[i] + 8 + i) + temp + str.slice(arr[i] + 8 + i);
     }
     return str;
   };
+
   const removeUrl = (string) => {
     let temp = "=";
     let str = string;
@@ -218,9 +220,9 @@ const CreateSportHall = (props) => {
                     color: "#ffffff ",
                     minHeight: "100px",
                   }}
-                  toolbarClassName="toolbarClass"
-                  wrapperClassName="wrapperClassName"
-                  editorClassName="editorClassName"
+                  toolbarClassName='toolbarClass'
+                  wrapperClassName='wrapperClassName'
+                  editorClassName='editorClassName'
                   toolbar={ImageEditor}
                   onEditorStateChange={(state) => updateImageData(state)}
                 />
