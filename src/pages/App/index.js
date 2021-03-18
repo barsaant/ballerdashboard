@@ -34,6 +34,9 @@ const App = () => {
   const delNotification = (id) => {
     setNotifies(notifies.filter((item) => item.id !== id));
   };
+  const check = () => {
+    console.log(notifies);
+  }
 
   const checkLogin = () => {
     setLoading(true);
@@ -66,7 +69,7 @@ const App = () => {
         {!loading ? (
           <>
             <div className={styles.notifications}>
-              <Notification notifications={notifies} delete={delNotification} />
+              <Notification notifications={notifies} delete={delNotification} check={check} />
             </div>
             {login ? (
               <>

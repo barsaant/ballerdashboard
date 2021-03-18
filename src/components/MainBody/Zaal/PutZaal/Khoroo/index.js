@@ -8,6 +8,8 @@ const Khoroo = (props) => {
   const [loading, setLoading] = useState(true);
   const [khoroo, setKhoroo] = useState(props.current);
   const [khoroos, setKhoroos] = useState([]);
+
+  
   const handleKhoroo = (e) => {
     setKhoroo(e.target.value);
   };
@@ -53,6 +55,7 @@ const Khoroo = (props) => {
           value={khoroo}
           onChange={handleKhoroo}
         >
+          <option value={null}></option>
           {khoroos.map((item) => (
             <option value={item.khorooId} key={item.khorooId}>
               {item.khorooName}

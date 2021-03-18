@@ -4,7 +4,6 @@ import { FiCheck, FiX } from "react-icons/fi";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Notification = (props) => {
-  const autoDelete = (id) => setTimeout(() => props.delete(id), 4000);
   return (
     <TransitionGroup className={styles.container}>
       {props.notifications.map((item) => (
@@ -12,7 +11,9 @@ const Notification = (props) => {
           key={item.id}
           timeout={300}
           classNames="notification"
-          onEntered={() => autoDelete(item.id)}
+          onEntered={() => {
+            setTimeout(() => props.delete(item.id), 4000);
+          }}
         >
           <div className={styles.notification}>
             <div className={styles.iconContainer}>

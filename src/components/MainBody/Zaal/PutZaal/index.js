@@ -16,6 +16,7 @@ import District from "./District";
 import Khoroo from "./Khoroo";
 import Phone from "./Phone";
 import Address from "./Address";
+import Thumbnail from "./Thumbnail";
 import Description from "./Description";
 import Tag from "./Tag";
 import { FiX } from "react-icons/fi";
@@ -28,9 +29,10 @@ const CreateSportHall = (props) => {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [phone, setPhone] = useState("");
-  const [district, setDistrict] = useState(null);
-  const [khoroo, setKhoroo] = useState(null);
+  const [district, setDistrict] = useState(1);
+  const [khoroo, setKhoroo] = useState(1);
   const [address, setAddress] = useState("");
+  const [thumbnail, setThumbnail] = useState(null);
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [images, setImages] = useState(() => EditorState.createEmpty());
@@ -39,6 +41,7 @@ const CreateSportHall = (props) => {
   const history = useHistory();
   const params = useParams();
 
+  console.log(khoroo);
   const getSporthall = (source) => {
     setLoading(true);
     axios
@@ -46,6 +49,7 @@ const CreateSportHall = (props) => {
         cancelToken: source.token,
       })
       .then((result) => {
+        console.log(result.data.sportHall);
         setTitle(result.data.sportHall.title);
         setPhone(result.data.sportHall.phone);
         setDistrict(result.data.sportHall.districtId);
@@ -187,6 +191,8 @@ const CreateSportHall = (props) => {
                     type={"sporthalls"}
                     id={params.id}
                     button={true}
+                    setThumbnail={setThumbnail}
+                    close={setMedia.bind(this, false)}
                   />
                   <button className={styles.closeBtn}>
                     <FiX
@@ -211,6 +217,11 @@ const CreateSportHall = (props) => {
               </div>
               <Phone current={phone} change={setPhone} />
               <Address current={address} change={setAddress} />
+              <Thumbnail
+                current={thumbnail}
+                change={setThumbnail}
+                open={setMedia}
+              />
               <div className={styles.field}>
                 <h1 className={styles.label}>Зураг оруулах</h1>
                 <Editor
@@ -220,9 +231,9 @@ const CreateSportHall = (props) => {
                     color: "#ffffff ",
                     minHeight: "100px",
                   }}
-                  toolbarClassName='toolbarClass'
-                  wrapperClassName='wrapperClassName'
-                  editorClassName='editorClassName'
+                  toolbarClassName="toolbarClass"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
                   toolbar={ImageEditor}
                   onEditorStateChange={(state) => updateImageData(state)}
                 />

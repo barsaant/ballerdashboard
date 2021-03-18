@@ -13,15 +13,15 @@ const Users = (props) => {
   const getUsers = (source) => {
     setLoading(true);
     axios
-      .get(`/users`,{
-        cancelToken: source.token
+      .get(`/users`, {
+        cancelToken: source.token,
       })
       .then((result) => {
         setUsers(result.data.users);
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log('req fail',err.message);
+          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -30,7 +30,6 @@ const Users = (props) => {
         setLoading(false);
       });
   };
-
 
   useEffect(() => {
     props.changeSection();
@@ -68,49 +67,53 @@ const Users = (props) => {
     <div className={styles.container}>
       <BrowserRouter>
         <div className={styles.head}>
+          <div className={styles.heading}>Users</div>
           <div className={styles.searchContainer}>
             <input className={styles.search} placeholder="Хайх..."></input>
             <button className={styles.button}>
               <FiSearch />
             </button>
           </div>
+          <button
+            className={styles.addButton}
+            onClick={() => handleAddButton()}
+          >
+            <FiPlus className={styles.icon} />
+            <p style={{ marginLeft: "10px" }}>Шинийг үүсгэх</p>
+          </button>
         </div>
         <div className={styles.listContainer}>
-          {!loading && (
-            <ul className={styles.list}>
-              {users.map((item) => (
-                <li className={styles.item} key={item.userId}>
-                  <div className={styles.info}>
-                    <h1 className={styles.name}>
-                      {item.firstname} {item.lastname}
-                    </h1>
-                    <p className={styles.email}>{item.email}</p>
-                  </div>
-                  <div className={styles.group}>
-                    <button
-                      className={styles.button}
-                      onClick={() => handleEditButton(item.userId)}
-                    >
-                      <FiEdit3 />
-                    </button>
-                    <button
-                      className={styles.button}
-                      onClick={() => handleDeleteButton(item.userId)}
-                    >
-                      <FiTrash2 />
-                    </button>
-                  </div>
-                </li>
-              ))}
-              <button
-                className={styles.addButton}
-                onClick={() => handleAddButton()}
-              >
-                <FiPlus className={styles.icon} />
-              </button>
-            </ul>
-          )}
-          {loading && <Loader />}
+          <ul className={styles.list}>
+            {!loading && (
+              <>
+                {users.map((item) => (
+                  <li className={styles.item} key={item.userId}>
+                    <div className={styles.info}>
+                      <h1 className={styles.name}>
+                        {item.firstname} {item.lastname}
+                      </h1>
+                      <p className={styles.email}>{item.email}</p>
+                    </div>
+                    <div className={styles.group}>
+                      <button
+                        className={styles.button}
+                        onClick={() => handleEditButton(item.userId)}
+                      >
+                        <FiEdit3 />
+                      </button>
+                      <button
+                        className={styles.button}
+                        onClick={() => handleDeleteButton(item.userId)}
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </>
+            )}
+            {loading && <Loader />}
+          </ul>
         </div>
       </BrowserRouter>
     </div>

@@ -16,6 +16,7 @@ import axiosCancel from "axios";
 
 const Media = (props) => {
   const [loading, setLoading] = useState(true);
+  const [upLoading, setUploading] = useState(false);
   const [images, setImages] = useState([]);
   const [progress, setProgess] = useState(0);
   const [selected, setSelected] = useState({});
@@ -24,6 +25,7 @@ const Media = (props) => {
   const input = useRef(null);
   const tip = useRef(null);
   const preview = useRef(null);
+  const upload = useRef(null);
 
   const copy = () => {
     input.current.select();
@@ -51,17 +53,16 @@ const Media = (props) => {
   };
 
   const addSpecificImage = (e) => {
-    setLoading(true);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
+    setUploading(true);
     axiosUpload
       .post(`/${type}/${props.id}/upload`, formData, {
         onUploadProgress: (ProgressEvent) => {
-          let progress =
-            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-            "%";
-          setProgess(progress);
+          setProgess(
+            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+          );
         },
       })
       .then((result) => {
@@ -69,26 +70,27 @@ const Media = (props) => {
           success: true,
           message: result.data.message,
         });
-        getAllImages();
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setUploading(false);
+        setProgess(0);
+      });
   };
 
   const addImage = (e) => {
-    setLoading(true);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
+    setUploading(true);
     axiosUpload
       .post(`/${type}`, formData, {
         onUploadProgress: (ProgressEvent) => {
-          let progress =
-            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-            "%";
-          setProgess(progress);
+          setProgess(
+            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+          );
         },
       })
       .then((result) => {
@@ -96,12 +98,14 @@ const Media = (props) => {
           success: true,
           message: result.data.message,
         });
-        getAllImages();
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setUploading(false);
+        setProgess(0);
+      });
   };
 
   const getSporthallImages = (source) => {
@@ -158,6 +162,9 @@ const Media = (props) => {
       })
       .finally(() => setLoading(false));
   };
+  useEffect(() => {
+    upload.current.style.width = `${progress}%`;
+  }, [progress]);
 
   useEffect(() => {
     props.changeSection();
@@ -173,7 +180,7 @@ const Media = (props) => {
     return () => {
       source.cancel();
     };
-  }, [type]);
+  }, [type, upLoading]);
 
   return (
     <div className={styles.container}>
@@ -202,7 +209,18 @@ const Media = (props) => {
         </div>
       )}
       <div className={styles.group}>
-        <div className={styles.listContainer}>
+        <div
+          className={styles.listContainer}
+          style={{ height: button ? "calc(100% - 40px)" : "100%" }}
+        >
+          <div
+            className={styles.uploadContainer}
+            style={{ display: !upLoading ? "none" : "flex" }}
+          >
+            <div className={styles.uploadBar}>
+              <div ref={upload} className={styles.upload}></div>
+            </div>
+          </div>
           {!loading && (
             <ul className={styles.list}>
               {images.map((item) => (
@@ -244,7 +262,11 @@ const Media = (props) => {
           )}
           {loading && <Loader />}
         </div>
-        <div ref={preview} className={styles.preview}>
+        <div
+          ref={preview}
+          className={styles.preview}
+          style={{ height: button ? "calc(100% - 40px)" : "100%" }}
+        >
           <button
             className={styles.back}
             onClick={() => (preview.current.style.display = "none")}
@@ -257,6 +279,7 @@ const Media = (props) => {
           {Object.keys(selected).length !== 0 && (
             <div className={styles.imageContainer}>
               <img
+                className={styles.img}
                 src={`${config.FILE_SERVER_URL}/${selected.mediaPath}`}
                 alt={selected.mediaId}
               />

@@ -103,23 +103,39 @@ const Zaal = (props) => {
       <div className={styles.container}>
         <BrowserRouter>
           <div className={styles.head}>
+            <div className={styles.heading}>Sporthalls</div>
             <div className={styles.searchContainer}>
               <input className={styles.search} placeholder="Хайх..."></input>
               <button className={styles.button}>
                 <FiSearch />
               </button>
             </div>
+            <button
+              className={styles.addButton}
+              onClick={() => handleAddButton()}
+            >
+              <FiPlus className={styles.icon}/>
+              <p style={{ marginLeft: "10px" }}>Шинийг үүсгэх</p>
+            </button>
+          </div>
+          <div className={styles.listContainer}>
             <div className={styles.buttonContainer}>
               <div
                 className={styles.typeButton}
-                style={{ border: type === "posted" ? "1px solid #949BE3" : "" }}
+                style={{
+                  backgroundColor: type === "posted" ? "#171717" : "",
+                  color: type === "posted" ? "white" : "",
+                }}
                 onClick={setType.bind(this, "posted")}
               >
                 Posted
               </div>
               <div
                 className={styles.typeButton}
-                style={{ border: type === "saved" ? "1px solid #949BE3" : "" }}
+                style={{
+                  backgroundColor: type === "saved" ? "#171717" : "",
+                  color: type === "saved" ? "white" : "",
+                }}
                 onClick={setType.bind(this, "saved")}
               >
                 Saved
@@ -127,45 +143,40 @@ const Zaal = (props) => {
               <div
                 className={styles.typeButton}
                 style={{
-                  border: type === "deleted" ? "1px solid #949BE3" : "",
+                  backgroundColor: type === "deleted" ? "#171717" : "",
+                  color: type === "deleted" ? "white" : "",
                 }}
                 onClick={setType.bind(this, "deleted")}
               >
                 Deleted
               </div>
             </div>
-          </div>
-          <div className={styles.listContainer}>
-            {!loading && (
-              <ul className={styles.list}>
-                {zaal.map((item) => (
-                  <li className={styles.item} key={item.hallId}>
-                    <p className={styles.title}>{item.title}</p>
-                    <div className={styles.group}>
-                      <button
-                        className={styles.button}
-                        onClick={() => handleEditButton(item.hallId)}
-                      >
-                        <FiEdit3 />
-                      </button>
-                      <button
-                        className={styles.button}
-                        onClick={() => handleDelete(item.hallId)}
-                      >
-                        <FiTrash2 />
-                      </button>
-                    </div>
-                  </li>
-                ))}
-                <button
-                  className={styles.addButton}
-                  onClick={() => handleAddButton()}
-                >
-                  <FiPlus className={styles.icon} />
-                </button>
-              </ul>
-            )}
-            {loading && <Loader />}
+            <ul className={styles.list}>
+              {!loading && (
+                <>
+                  {zaal.map((item) => (
+                    <li className={styles.item} key={item.hallId}>
+                      <p className={styles.title}>{item.title}</p>
+                      <div className={styles.group}>
+                        <button
+                          className={styles.button}
+                          onClick={() => handleEditButton(item.hallId)}
+                        >
+                          <FiEdit3 />
+                        </button>
+                        <button
+                          className={styles.button}
+                          onClick={() => handleDelete(item.hallId)}
+                        >
+                          <FiTrash2 />
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </>
+              )}
+              {loading && <Loader />}
+            </ul>
           </div>
         </BrowserRouter>
       </div>
