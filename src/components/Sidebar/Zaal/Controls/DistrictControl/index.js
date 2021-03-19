@@ -27,7 +27,6 @@ const DistrictControl = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -52,7 +51,7 @@ const DistrictControl = (props) => {
             <SidebarSearch
               search={setTemp}
               origin={districts}
-              level="district"
+              level='district'
             />
             <AddDistrict
               notify={props.notify}

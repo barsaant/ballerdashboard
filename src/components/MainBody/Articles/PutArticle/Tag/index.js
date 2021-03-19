@@ -41,7 +41,6 @@ const Tag = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }

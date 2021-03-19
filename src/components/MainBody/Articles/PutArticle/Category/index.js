@@ -56,7 +56,6 @@ const Category = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -118,7 +117,7 @@ const Category = (props) => {
               in={dropdown}
               appear={true}
               timeout={200}
-              classNames="tagDropdown"
+              classNames='tagDropdown'
             >
               <div className={msStyle.dropdownContainer}>
                 {temp.map((item) => (

@@ -14,22 +14,20 @@ const District = (props) => {
   const getDistricts = (source) => {
     setLoading(true);
     axios
-      .get(`/districts`,{
-        cancelToken: source.token
+      .get(`/districts`, {
+        cancelToken: source.token,
       })
       .then((result) => {
         setDistricts(result.data.districts);
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log('req fail',err.message);
         } else {
           console.log(err);
         }
       })
       .finally(() => setLoading(false));
   };
-  
 
   useEffect(() => {
     props.change(district);

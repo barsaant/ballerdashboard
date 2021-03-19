@@ -12,7 +12,7 @@ const District = (props) => {
   const [loading, setLoading] = useState(true);
   const [tagId, setTagId] = useState(props.current);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [ unSelectedTags, setUnselectedTags] = useState([]);
+  const [unSelectedTags, setUnselectedTags] = useState([]);
   const [tags, setTags] = useState([]);
   const [temp, setTemp] = useState([]);
 
@@ -29,17 +29,18 @@ const District = (props) => {
   const getTags = (source) => {
     setLoading(true);
     axios
-      .get(`/tagshalls`,{
-        cancelToken: source.token
+      .get(`/tagshalls`, {
+        cancelToken: source.token,
       })
       .then((result) => {
         setTags(result.data.tags);
-        setUnselectedTags(result.data.tags.filter((item) => !tagId.includes(item.tagId)));
+        setUnselectedTags(
+          result.data.tags.filter((item) => !tagId.includes(item.tagId))
+        );
         setTemp(result.data.tags.filter((item) => !tagId.includes(item.tagId)));
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log('req fail',err.message);
         } else {
           console.log(err);
         }
@@ -99,7 +100,7 @@ const District = (props) => {
               in={dropdown}
               appear={true}
               timeout={200}
-              classNames="tagDropdown"
+              classNames='tagDropdown'
             >
               <div className={msStyle.dropdownContainer}>
                 {temp.map((item) => (

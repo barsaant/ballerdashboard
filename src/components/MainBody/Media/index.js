@@ -119,7 +119,6 @@ const Media = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -137,7 +136,6 @@ const Media = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -155,7 +153,6 @@ const Media = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -250,12 +247,12 @@ const Media = (props) => {
                 </li>
               ))}
               <input
-                id="upload"
-                type="file"
+                id='upload'
+                type='file'
                 style={{ display: "none" }}
                 onChange={type === "medias" ? addImage : addSpecificImage}
               ></input>
-              <label htmlFor="upload" className={styles.addButton}>
+              <label htmlFor='upload' className={styles.addButton}>
                 <FiPlus className={styles.icon} />
               </label>
             </ul>

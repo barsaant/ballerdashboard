@@ -45,7 +45,6 @@ const PutArticle = (props) => {
         cancelToken: source.token,
       })
       .then((result) => {
-        console.log(result);
         setTitle(result.data.article.title);
         setCategory(destructId(result.data.article.categoryArticles));
         setTag(result.data.article.tagArticles);
@@ -70,7 +69,6 @@ const PutArticle = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -194,9 +192,9 @@ const PutArticle = (props) => {
                     minHeight: "100px",
                     color: "#ffffff ",
                   }}
-                  toolbarClassName="toolbarClass"
-                  wrapperClassName="wrapperClassName"
-                  editorClassName="editorClassName"
+                  toolbarClassName='toolbarClass'
+                  wrapperClassName='wrapperClassName'
+                  editorClassName='editorClassName'
                   toolbar={EditorConfig}
                   onEditorStateChange={(state) => updateArticleData(state)}
                 />

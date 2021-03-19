@@ -1,28 +1,47 @@
+import alignCenter from "./EditorIcons/baseline_format_align_center_white_18dp.png";
+import alignJustify from "./EditorIcons/baseline_format_align_justify_white_18dp.png";
+import alignLeft from "./EditorIcons/baseline_format_align_left_white_18dp.png";
+import alignRight from "./EditorIcons/baseline_format_align_right_white_18dp.png";
+import bold from "./EditorIcons/baseline_format_bold_white_18dp.png";
+import indentDecrease from "./EditorIcons/baseline_format_indent_decrease_white_18dp.png";
+import indentIncrease from "./EditorIcons/baseline_format_indent_increase_white_18dp.png";
+import italic from "./EditorIcons/baseline_format_italic_white_18dp.png";
+import listBulleted from "./EditorIcons/baseline_format_list_bulleted_white_18dp.png";
+import listNumbered from "./EditorIcons/baseline_format_list_numbered_white_18dp.png";
+import underlined from "./EditorIcons/baseline_format_underlined_white_18dp.png";
+import emoticon from "./EditorIcons/baseline_insert_emoticon_white_18dp.png";
+import insertLink from "./EditorIcons/baseline_insert_link_white_18dp.png";
+import instertPhoto from "./EditorIcons/baseline_insert_photo_white_18dp.png";
+import modeWhite from "./EditorIcons/baseline_mode_white_18dp.png";
+import strikethrough from "./EditorIcons/baseline_strikethrough_s_white_18dp.png";
+import subscript from "./EditorIcons/baseline_subscript_white_18dp.png";
+import superscript from "./EditorIcons/baseline_superscript_white_18dp.png";
+
 export const EditorConfig = {
   inline: {
     bold: {
-      // icon: Icons.bold,
+      icon: bold,
       className: "demo-option-custom",
     },
     italic: {
-      //   icon: Icons.italic,
+      icon: italic,
       className: "demo-option-custom",
     },
     underline: {
-      //   icon: Icons.underline,
+      icon: underlined,
       className: "demo-option-custom",
     },
     strikethrough: {
-      //   icon: Icons.strikethrough,
+      icon: strikethrough,
       className: "demo-option-custom",
     },
     monospace: { className: "demo-option-custom" },
     superscript: {
-      //   icon: Icons.superscript,
+      icon: superscript,
       className: "demo-option-custom",
     },
     subscript: {
-      // icon: Icons.subscript,
+      icon: subscript,
       className: "demo-option-custom",
     },
   },
@@ -33,37 +52,37 @@ export const EditorConfig = {
   fontSize: { className: "demo-option-none" },
   list: {
     unordered: {
-      //   icon: Icons.unordered,
+      icon: listBulleted,
       className: "demo-option-custom",
     },
     ordered: {
-      //   icon: Icons.ordered,
+      icon: listNumbered,
       className: "demo-option-custom",
     },
     indent: {
-      //   icon: Icons.indent,
+      icon: indentIncrease,
       className: "demo-option-custom",
     },
     outdent: {
-      //   icon: Icons.outdent,
+      icon: indentDecrease,
       className: "demo-option-custom",
     },
   },
   textAlign: {
     left: {
-      // icon: Icons.left,
+      icon: alignLeft,
       className: "demo-option-custom",
     },
     center: {
-      //   icon: Icons.center,
+      icon: alignCenter,
       className: "demo-option-custom",
     },
     right: {
-      //   icon: Icons.right,
+      icon: alignRight,
       className: "demo-option-custom",
     },
     justify: {
-      //   icon: Icons.justify,
+      icon: alignJustify,
       className: "demo-option-custom",
     },
   },
@@ -72,13 +91,14 @@ export const EditorConfig = {
     dropdownClassName: "demo-dropdown-none",
   },
   colorPicker: {
+    icon: modeWhite,
     className: "demo-option-custom",
     popupClassName: "demo-popup-custom",
   },
   link: {
     popupClassName: "demo-popup-custom",
     link: {
-      // icon: Icons.link,
+      icon: insertLink,
       className: "demo-option-custom",
     },
     unlink: {
@@ -87,6 +107,7 @@ export const EditorConfig = {
     },
   },
   emoji: {
+    icon: emoticon,
     className: "demo-option-custom",
     popupClassName: "demo-popup-custom",
   },
@@ -95,7 +116,7 @@ export const EditorConfig = {
     popupClassName: "demo-popup-custom",
   },
   image: {
-    // icon: Icons.image,
+    icon: instertPhoto,
     className: "demo-option-custom",
     popupClassName: "demo-popup-custom",
   },

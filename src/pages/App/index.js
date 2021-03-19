@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense, Switch } from "react";
 import Sidebar from "../../components/Sidebar";
 import Notification from "../../components/Notification";
 import styles from "./_.module.css";
@@ -12,10 +12,17 @@ import Home from "../../components/MainBody/Home";
 import Articles from "../../components/MainBody/Articles";
 import Zaal from "../../components/MainBody/Zaal";
 import Media from "../../components/MainBody/Media";
-import User from "../../components/MainBody/Users";
 import PutArticle from "../../components/MainBody/Articles/PutArticle";
-import EditUser from "../../components/MainBody/Users/EditUser";
-import CreateUser from "../../components/MainBody/Users/CreateUser";
+
+const User = lazy(() => {
+  return import("../../components/MainBody/Users");
+});
+const EditUser = lazy(() => {
+  return import("../../components/MainBody/Users/EditUser");
+});
+const CreateUser = lazy(() => {
+  return import("../../components/MainBody/Users/CreateUser");
+});
 
 const App = () => {
   const [notifies, setNotifies] = useState([]);
@@ -36,7 +43,7 @@ const App = () => {
   };
   const check = () => {
     console.log(notifies);
-  }
+  };
 
   const checkLogin = () => {
     setLoading(true);
@@ -69,66 +76,74 @@ const App = () => {
         {!loading ? (
           <>
             <div className={styles.notifications}>
-              <Notification notifications={notifies} delete={delNotification} check={check} />
+              <Notification
+                notifications={notifies}
+                delete={delNotification}
+                check={check}
+              />
             </div>
-            {login ? (
-              <>
-                <div className={styles.sidebar}>
-                  <Sidebar notify={getNotification} section={section} />
+            <Suspense fallback={<div></div>}>
+              {login ? (
+                <>
+                  <div className={styles.sidebar}>
+                    <Sidebar notify={getNotification} section={section} />
+                  </div>
+                  <div className={styles.mainBody}>
+                    <Route exact path='/'>
+                      <Home changeSection={setSection.bind(this, "home")} />
+                    </Route>
+                    <Route exact path='/sporthalls'>
+                      <Zaal
+                        changeSection={setSection.bind(this, "sporthalls")}
+                      />
+                    </Route>
+                    <Route exact path='/media'>
+                      <Media
+                        notify={getNotification}
+                        changeSection={setSection.bind(this, "medias")}
+                        type={"medias"}
+                        button={false}
+                      />
+                    </Route>
+                    <Route exact path='/users'>
+                      <User changeSection={setSection.bind(this, "users")} />
+                    </Route>
+                    <Route exact path='/articles/'>
+                      <Articles
+                        changeSection={setSection.bind(this, "articles")}
+                      />
+                    </Route>
+                    <Route exact path='/sporthalls/:id'>
+                      <PutZaal
+                        notify={getNotification}
+                        changeSection={setSection.bind(this, "sporthalls")}
+                      />
+                    </Route>
+                    <Route exact path='/articles/:id'>
+                      <PutArticle
+                        notify={getNotification}
+                        changeSection={setSection.bind(this, "articles")}
+                      />
+                    </Route>
+                    <Route exact path='/user/:id'>
+                      <EditUser
+                        notify={getNotification}
+                        changeSection={setSection.bind(this, "users")}
+                      />
+                    </Route>
+                    <Route exact path='/users/create'>
+                      <CreateUser
+                        changeSection={setSection.bind(this, "users")}
+                      />
+                    </Route>
+                  </div>
+                </>
+              ) : (
+                <div className={styles.Login}>
+                  <Login notify={getNotification} />
                 </div>
-                <div className={styles.mainBody}>
-                  <Route exact path='/'>
-                    <Home changeSection={setSection.bind(this, "home")} />
-                  </Route>
-                  <Route exact path='/sporthalls'>
-                    <Zaal changeSection={setSection.bind(this, "sporthalls")} />
-                  </Route>
-                  <Route exact path='/media'>
-                    <Media
-                      notify={getNotification}
-                      changeSection={setSection.bind(this, "medias")}
-                      type={"medias"}
-                      button={false}
-                    />
-                  </Route>
-                  <Route exact path='/users'>
-                    <User changeSection={setSection.bind(this, "users")} />
-                  </Route>
-                  <Route exact path='/articles/'>
-                    <Articles
-                      changeSection={setSection.bind(this, "articles")}
-                    />
-                  </Route>
-                  <Route exact path='/sporthalls/:id'>
-                    <PutZaal
-                      notify={getNotification}
-                      changeSection={setSection.bind(this, "sporthalls")}
-                    />
-                  </Route>
-                  <Route exact path='/articles/:id'>
-                    <PutArticle
-                      notify={getNotification}
-                      changeSection={setSection.bind(this, "articles")}
-                    />
-                  </Route>
-                  <Route exact path='/user/:id'>
-                    <EditUser
-                      notify={getNotification}
-                      changeSection={setSection.bind(this, "users")}
-                    />
-                  </Route>
-                  <Route exact path='/users/create'>
-                    <CreateUser
-                      changeSection={setSection.bind(this, "users")}
-                    />
-                  </Route>
-                </div>
-              </>
-            ) : (
-              <div className={styles.Login}>
-                <Login notify={getNotification} />
-              </div>
-            )}
+              )}
+            </Suspense>
           </>
         ) : (
           <Loader />

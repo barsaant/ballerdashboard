@@ -82,7 +82,6 @@ const CreateSportHall = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -240,9 +239,9 @@ const CreateSportHall = (props) => {
                     color: "#ffffff ",
                     minHeight: "100px",
                   }}
-                  toolbarClassName="toolbarClass"
-                  wrapperClassName="wrapperClassName"
-                  editorClassName="editorClassName"
+                  toolbarClassName='toolbarClass'
+                  wrapperClassName='wrapperClassName'
+                  editorClassName='editorClassName'
                   toolbar={ImageEditor}
                   onEditorStateChange={(state) => updateImageData(state)}
                 />

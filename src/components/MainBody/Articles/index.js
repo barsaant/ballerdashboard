@@ -22,7 +22,6 @@ const Articles = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log("req fail", err.message);
         } else {
           console.log(err);
         }
@@ -63,28 +62,34 @@ const Articles = (props) => {
   const moveDelete = (id) => {
     setLoading(true);
     axios
-      .put(`/articles/${id}`, {
+      .put(`/articles/${id}/delete`, {
         status: "deleted",
       })
-      .finally(() => setLoading(false));
-  };
-
-  const deleteHall = (id) => {
-    setLoading(true);
-    axios
-      .delete(`/articles/${id}`)
       .then((result) => {
-        const del = articles.articles.filter((zaal) => id !== zaal.hallId);
+        const del = articles.filter((article) => id !== article.articleId);
+
         setArticles(del);
       })
       .finally(() => setLoading(false));
   };
 
-  const handleDelete = (hallId) => {
-    if (type.deleted === false) {
-      moveDelete(hallId);
+  const deleteArticle = (id) => {
+    setLoading(true);
+    axios
+      .delete(`/articles/${id}`)
+      .then((result) => {
+        const del = articles.filter((article) => id !== article.articleId);
+
+        setArticles(del);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const handleDelete = (articleId) => {
+    if (type !== "deleted") {
+      moveDelete(articleId);
     } else {
-      deleteHall(hallId);
+      deleteArticle(articleId);
     }
   };
 
@@ -95,7 +100,7 @@ const Articles = (props) => {
           <div className={styles.head}>
             <div className={styles.heading}>Articles</div>
             <div className={styles.searchContainer}>
-              <input className={styles.search} placeholder="Хайх..."></input>
+              <input className={styles.search} placeholder='Хайх...'></input>
               <button className={styles.button}>
                 <FiSearch />
               </button>

@@ -10,6 +10,10 @@
   box-shadow: 1px 1px 0px #949be3 !important;
 }
 
+.rdw-option-active {
+  box-shadow: 1px 1px 0px #949be3 !important;
+}
+
 .demo-option-custom {
   background-color: #1e1e1e;
   border: none;

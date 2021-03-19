@@ -18,8 +18,8 @@ const TagControl = (props) => {
   const getTags = (source) => {
     setLoading(true);
     axios
-      .get(`/tagshalls`,{
-        cancelToken: source.token
+      .get(`/tagshalls`, {
+        cancelToken: source.token,
       })
       .then((result) => {
         setTags(result.data.tags);
@@ -27,7 +27,6 @@ const TagControl = (props) => {
       })
       .catch(function (err) {
         if (axiosCancel.isCancel(err)) {
-          console.log('req fail',err.message);
         } else {
           console.log(err);
         }
@@ -49,7 +48,7 @@ const TagControl = (props) => {
       {!loading && (
         <>
           <div className={styles.head}>
-            <SidebarSearch search={setTemp} origin={tags} level="tag" />
+            <SidebarSearch search={setTemp} origin={tags} level='tag' />
             <AddTag
               notify={props.notify}
               loading={setLoading}
