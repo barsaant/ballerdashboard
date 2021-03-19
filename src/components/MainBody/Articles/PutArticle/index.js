@@ -27,7 +27,7 @@ const PutArticle = (props) => {
   const [tag, setTag] = useState([]);
   const [category, setCategory] = useState([]);
   const [status, setStatus] = useState("");
-  const [image, setImage] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
   const [article, setArticle] = useState(() => EditorState.createEmpty());
   const [articleData, setArticleData] = useState();
   const history = useHistory();
@@ -54,6 +54,7 @@ const PutArticle = (props) => {
         setCategory(destructIdCat(result.data.article.categoryArticles));
         setTag(destructIdTag(result.data.article.tagArticles));
         setStatus(result.data.article.status);
+        setThumbnail(result.data.article.thumbnail);
         if (
           result.data.article.article !== " " &&
           result.data.article.article !== null
@@ -144,6 +145,7 @@ const PutArticle = (props) => {
         categoryId: category,
         status: status,
         article: articleData,
+        thumbnail: thumbnail
       })
       .then((result) => {
         history.push("/articles");
@@ -173,7 +175,7 @@ const PutArticle = (props) => {
                     type={"articles"}
                     id={params.id}
                     close={setMedia.bind(this, false)}
-                    setThumbnail={setImage}
+                    setThumbnail={setThumbnail}
                     button={true}
                   />
                   <button className={styles.closeBtn}>
@@ -185,7 +187,7 @@ const PutArticle = (props) => {
                 </div>
               )}
               <Title current={title} change={setTitle} />
-              <Thumbnail current={image} change={setImage} open={setMedia} />
+              <Thumbnail current={thumbnail} change={setThumbnail} open={setMedia} />
               <Category current={category} change={setCategory} />
               <Tag current={tag} change={setTag} />
               <div className={styles.field}>

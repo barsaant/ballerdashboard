@@ -29,7 +29,7 @@ const Tag = (props) => {
   const getTags = (source) => {
     setLoading(true);
     axios
-      .get(`/tagshalls`, {
+      .get(`/tagarticles`, {
         cancelToken: source.token,
       })
       .then((result) => {
