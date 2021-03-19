@@ -23,7 +23,7 @@ const EditTag = (props) => {
   const editTag = () => {
     props.loading(true);
     axios
-      .put(`/tagshalls/${props.id}`, {
+      .put(`/tagarticles/${props.id}`, {
         tagName: edittedName.charAt(0).toUpperCase()+edittedName.toLowerCase().slice(1),
       })
       .then((result) => {

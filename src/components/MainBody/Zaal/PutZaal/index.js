@@ -47,9 +47,9 @@ const CreateSportHall = (props) => {
   const params = useParams();
 
 
-  function destructId(obj) {
+  function destructIdTag(obj) {
     const arr = [];
-    obj.map((item) => arr.push(item.categoryId));
+    obj.map((item) => arr.push(item.tagId));
     return arr;
   }
 
@@ -69,7 +69,7 @@ const CreateSportHall = (props) => {
         setKhoroo(result.data.sportHall.khorooId);
         setAddress(result.data.sportHall.address);
         setDescription(result.data.sportHall.info);
-        setTag(destructId(result.data.sportHall.tagSportHalls));
+        setTag(destructIdTag(result.data.sportHall.tagSportHalls));
         setStatus(result.data.sportHall.status);
         setThumbnail(result.data.sportHall.thumbnail);
         if (

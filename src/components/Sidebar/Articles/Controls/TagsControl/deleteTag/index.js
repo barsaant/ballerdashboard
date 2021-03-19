@@ -7,7 +7,7 @@ const DeleteTag = (props) => {
   const deleteTag = () => {
     props.loading(true);
     axios
-      .delete(`/tagshalls/${props.id}`)
+      .delete(`/tagarticles/${props.id}`)
       .then((result) => {
         props.notify({ success: true, message: result.data.message });
       })

@@ -32,9 +32,14 @@ const PutArticle = (props) => {
   const [articleData, setArticleData] = useState();
   const history = useHistory();
   const params = useParams();
-  function destructId(obj) {
+  function destructIdCat(obj) {
     const arr = [];
     obj.map((item) => arr.push(item.categoryId));
+    return arr;
+  }
+  function destructIdTag(obj) {
+    const arr = [];
+    obj.map((item) => arr.push(item.tagId));
     return arr;
   }
 
@@ -46,8 +51,8 @@ const PutArticle = (props) => {
       })
       .then((result) => {
         setTitle(result.data.article.title);
-        setCategory(destructId(result.data.article.categoryArticles));
-        setTag(destructId(result.data.article.tagArticles));
+        setCategory(destructIdCat(result.data.article.categoryArticles));
+        setTag(destructIdTag(result.data.article.tagArticles));
         setStatus(result.data.article.status);
         if (
           result.data.article.article !== " " &&

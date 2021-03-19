@@ -18,8 +18,8 @@ const TagControl = (props) => {
   const getTags = (source) => {
     setLoading(true);
     axios
-      .get(`/tagshalls`, {
-        cancelToken: SourceBuffer.token,
+      .get(`/tagarticles`, {
+        cancelToken: source.token,
       })
       .then((result) => {
         setTags(result.data.tags);

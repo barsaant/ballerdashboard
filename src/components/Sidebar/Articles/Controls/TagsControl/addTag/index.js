@@ -17,7 +17,7 @@ const AddDistrict = (props) => {
   const postTag = () => {
     props.loading(true);
     axios
-      .post(`/tagshalls`, {
+      .post(`/tagarticles`, {
         tagName: newTag,
       })
       .then((result) => {

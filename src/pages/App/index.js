@@ -41,9 +41,6 @@ const App = () => {
   const delNotification = (id) => {
     setNotifies(notifies.filter((item) => item.id !== id));
   };
-  const check = () => {
-    console.log(notifies);
-  };
 
   const checkLogin = () => {
     setLoading(true);

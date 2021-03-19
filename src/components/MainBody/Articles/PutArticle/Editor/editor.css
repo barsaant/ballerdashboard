@@ -4,6 +4,8 @@
 
 .rdw-option-wrapper {
   box-shadow: 1px 1px 1px #949be3 inset !important;
+  width: 35px !important;
+  height: 35px !important;
 }
 
 .rdw-option-wrapper:hover {
