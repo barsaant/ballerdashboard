@@ -47,7 +47,7 @@ const PutArticle = (props) => {
       .then((result) => {
         setTitle(result.data.article.title);
         setCategory(destructId(result.data.article.categoryArticles));
-        setTag(result.data.article.tagArticles);
+        setTag(destructId(result.data.article.tagArticles));
         setStatus(result.data.article.status);
         if (
           result.data.article.article !== " " &&

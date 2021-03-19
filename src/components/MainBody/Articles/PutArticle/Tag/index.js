@@ -37,6 +37,9 @@ const Tag = (props) => {
         setUnselectedTags(
           result.data.tags.filter((item) => !tagId.includes(item.tagId))
         );
+        setSelectedTags(
+          result.data.tags.filter((item) => tagId.includes(item.tagId))
+        );
         setTemp(result.data.tags.filter((item) => !tagId.includes(item.tagId)));
       })
       .catch(function (err) {

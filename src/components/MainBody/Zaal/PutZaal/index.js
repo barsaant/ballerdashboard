@@ -45,6 +45,14 @@ const CreateSportHall = (props) => {
   const [imageData, setImageData] = useState();
   const history = useHistory();
   const params = useParams();
+
+
+  function destructId(obj) {
+    const arr = [];
+    obj.map((item) => arr.push(item.categoryId));
+    return arr;
+  }
+
   const getSporthall = (source) => {
     setLoading(true);
     axios
@@ -61,7 +69,7 @@ const CreateSportHall = (props) => {
         setKhoroo(result.data.sportHall.khorooId);
         setAddress(result.data.sportHall.address);
         setDescription(result.data.sportHall.info);
-        setTag(result.data.sportHall.tagSportHalls);
+        setTag(destructId(result.data.sportHall.tagSportHalls));
         setStatus(result.data.sportHall.status);
         setThumbnail(result.data.sportHall.thumbnail);
         if (
