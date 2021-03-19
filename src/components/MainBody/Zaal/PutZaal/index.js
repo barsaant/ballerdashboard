@@ -63,6 +63,7 @@ const CreateSportHall = (props) => {
         setDescription(result.data.sportHall.info);
         setTag(result.data.sportHall.tagSportHalls);
         setStatus(result.data.sportHall.status);
+        setThumbnail(result.data.sportHall.thumbnail);
         if (
           result.data.sportHall.images !== " " &&
           result.data.sportHall.images !== null
@@ -153,6 +154,7 @@ const CreateSportHall = (props) => {
         info: description,
         khorooId: khoroo,
         phone: phone,
+        price: price,
         status: status,
         tagSportHalls: tag,
         title: title,

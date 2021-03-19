@@ -79,7 +79,6 @@ const App = () => {
               <Notification
                 notifications={notifies}
                 delete={delNotification}
-                check={check}
               />
             </div>
             <Suspense fallback={<div></div>}>
@@ -89,15 +88,15 @@ const App = () => {
                     <Sidebar notify={getNotification} section={section} />
                   </div>
                   <div className={styles.mainBody}>
-                    <Route exact path='/'>
+                    <Route exact path="/">
                       <Home changeSection={setSection.bind(this, "home")} />
                     </Route>
-                    <Route exact path='/sporthalls'>
+                    <Route exact path="/sporthalls">
                       <Zaal
                         changeSection={setSection.bind(this, "sporthalls")}
                       />
                     </Route>
-                    <Route exact path='/media'>
+                    <Route exact path="/media">
                       <Media
                         notify={getNotification}
                         changeSection={setSection.bind(this, "medias")}
@@ -105,33 +104,33 @@ const App = () => {
                         button={false}
                       />
                     </Route>
-                    <Route exact path='/users'>
+                    <Route exact path="/users">
                       <User changeSection={setSection.bind(this, "users")} />
                     </Route>
-                    <Route exact path='/articles/'>
+                    <Route exact path="/articles/">
                       <Articles
                         changeSection={setSection.bind(this, "articles")}
                       />
                     </Route>
-                    <Route exact path='/sporthalls/:id'>
+                    <Route exact path="/sporthalls/:id">
                       <PutZaal
                         notify={getNotification}
                         changeSection={setSection.bind(this, "sporthalls")}
                       />
                     </Route>
-                    <Route exact path='/articles/:id'>
+                    <Route exact path="/articles/:id">
                       <PutArticle
                         notify={getNotification}
                         changeSection={setSection.bind(this, "articles")}
                       />
                     </Route>
-                    <Route exact path='/user/:id'>
+                    <Route exact path="/user/:id">
                       <EditUser
                         notify={getNotification}
                         changeSection={setSection.bind(this, "users")}
                       />
                     </Route>
-                    <Route exact path='/users/create'>
+                    <Route exact path="/users/create">
                       <CreateUser
                         changeSection={setSection.bind(this, "users")}
                       />
