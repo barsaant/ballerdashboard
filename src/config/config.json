@@ -1,6 +1,6 @@
 {
-  "SERVER_URL": "https://api.baller.mn/api/v1",
-  "FILE_SERVER_UPLOAD": "https://fs.baller.mn/api/v1",
-  "FILE_SERVER_URL": "https://fs.baller.mn/uploads",
-  "FILE_SERVER": "https://fs.baller.mn"
+  "SERVER_URL": "http://localhost:7259/api/v1",
+  "FILE_SERVER_UPLOAD": "http://localhost:7575/api/v1",
+  "FILE_SERVER_URL": "http://localhost:7575/uploads",
+  "FILE_SERVER": "http://localhost:7575"
 }

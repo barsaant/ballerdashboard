@@ -10,11 +10,20 @@ const Articles = (props) => {
   const [type, setType] = useState("posted");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e) => {
+    if (e.target.value !== "") {
+      setQuery(`?search=${e.target.value}`);
+    } else {
+      setQuery("");
+    }
+  };
 
   const getArticles = (source) => {
     setLoading(true);
     axios
-      .get(`/articles/${type}`, {
+      .get(`/articles/${type}${query}`, {
         cancelToken: source.token,
       })
       .then((result) => {
@@ -43,7 +52,7 @@ const Articles = (props) => {
     return () => {
       source.cancel();
     };
-  }, [type]);
+  }, [type,query]);
 
   const history = useHistory();
 
@@ -101,7 +110,12 @@ const Articles = (props) => {
           <div className={styles.head}>
             <div className={styles.heading}>Articles</div>
             <div className={styles.searchContainer}>
-              <input className={styles.search} placeholder='Хайх...'></input>
+              <input
+                value={query.slice(8)}
+                className={styles.search}
+                placeholder="Хайх..."
+                onChange={handleSearch}
+              ></input>
               <button className={styles.button}>
                 <FiSearch />
               </button>

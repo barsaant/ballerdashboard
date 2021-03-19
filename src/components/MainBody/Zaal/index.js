@@ -10,11 +10,20 @@ const Zaal = (props) => {
   const [type, setType] = useState("posted");
   const [zaal, setZaal] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e) => {
+    if (e.target.value !== "") {
+      setQuery(`?search=${e.target.value}`);
+    } else {
+      setQuery('');
+    }
+  };
 
   const getZaal = (source) => {
     setLoading(true);
     axios
-      .get(`/sporthalls/${type}`, {
+      .get(`/sporthalls/${type}${query}`, {
         cancelToken: source.token,
       })
       .then((result) => {
@@ -38,7 +47,7 @@ const Zaal = (props) => {
     return () => {
       source.cancel();
     };
-  }, [type]);
+  }, [type, query]);
 
   const history = useHistory();
 
@@ -105,7 +114,12 @@ const Zaal = (props) => {
           <div className={styles.head}>
             <div className={styles.heading}>Sporthalls</div>
             <div className={styles.searchContainer}>
-              <input className={styles.search} placeholder="Хайх..."></input>
+              <input
+                value={query.slice(8)}
+                className={styles.search}
+                placeholder="Хайх..."
+                onChange={handleSearch}
+              ></input>
               <button className={styles.button}>
                 <FiSearch />
               </button>
@@ -114,7 +128,7 @@ const Zaal = (props) => {
               className={styles.addButton}
               onClick={() => handleAddButton()}
             >
-              <FiPlus className={styles.icon}/>
+              <FiPlus className={styles.icon} />
               <p style={{ marginLeft: "10px" }}>Шинийг үүсгэх</p>
             </button>
           </div>
