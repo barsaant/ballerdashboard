@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./_.module.css";
 import { FiCheck, FiX } from "react-icons/fi";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -11,9 +11,7 @@ const Notification = (props) => {
           key={item.id}
           timeout={300}
           classNames="notification"
-          onEntered={() => {
-            setTimeout(() => props.delete(item.id), 4000);
-          }}
+          onEntered={() => setTimeout(() => props.delete(item.id),4000)}
         >
           <div className={styles.notification}>
             <div className={styles.iconContainer}>

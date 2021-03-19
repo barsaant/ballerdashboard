@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense, Switch } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import Sidebar from "../../components/Sidebar";
 import Notification from "../../components/Notification";
 import styles from "./_.module.css";
@@ -26,6 +26,7 @@ const CreateUser = lazy(() => {
 
 const App = () => {
   const [notifies, setNotifies] = useState([]);
+  const [delNotifies, setDelNotifies] = useState(null);
   const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [section, setSection] = useState("");
@@ -39,7 +40,7 @@ const App = () => {
     setNotifies([...notifies, note]);
   };
   const delNotification = (id) => {
-    setNotifies(notifies.filter((item) => item.id !== id));
+    setDelNotifies(id);
   };
 
   const checkLogin = () => {
@@ -63,6 +64,11 @@ const App = () => {
       });
   };
 
+
+  useEffect(() => {
+    setNotifies(notifies.filter((item) => item.id !== delNotifies));
+  },[delNotifies]);
+
   useEffect(() => {
     checkLogin();
   }, []);
@@ -73,10 +79,7 @@ const App = () => {
         {!loading ? (
           <>
             <div className={styles.notifications}>
-              <Notification
-                notifications={notifies}
-                delete={delNotification}
-              />
+              <Notification notifications={notifies} delete={delNotification} />
             </div>
             <Suspense fallback={<div></div>}>
               {login ? (
