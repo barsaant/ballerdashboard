@@ -141,7 +141,7 @@ const PutArticle = (props) => {
     axios
       .put(`/articles/${params.id}`, {
         title: title,
-        tagArticles: tag,
+        tagId: tag,
         categoryId: category,
         status: status,
         article: articleData,

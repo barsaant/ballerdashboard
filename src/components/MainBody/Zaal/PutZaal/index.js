@@ -164,7 +164,7 @@ const CreateSportHall = (props) => {
         phone: phone,
         price: price,
         status: status,
-        tagSportHalls: tag,
+        tagId: tag,
         title: title,
         images: imageData,
         latitude: lat,

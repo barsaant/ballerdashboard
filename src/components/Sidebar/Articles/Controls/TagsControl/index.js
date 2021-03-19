@@ -22,6 +22,7 @@ const TagControl = (props) => {
         cancelToken: source.token,
       })
       .then((result) => {
+        console.log(result);
         setTags(result.data.tags);
         setTemp(result.data.tags);
       })
