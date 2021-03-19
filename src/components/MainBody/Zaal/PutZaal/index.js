@@ -15,10 +15,12 @@ import Title from "./Title";
 import District from "./District";
 import Khoroo from "./Khoroo";
 import Phone from "./Phone";
+import Price from "./Price";
 import Address from "./Address";
 import Thumbnail from "./Thumbnail";
 import Description from "./Description";
 import Tag from "./Tag";
+import Map from "./Map";
 import { FiX } from "react-icons/fi";
 import { ImageEditor } from "./Editor";
 import Navbar from "../../Navbar";
@@ -29,6 +31,7 @@ const CreateSportHall = (props) => {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [phone, setPhone] = useState("");
+  const [price, setPrice] = useState("");
   const [district, setDistrict] = useState(1);
   const [khoroo, setKhoroo] = useState(1);
   const [address, setAddress] = useState("");
@@ -37,11 +40,11 @@ const CreateSportHall = (props) => {
   const [status, setStatus] = useState("");
   const [images, setImages] = useState(() => EditorState.createEmpty());
   const [tag, setTag] = useState([]);
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
   const [imageData, setImageData] = useState();
   const history = useHistory();
   const params = useParams();
-
-  console.log(khoroo);
   const getSporthall = (source) => {
     setLoading(true);
     axios
@@ -49,9 +52,11 @@ const CreateSportHall = (props) => {
         cancelToken: source.token,
       })
       .then((result) => {
-        console.log(result.data.sportHall);
+        setLat(result.data.sportHall.latitude);
+        setLng(result.data.sportHall.longitude);
         setTitle(result.data.sportHall.title);
         setPhone(result.data.sportHall.phone);
+        setPrice(result.data.sportHall.price);
         setDistrict(result.data.sportHall.districtId);
         setKhoroo(result.data.sportHall.khorooId);
         setAddress(result.data.sportHall.address);
@@ -153,6 +158,9 @@ const CreateSportHall = (props) => {
         tagSportHalls: tag,
         title: title,
         images: imageData,
+        latitude: lat,
+        longitude: lng,
+        thumbnail: thumbnail,
       })
       .then((result) => {
         props.notify({
@@ -216,6 +224,7 @@ const CreateSportHall = (props) => {
                 />
               </div>
               <Phone current={phone} change={setPhone} />
+              <Price current={price} change={setPrice} />
               <Address current={address} change={setAddress} />
               <Thumbnail
                 current={thumbnail}
@@ -240,6 +249,7 @@ const CreateSportHall = (props) => {
               </div>
               <Description current={description} change={setDescription} />
               <Tag current={tag} change={setTag} />
+              <Map lat={lat} lng={lng} changeLat={setLat} changeLng={setLng} />
             </div>
           </>
         )}
