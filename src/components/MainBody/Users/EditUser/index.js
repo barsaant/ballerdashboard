@@ -24,7 +24,6 @@ const EditUser = (props) => {
         cancelToken: source.token
       })
       .then((result) => {
-        console.log(result);
         setLastName(result.data.user.lastname);
         setFirstName(result.data.user.firstname);
         setEmail(result.data.user.email);
