@@ -82,6 +82,7 @@ const PutArticle = (props) => {
       .finally(() => setLoading(false));
   };
   useEffect(() => {
+    document.title = "Articles";
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();
     getSporthall(source);

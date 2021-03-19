@@ -30,6 +30,7 @@ const Zaal = (props) => {
   };
 
   useEffect(() => {
+    document.title = "Sporthalls";
     props.changeSection();
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();

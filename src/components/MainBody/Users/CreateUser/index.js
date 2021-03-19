@@ -58,6 +58,10 @@ const CreateUser = (props) => {
       })
       .finally(() => setLoading(false));
   };
+  useEffect(() => {
+    document.title = "User";
+  },[]);
+
   return (
     <div className={styles.mainContainer}>
       <BrowserRouter>

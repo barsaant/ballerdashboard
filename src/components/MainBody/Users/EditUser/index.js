@@ -39,6 +39,7 @@ const EditUser = (props) => {
   };
 
   useEffect(() => {
+    document.title = "User";
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();
     getUser(source);

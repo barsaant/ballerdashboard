@@ -31,6 +31,7 @@ const Users = (props) => {
   };
 
   useEffect(() => {
+    document.title = "User";
     props.changeSection();
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();

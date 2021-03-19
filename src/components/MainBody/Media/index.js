@@ -164,6 +164,7 @@ const Media = (props) => {
   }, [progress]);
 
   useEffect(() => {
+    document.title = "Media";
     props.changeSection();
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();

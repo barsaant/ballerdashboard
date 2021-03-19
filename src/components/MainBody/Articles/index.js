@@ -35,6 +35,7 @@ const Articles = (props) => {
   };
 
   useEffect(() => {
+    document.title = "Articles";
     props.changeSection();
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();

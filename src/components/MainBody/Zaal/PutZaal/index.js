@@ -99,6 +99,7 @@ const CreateSportHall = (props) => {
   };
 
   useEffect(() => {
+    document.title = "Sporthalls";
     const CancelToken = axiosCancel.CancelToken;
     const source = CancelToken.source();
     getSporthall(source);
