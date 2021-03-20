@@ -129,7 +129,7 @@ const Zaal = (props) => {
               onClick={() => handleAddButton()}
             >
               <FiPlus className={styles.icon} />
-              <p style={{ marginLeft: "10px" }}>Үүсгэх</p>
+              <p style={{ marginLeft: "10px" }}>Шинийг Үүсгэх</p>
             </button>
           </div>
           <div className={styles.listContainer}>

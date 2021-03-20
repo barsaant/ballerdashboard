@@ -16,9 +16,11 @@ import District from "./District";
 import Khoroo from "./Khoroo";
 import Phone from "./Phone";
 import Price from "./Price";
+import HalfCourtPrice from "./HalfCourtPrice";
 import Address from "./Address";
 import Thumbnail from "./Thumbnail";
 import Description from "./Description";
+import LockerRoom from "./LockerRoom";
 import Tag from "./Tag";
 import Map from "./Map";
 import { FiX } from "react-icons/fi";
@@ -32,11 +34,13 @@ const CreateSportHall = (props) => {
   const [title, setTitle] = useState("");
   const [phone, setPhone] = useState("");
   const [price, setPrice] = useState("");
+  const [halfPrice, setHalfPrice] = useState("");
   const [district, setDistrict] = useState(1);
   const [khoroo, setKhoroo] = useState(1);
   const [address, setAddress] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [description, setDescription] = useState("");
+  const [lockerRoom, setLockerRoom] = useState(false);
   const [status, setStatus] = useState("");
   const [images, setImages] = useState(() => EditorState.createEmpty());
   const [tag, setTag] = useState([]);
@@ -45,7 +49,6 @@ const CreateSportHall = (props) => {
   const [imageData, setImageData] = useState();
   const history = useHistory();
   const params = useParams();
-
 
   function destructIdTag(obj) {
     const arr = [];
@@ -60,15 +63,18 @@ const CreateSportHall = (props) => {
         cancelToken: source.token,
       })
       .then((result) => {
+        console.log(result);
         setLat(result.data.sportHall.latitude);
         setLng(result.data.sportHall.longitude);
         setTitle(result.data.sportHall.title);
         setPhone(result.data.sportHall.phone);
         setPrice(result.data.sportHall.price);
+        setHalfPrice(result.data.sportHall.halfPrice);
         setDistrict(result.data.sportHall.districtId);
         setKhoroo(result.data.sportHall.khorooId);
         setAddress(result.data.sportHall.address);
         setDescription(result.data.sportHall.info);
+        setLockerRoom(result.data.sportHall.lockerRoom);
         setTag(destructIdTag(result.data.sportHall.tagSportHalls));
         setStatus(result.data.sportHall.status);
         setThumbnail(result.data.sportHall.thumbnail);
@@ -164,6 +170,7 @@ const CreateSportHall = (props) => {
         khorooId: khoroo,
         phone: phone,
         price: price,
+        halfPrice: halfPrice,
         status: status,
         tagId: tag,
         title: title,
@@ -171,6 +178,7 @@ const CreateSportHall = (props) => {
         latitude: lat,
         longitude: lng,
         thumbnail: thumbnail,
+        lockerRoom: lockerRoom,
       })
       .then((result) => {
         props.notify({
@@ -234,7 +242,11 @@ const CreateSportHall = (props) => {
                 />
               </div>
               <Phone current={phone} change={setPhone} />
-              <Price current={price} change={setPrice} />
+              <div className={styles.group}>
+                <Price current={price} change={setPrice} />
+                <HalfCourtPrice current={halfPrice} change={setHalfPrice} />
+                <LockerRoom current={lockerRoom} change={setLockerRoom} />
+              </div>
               <Address current={address} change={setAddress} />
               <Thumbnail
                 current={thumbnail}
@@ -250,9 +262,9 @@ const CreateSportHall = (props) => {
                     color: "#ffffff ",
                     minHeight: "100px",
                   }}
-                  toolbarClassName='toolbarClass'
-                  wrapperClassName='wrapperClassName'
-                  editorClassName='editorClassName'
+                  toolbarClassName="toolbarClass"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
                   toolbar={ImageEditor}
                   onEditorStateChange={(state) => updateImageData(state)}
                 />

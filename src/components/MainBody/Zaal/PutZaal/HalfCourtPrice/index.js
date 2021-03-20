@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../_.module.css";
 
-const Price = (props) => {
+const HalfCourtPrice = (props) => {
   const [price, setPrice] = useState(props.current);
   const handlePrice = (e) => {
     setPrice(e.target.value);
@@ -12,7 +12,7 @@ const Price = (props) => {
 
   return (
     <div className={styles.field}>
-      <h1 className={styles.label}>Үнэ (Бүтэн)</h1>
+      <h1 className={styles.label}>Үнэ (Талдаа)</h1>
       <input
         className={styles.input}
         type={`text`}
@@ -23,4 +23,4 @@ const Price = (props) => {
   );
 };
 
-export default Price;
+export default HalfCourtPrice;
